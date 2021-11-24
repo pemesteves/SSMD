@@ -1,0 +1,58 @@
+#N canvas 437 217 1252 736 12;
+#N canvas 336 42 992 783 synthesizer 1;
+#X obj 22 756 dac~;
+#X text 164 571 // clone creates any number of copies of a desired
+abstraction (a patch loaded as an object in another patch), f 55;
+#X obj 21 520 pack f f f;
+#X obj 21 274 notein;
+#X text 106 462 // voice allocator (define as the argument the number
+of voices);
+#X obj 21 465 poly 16, f 10;
+#X obj 21 577 clone poly_voice 16;
+#X obj 21 492 - 1;
+#X msg 93 269 60 110;
+#X msg 163 269 67 100;
+#X msg 233 269 60 0;
+#X obj 121 505 print;
+#X obj 21 700 *~;
+#X obj 42 651 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 3110 1;
+#X msg 309 275 stop;
+#X obj 409 263 keyboard 20 80 3 3 0 0 empty empty;
+#X floatatom 409 358 5 0 0 0 - - -;
+#X obj 259 166 key;
+#X floatatom 259 190 5 0 0 0 - - -;
+#X text 294 165 Keyboard Key;
+#X obj 413 60 hsl 50 15 0 1 0 0 master-volume empty Master 5 22 0 10
+-33289 -262144 -45076 1200 1;
+#X obj 39 628 r master-volume;
+#X floatatom 39 671 5 0 0 0 - - -;
+#X obj 236 654 scope~ 130 130 256 3 128 -1 1 0 0 0 0 205 229 232 74
+79 77 96 98 102 0 empty;
+#X msg 409 384 \$1 100;
+#X connect 2 0 6 0;
+#X connect 3 0 5 0;
+#X connect 3 1 5 1;
+#X connect 5 0 7 0;
+#X connect 5 0 11 0;
+#X connect 5 1 2 1;
+#X connect 5 2 2 2;
+#X connect 6 0 12 0;
+#X connect 6 0 23 0;
+#X connect 7 0 2 0;
+#X connect 8 0 5 0;
+#X connect 9 0 5 0;
+#X connect 10 0 5 0;
+#X connect 12 0 0 0;
+#X connect 12 0 0 1;
+#X connect 13 0 22 0;
+#X connect 14 0 5 0;
+#X connect 15 0 16 0;
+#X connect 16 0 24 0;
+#X connect 17 0 18 0;
+#X connect 18 0 15 0;
+#X connect 21 0 13 0;
+#X connect 22 0 12 1;
+#X connect 24 0 5 0;
+#X coords 0 -1 1 1 450 300 2 400 50;
+#X restore 700 168 pd synthesizer;
