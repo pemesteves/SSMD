@@ -14,7 +14,7 @@
 #N struct 1037-yt float x float y;
 #N struct 1039-xt float x float y;
 #N struct 1039-yt float x float y;
-#N canvas 571 399 481 442 12;
+#N canvas 571 399 469 453 12;
 #N canvas 536 68 958 956 synthesizer 0;
 #X obj 412 659 dac~;
 #X obj 20 425 pack f f f;
@@ -468,4 +468,3 @@ key pressing a key \, the note will be repeated (you can disable this
 setting on your OS settings \, or click several times in the key so
 that it can be released) \, and if you change the octave the key's
 names will be overlapped by a new keyboard image.;
-#X obj 455 -1;
