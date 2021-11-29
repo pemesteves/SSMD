@@ -1,21 +1,5 @@
-#N struct 1025-xt float x float y;
-#N struct 1025-yt float x float y;
-#N struct 1027-xt float x float y;
-#N struct 1027-yt float x float y;
-#N struct 1029-xt float x float y;
-#N struct 1029-yt float x float y;
-#N struct 1031-xt float x float y;
-#N struct 1031-yt float x float y;
-#N struct 1033-xt float x float y;
-#N struct 1033-yt float x float y;
-#N struct 1035-xt float x float y;
-#N struct 1035-yt float x float y;
-#N struct 1037-xt float x float y;
-#N struct 1037-yt float x float y;
-#N struct 1039-xt float x float y;
-#N struct 1039-yt float x float y;
-#N canvas 571 399 469 453 12;
-#N canvas 536 68 958 956 synthesizer 0;
+#N canvas 494 309 466 444 12;
+#N canvas -170 199 958 956 synthesizer 0;
 #X obj 412 659 dac~;
 #X obj 20 425 pack f f f;
 #X obj 20 319 notein;
@@ -23,18 +7,16 @@
 #X obj 20 397 - 1;
 #X obj 411 543 *~;
 #X obj 432 494 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 5702 1;
+-1 -1 0 1;
 #X msg 119 263 stop;
-#X obj 413 60 hsl 50 15 0 1 0 0 \$0-master-volume empty Master 5 22
-0 10 -33289 -262144 -45076 2200 1;
+#X obj 413 60 hsl 50 15 0 1 0 0 \$0-master-volume empty MASTER 5 22
+0 10 -33289 -262144 -45076 0 1;
 #X floatatom 429 514 5 0 0 0 - - -;
-#X obj 506 646 scope~ 130 130 256 3 128 -1 1 0 0 0 0 205 229 232 74
-79 77 96 98 102 0 empty;
-#X obj 413 100 hsl 50 15 1000 0 0 0 tempo empty Tempo 7 22 0 10 -33289
--262144 -45076 4500 1;
+#X obj 413 100 hsl 50 15 1000 0 0 0 tempo empty TEMPO 7 22 0 10 -33289
+-262144 -45076 0 1;
 #N canvas 468 142 1094 658 power-btn 0;
-#X obj 100 100 tgl 40 0 empty empty empty -1 14 0 40 -14087 -14087
--262144 1 1;
+#X obj 100 100 tgl 40 0 empty empty empty -1 14 0 40 -135305 -135305
+-262144 0 1;
 #X obj 100 188 sel 0;
 #X msg 132 215 symbol #0c7019;
 #X msg 100 244 symbol #850823;
@@ -60,12 +42,12 @@
 #X coords 0 -1 1 1 40 40 2 100 100;
 #X restore 801 50 pd power-btn;
 #X obj 411 627 *~;
-#X obj 411 140 hradio 11 1 0 5 empty empty Octave 10 17 0 10 -262144
+#X obj 411 140 hradio 11 1 0 5 empty empty OCTAVE 10 17 0 10 -262144
 -1 -1 2;
 #X obj 320 93 loadbang;
 #X msg 320 121 set 2;
-#X obj 501 59 vradio 23 1 0 4 empty empty Wave 1 98 0 10 -262144 -1
--1 1;
+#X obj 501 59 vradio 23 1 0 4 empty empty WAVE 1 98 0 10 -262144 -1
+-1 0;
 #X obj 543 96 image images/sawtooth.png 0;
 #X obj 542 141 image images/square.png 0;
 #X obj 543 118 image images/triangle.png 0;
@@ -79,13 +61,13 @@
 0;
 #X text 276 55 AMP EG;
 #X obj 206 79 hsl 90 15 0 1023 0 0 empty empty ATTACK 28 22 0 10 -1
--262144 -1 400 1;
+-262144 -1 8900 1;
 #X obj 305 79 hsl 90 15 0 1023 0 0 empty empty DECAY 30 22 0 10 -1
--262144 -1 0 1;
+-262144 -1 8900 1;
 #X obj 206 111 hsl 90 15 0 1023 0 0 empty empty SUSTAIN 27 22 0 10
--1 -262144 -1 0 1;
+-1 -262144 -1 8900 1;
 #X obj 305 111 hsl 90 15 0 1023 0 0 empty empty RELEASE 26 22 0 10
--1 -262144 -1 600 1;
+-1 -262144 -1 8900 1;
 #X obj 180 291 outlet~;
 #X obj 180 267 vline~;
 #X msg 180 243 0 \, 1 \$1 \, 0.7 \$2 \$1 \, 0 \$3 \$4;
@@ -134,9 +116,9 @@
 0;
 #X text 152 101 Filter;
 #X obj 111 123 hsl 128 15 0 1023 0 0 empty empty CUTOFF 46 22 0 10
--1 -262144 -1 8200 1;
+-1 -262144 -1 12700 1;
 #X obj 111 153 hsl 128 15 0 200 0 0 empty empty RESONANCE 38 22 0 10
--1 -262144 -1 1900 1;
+-1 -262144 -1 0 1;
 #X obj 28 25 inlet~;
 #X text 92 27 Signal;
 #X obj 108 55 loadbang;
@@ -264,6 +246,8 @@
 #X obj 160 186 v center-c;
 #X text 420 374 o;
 #X text 441 374 p;
+#X text 407 299 9;
+#X text 430 299 0;
 #X connect 0 0 8 0;
 #X connect 2 0 40 0;
 #X connect 3 0 2 0;
@@ -318,7 +302,7 @@
 #X obj 20 370 poly 5, f 10;
 #X obj 228 447 s note;
 #X msg 228 374 \$1;
-#N canvas 879 423 914 645 sequencer 0;
+#N canvas 207 317 914 645 sequencer 0;
 #X obj 100 150 cnv 15 250 80 empty empty empty 20 12 0 14 -233017 -66577
 0;
 #X text 105 154 Sequencer;
@@ -382,7 +366,7 @@
 #X obj 310 207 sequencer-voice;
 #X obj 272 38 r tempo;
 #X obj 102 13 r play;
-#X obj 104 383 outlet~;
+#X obj 104 423 outlet~;
 #X obj 102 37 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X msg 272 62 tempo \$1 msec;
@@ -396,6 +380,18 @@
 #X obj 281 252 +~;
 #X obj 102 128 sel 0 1 2 3 4 5 6 7;
 #X obj 102 104 counter 0 7;
+#X obj 110 177 hsl 50 15 0 1 0 0 empty empty Volume 5 22 0 10 -33289
+-262144 -45076 0 1;
+#X obj 104 383 *~;
+#N canvas 0 50 450 300 play-button 0;
+#X text 87 177 Sends Trash Message;
+#X obj 100 150 s trash;
+#X obj 100 100 bng 40 250 50 0 empty empty empty 17 7 0 10 -1 -1 -1
+;
+#X obj 120 120 image images/trash.png 0;
+#X connect 2 0 1 0;
+#X coords 0 -1 1 1 40 40 2 100 100;
+#X restore 207 152 pd play-button;
 #X connect 4 0 18 0;
 #X connect 5 0 19 0;
 #X connect 6 0 20 0;
@@ -409,7 +405,7 @@
 #X connect 15 0 17 0;
 #X connect 16 0 17 0;
 #X connect 17 0 26 0;
-#X connect 18 0 14 0;
+#X connect 18 0 28 0;
 #X connect 19 0 18 1;
 #X connect 20 0 19 1;
 #X connect 21 0 20 1;
@@ -425,46 +421,47 @@
 #X connect 25 6 10 0;
 #X connect 25 7 11 0;
 #X connect 26 0 25 0;
+#X connect 27 0 28 1;
+#X connect 28 0 14 0;
 #X coords 0 -1 1 1 250 80 2 100 150;
 #X restore 579 169 pd sequencer;
-#X obj 412 404 +~;
+#X obj 248 248 +~;
 #X connect 1 0 3 0;
-#X connect 2 0 34 0;
-#X connect 2 1 34 1;
-#X connect 3 0 30 0;
+#X connect 2 0 33 0;
+#X connect 2 1 33 1;
+#X connect 3 0 37 0;
 #X connect 4 0 1 0;
-#X connect 5 0 27 0;
+#X connect 5 0 26 0;
 #X connect 6 0 9 0;
-#X connect 7 0 34 0;
+#X connect 7 0 33 0;
 #X connect 9 0 5 1;
-#X connect 13 0 0 0;
-#X connect 13 0 0 1;
-#X connect 13 0 10 0;
-#X connect 14 0 31 0;
-#X connect 15 0 16 0;
-#X connect 16 0 14 0;
-#X connect 17 0 21 0;
-#X connect 22 0 23 0;
-#X connect 23 0 17 0;
-#X connect 26 0 27 1;
-#X connect 27 0 13 0;
-#X connect 28 0 6 0;
-#X connect 29 0 13 1;
-#X connect 30 0 38 0;
-#X connect 31 0 33 0;
-#X connect 33 0 34 0;
-#X connect 33 0 36 0;
-#X connect 34 0 4 0;
-#X connect 34 1 1 1;
-#X connect 34 2 1 2;
-#X connect 36 0 35 0;
-#X connect 37 0 38 1;
-#X connect 38 0 5 0;
+#X connect 12 0 0 0;
+#X connect 12 0 0 1;
+#X connect 13 0 30 0;
+#X connect 14 0 15 0;
+#X connect 15 0 13 0;
+#X connect 16 0 20 0;
+#X connect 21 0 22 0;
+#X connect 22 0 16 0;
+#X connect 25 0 26 1;
+#X connect 26 0 12 0;
+#X connect 27 0 6 0;
+#X connect 28 0 12 1;
+#X connect 29 0 5 0;
+#X connect 30 0 32 0;
+#X connect 32 0 33 0;
+#X connect 32 0 35 0;
+#X connect 33 0 4 0;
+#X connect 33 1 1 1;
+#X connect 33 2 1 2;
+#X connect 35 0 34 0;
+#X connect 36 0 37 1;
+#X connect 37 0 29 0;
 #X coords 0 -1 1 1 441 300 2 400 50;
 #X restore 12 10 pd synthesizer;
 #X text 16 330 Remarks: Due to library limitations \, the keys won't
-appear with color when you're using your keyboard \, if you leave your
-key pressing a key \, the note will be repeated (you can disable this
-setting on your OS settings \, or click several times in the key so
-that it can be released) \, and if you change the octave the key's
-names will be overlapped by a new keyboard image.;
+appear with color when you're using your keyboard \, if you keep pressing
+a key \, the note will be repeated (you can disable this setting on
+your OS settings \, or click several times in the key so that it can
+be released) \, and if you change the octave the key's names will be
+overlapped by a new keyboard image.;
