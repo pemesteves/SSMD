@@ -1,0 +1,35 @@
+#N canvas 0 22 505 379 10;
+#X obj -17 -54 cnv 15 500 60 empty empty bCrush~ 20 12 0 14 -233017
+-66577 0;
+#X text 337 -14 2013 Gilberto Bernardes;
+#X obj 0 249 dac~;
+#X text 1 -13 bit crusher;
+#X obj 0 90 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#N canvas 5 185 450 300 generate~ 0;
+#X obj 32 213 osc~ 200;
+#X obj 32 89 metro 400;
+#X obj 32 175 mtof;
+#X obj 32 132 + 20;
+#X obj 32 111 random 70;
+#X floatatom 83 69 5 0 0 0 - - -;
+#X obj 31 261 outlet~;
+#X obj 30 14 inlet;
+#X obj 31 234 *~;
+#X connect 0 0 8 0;
+#X connect 1 0 4 0;
+#X connect 2 0 0 0;
+#X connect 3 0 2 0;
+#X connect 4 0 3 0;
+#X connect 5 0 1 1;
+#X connect 7 0 1 0;
+#X connect 7 0 8 1;
+#X connect 8 0 6 0;
+#X restore 0 115 pd generate~;
+#X obj 0 148 bCrush~;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 5 0 6 1;
+#X connect 6 0 2 0;
+#X connect 6 1 2 1;
+#X coords 0 0 1 1 109 90 0;

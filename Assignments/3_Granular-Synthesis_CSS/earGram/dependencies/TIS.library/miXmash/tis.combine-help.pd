@@ -1,0 +1,45 @@
+#N canvas 697 125 519 406 10;
+#X obj 8 6 cnv 15 500 60 empty empty tis.combine 20 12 0 14 -233017
+-66577 0;
+#N canvas 420 330 494 344 META 0;
+#X text 12 45 LICENSE GPL v3;
+#X text 12 178 RELEASE_DATE 2013;
+#X text 12 158 WEBSITE https://sites.google.com/site/eargram/;
+#X text 12 138 AUTHOR Gilberto Bernardes;
+#X text 12 25 KEYWORDS;
+#X text 12 118 LIBRARY earGram_abs;
+#X text 12 65 DESCRIPTION plots geometric figures in a plan;
+#X text 12 84 INLET_0 clear dimen point circle filledCircle square
+filledSquare rectangle filled rectangle;
+#X restore 448 368 pd META;
+#X text 343 32 Gilberto Bernardes et al.;
+#X text 439 47 INESC TEC;
+#X obj 29 290 list prepend set;
+#X obj 29 312 list trim;
+#X msg 29 334 0.749999 0.0669882 4.125 -2.38155 -0.000100613 8.49999
+-2.00003 3.46404 7.1249 8.8636 0 -7.43229e-05;
+#X msg 29 101 0;
+#X obj 29 129 midi2chroma;
+#X obj 107 129 midi2chroma;
+#X obj 87 261 nbx 5 14 -1e+37 1e+37 0 0 empty empty consonance 60 8
+0 10 -262144 -1 -1 0.47222 256;
+#X obj 146 230 nbx 5 14 -1e+37 1e+37 0 0 empty empty energy 60 8 0
+10 -262144 -1 -1 4 256;
+#X obj 29 151 tis symbolic;
+#X obj 107 151 tis symbolic;
+#X text 25 47 Efficient computation of combined TIVs;
+#X msg 107 101 7 11 2;
+#X obj 29 198 tis.combine symbolic;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 7 0 8 0;
+#X connect 8 0 12 0;
+#X connect 9 0 13 0;
+#X connect 12 0 16 0;
+#X connect 12 2 16 1;
+#X connect 13 0 16 2;
+#X connect 13 2 16 3;
+#X connect 15 0 9 0;
+#X connect 16 0 4 0;
+#X connect 16 1 10 0;
+#X connect 16 2 11 0;

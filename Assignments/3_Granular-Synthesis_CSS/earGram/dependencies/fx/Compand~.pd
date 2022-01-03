@@ -1,0 +1,278 @@
+#N canvas 303 22 710 397 10;
+#X obj 312 62 inlet~;
+#X obj 100 100 cnv 15 109 15 empty empty Compand 2 9 0 8 -258401 -262144
+0;
+#X obj 105 118 hsl 100 15 -96 0 0 0 empty empty threshold 5 7 0 8 -262144
+-1 -1 0 1;
+#X obj 105 136 hsl 100 15 0.2 5 0 0 empty empty ratio 5 7 0 8 -262144
+-1 -1 8250 1;
+#X obj 312 196 outlet~;
+#X obj 213 9 r \$2-p.\$1.\$3.r;
+#X obj 440 62 inlet~;
+#X obj 440 196 outlet~;
+#X obj 568 16 inlet;
+#N canvas 650 22 291 237 initLeft 1;
+#X obj 37 43 pack f f \$0;
+#X obj 37 18 inlet;
+#X msg 37 70 \; \$3-scLeft ylabel -50 -120 -60 0 \; \$3-scL.gain.r
+6 \; \$3-scL.thresh.r \$1 \; \$3-scL.release.r 0.8 \; \$3-scL.attack.r
+0.8 \; \$3-scL.tilt.r 0 \; \$3-scL.ratio.r \$2;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X restore 27 26 pd initLeft;
+#N canvas 650 22 291 237 initRight 1;
+#X obj 38 41 pack f f \$0;
+#X obj 38 16 inlet;
+#X msg 37 70 \; \$3-scRight ylabel -50 -120 -60 0 \; \$3-scR.gain.r
+6 \; \$3-scR.thresh.r \$1 \; \$3-scR.release.r 0.8 \; \$3-scR.attack.r
+0.8 \; \$3-scR.tilt.r 0 \; \$3-scR.ratio.r \$2;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X restore 27 49 pd initRight;
+#X obj 213 33 unpack f f;
+#N canvas 397 22 960 404 spectralcompand-details 0;
+#X text 32 29 threshold - This is the point at which +spectralcompand~
+turns on and off. When compressing \, the effect is active when the
+sound is higher than the threshold. When expanding \, the effect is
+active when the sound is lower than the threshold (this is known as
+downward expansion). The threshold can be varied from -120 dB to 0
+dB. If the shaping line in the spectral display is used to give the
+threshold a complex shape \, the threshold knob represents the average
+threshold of the shaping line.;
+#X text 32 159 ratio - The ratio controls the amount of compression
+or expansion. The range from 5:1 to 1:1 is the compression range \,
+and from 1:1 to 1:5 is the expansion range. Compression reduces the
+dynamic range of the sound \, resulting in a smaller difference between
+the loudest and softest harmonic. Compression affects only those harmonics
+which are above the threshold. Conversely \, expansion increases the
+dynamic range of the sound \, resulting in a larger difference between
+the loudest and softest harmonics. Expansion only affects those harmonics
+which are below the threshold.;
+#X text 31 311 attack and release - These controls specify how quickly
+the gate will turn on (attack) or turn off (release) after passing
+the threshold. They both can be varied from 0 to 1 second. A longer
+value will smooth the transition \, making the transition less noticeable.
+A shorter value will make the transition more abrupt.;
+#X text 492 79 tilt - This control gives you an easy way to change
+the threshold shape \, either by raising the high frequencies and lowering
+the low \, or vice-versa. Tilt can go from a 6 dB per octave boost
+of the high frequencies to a -6 dB per octave cut of the high frequencies.
+;
+#X text 492 159 makeupgain - This is a simple level adjustment that
+affects all frequencies. The range is -60 dB to 60 dB.;
+#X text 492 209 learnpeak - This button will set the threshold shape
+\, using the largest (peak) sound between the current input sound and
+the previous threshold shape for each frequency.;
+#X text 492 259 invert - This control allows you to invert the compression
+or expansion process and hear the difference between the processed
+sound and the input. This is very useful when using spectral expansion
+for broadband noise reduction \, as you will be able to hear the sound
+that is being removed.;
+#X restore 541 -37 pd spectralcompand-details;
+#N canvas 604 22 825 526 left 0;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array \$0-scLeft 513 float 1;
+#A 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1;
+#X coords 0 0 512 -120 200 140 1;
+#X restore 75 -292 graph;
+#X msg 188 138 tilt \$1;
+#X obj 412 36 tgl 15 0 empty sc-learn-set empty 17 7 0 10 -262144 -1
+-1 0 1;
+#X obj 191 -88 hsl 128 15 0.2 5 0 0 empty \$0-scL.ratio.r empty -2
+-8 0 10 -228856 -1 -1 6085 1;
+#X obj 38 -88 hsl 128 15 -96 0 0 0 empty \$0-scL.thresh.r empty -2
+-8 0 10 -228856 -1 -1 1455 1;
+#X obj 191 118 hsl 128 15 -3 3 0 1 empty \$0-scL.tilt.r empty -2 -8
+0 10 -228856 -1 -1 6350 1;
+#X msg 188 -68 ratio \$1;
+#X msg 35 -67 threshold \$1;
+#X msg 412 56 learnpeak \$1;
+#X obj 38 15 hsl 128 15 0 5 0 1 empty \$0-scL.attack.r empty -2 -8
+0 10 -228856 -1 -1 2032 1;
+#X msg 35 35 attack \$1;
+#X obj 191 15 hsl 128 15 0 5 0 1 empty \$0-scL.release.r empty -2 -8
+0 10 -228856 -1 -1 2032 1;
+#X msg 188 35 release \$1;
+#X obj 414 118 tgl 15 0 empty sc-invert-set empty 17 7 0 10 -262144
+-1 -1 0 1;
+#X msg 414 138 invert \$1;
+#X obj 38 118 hsl 128 15 -24 24 0 0 empty \$0-scL.gain.r empty -2 -8
+0 10 -228856 -1 -1 7937 1;
+#X msg 35 138 gain \$1;
+#X msg 411 -17 learnavg \$1;
+#N canvas 544 421 450 300 bang~ 0;
+#X obj 70 38 bang~;
+#X obj 70 86 t b b;
+#X obj 69 151 outlet;
+#X obj 101 115 0;
+#X obj 71 117 1;
+#X obj 186 41 block~ 4096 1 1;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 1 1 3 0;
+#X connect 3 0 2 0;
+#X connect 4 0 2 0;
+#X restore 411 -41 pd bang~;
+#X obj 35 -46 s \$0-scL;
+#X obj 188 -47 s \$0-scL;
+#X obj 35 56 s \$0-scL;
+#X obj 188 56 s \$0-scL;
+#X obj 35 159 s \$0-scL;
+#X obj 188 159 s \$0-scL;
+#X obj 414 159 s \$0-scL;
+#X obj 412 77 s \$0-scL;
+#X obj 411 7 s \$0-scL;
+#X obj 531 -111 outlet~;
+#X obj 532 -222 inlet~;
+#X obj 532 -157 Soundhack/+spectralcompand~ \$0-scLeft;
+#X obj 543 -184 r \$0-scL;
+#X connect 1 0 24 0;
+#X connect 2 0 8 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 1 0;
+#X connect 6 0 20 0;
+#X connect 7 0 19 0;
+#X connect 8 0 26 0;
+#X connect 9 0 10 0;
+#X connect 10 0 21 0;
+#X connect 11 0 12 0;
+#X connect 12 0 22 0;
+#X connect 13 0 14 0;
+#X connect 14 0 25 0;
+#X connect 15 0 16 0;
+#X connect 16 0 23 0;
+#X connect 17 0 27 0;
+#X connect 18 0 17 0;
+#X connect 29 0 30 0;
+#X connect 30 0 28 0;
+#X connect 31 0 30 0;
+#X restore 312 132 pd left;
+#N canvas 419 22 821 513 right 0;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array \$0-scRight 513 float 1;
+#A 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1;
+#X coords 0 0 512 -120 200 140 1;
+#X restore 73 -423 graph;
+#X msg 186 7 tilt \$1;
+#X obj 410 -95 tgl 15 0 empty sc-learn-set empty 17 7 0 10 -262144
+-1 -1 0 1;
+#X obj 189 -219 hsl 128 15 0.2 5 0 0 empty \$0-scR.ratio.r empty -2
+-8 0 10 -228856 -1 -1 6085 1;
+#X obj 36 -219 hsl 128 15 -96 0 0 0 empty \$0-scR.thresh.r empty -2
+-8 0 10 -228856 -1 -1 1455 1;
+#X obj 189 -13 hsl 128 15 -3 3 0 1 empty \$0-scR.tilt.r empty -2 -8
+0 10 -228856 -1 -1 6350 1;
+#X msg 186 -199 ratio \$1;
+#X msg 33 -198 threshold \$1;
+#X msg 410 -75 learnpeak \$1;
+#X obj 36 -116 hsl 128 15 0 5 0 1 empty \$0-scR.attack.r empty -2 -8
+0 10 -228856 -1 -1 2032 1;
+#X msg 33 -96 attack \$1;
+#X obj 189 -116 hsl 128 15 0 5 0 1 empty \$0-scR.release.r empty -2
+-8 0 10 -228856 -1 -1 2032 1;
+#X msg 186 -96 release \$1;
+#X obj 412 -13 tgl 15 0 empty sc-invert-set empty 17 7 0 10 -262144
+-1 -1 0 1;
+#X msg 412 7 invert \$1;
+#X obj 36 -13 hsl 128 15 -24 24 0 0 empty \$0-scR.gain.r empty -2 -8
+0 10 -228856 -1 -1 7937 1;
+#X msg 33 7 gain \$1;
+#X msg 409 -148 learnavg \$1;
+#N canvas 0 22 450 300 bang~ 0;
+#X obj 70 38 bang~;
+#X obj 70 86 t b b;
+#X obj 69 151 outlet;
+#X obj 101 115 0;
+#X obj 71 117 1;
+#X obj 186 41 block~ 4096 1 1;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 1 1 3 0;
+#X connect 3 0 2 0;
+#X connect 4 0 2 0;
+#X restore 409 -172 pd bang~;
+#X obj 535 -225 outlet~;
+#X obj 33 -177 s \$0-scR;
+#X obj 33 -75 s \$0-scR;
+#X obj 33 28 s \$0-scR;
+#X obj 186 28 s \$0-scR;
+#X obj 186 -75 s \$0-scR;
+#X obj 186 -178 s \$0-scR;
+#X obj 409 -124 s \$0-scR;
+#X obj 410 -54 s \$0-scR;
+#X obj 412 28 s \$0-scR;
+#X obj 547 -298 r \$0-scR;
+#X obj 536 -271 Soundhack/+spectralcompand~ \$0-scRight;
+#X obj 536 -336 inlet~;
+#X connect 1 0 23 0;
+#X connect 2 0 8 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 1 0;
+#X connect 6 0 25 0;
+#X connect 7 0 20 0;
+#X connect 8 0 27 0;
+#X connect 9 0 10 0;
+#X connect 10 0 21 0;
+#X connect 11 0 12 0;
+#X connect 12 0 24 0;
+#X connect 13 0 14 0;
+#X connect 14 0 28 0;
+#X connect 15 0 16 0;
+#X connect 16 0 22 0;
+#X connect 17 0 26 0;
+#X connect 18 0 17 0;
+#X connect 29 0 30 0;
+#X connect 30 0 19 0;
+#X connect 31 0 30 0;
+#X restore 440 132 pd right;
+#X obj 25 237 s \$0-scL.thresh.r;
+#X obj 38 263 s \$0-scR.thresh.r;
+#X obj 154 237 s \$0-scL.ratio.r;
+#X obj 167 263 s \$0-scR.ratio.r;
+#X connect 0 0 13 0;
+#X connect 2 0 15 0;
+#X connect 2 0 16 0;
+#X connect 3 0 17 0;
+#X connect 3 0 18 0;
+#X connect 5 0 11 0;
+#X connect 5 0 9 0;
+#X connect 5 0 10 0;
+#X connect 6 0 14 0;
+#X connect 8 0 11 0;
+#X connect 11 0 2 0;
+#X connect 11 1 3 0;
+#X connect 13 0 4 0;
+#X connect 14 0 7 0;
+#X coords 0 -1 1 1 109 90 1 100 100;

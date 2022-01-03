@@ -1,0 +1,34 @@
+#N struct 1410-curve float x float y float r;
+#N struct 1410-label float x float y float n;
+#N struct 1410-y-axis float x float y float s;
+#N struct 1410-x-axis float x float y float s;
+#N canvas 406 106 874 668 10;
+#X msg 444 117 clear;
+#X msg 524 117 trajectory \$1;
+#X msg 659 117 accum \$1;
+#X obj 524 95 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 659 95 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 11 12 cnv 15 850 60 empty empty tis.viz 20 12 0 14 -233017 -66577
+0;
+#X text 680 38 Gilberto Bernardes et al.;
+#X text 792 53 INESC TEC;
+#X obj 21 163 tis.viz;
+#X obj 21 134 tis symbolic;
+#X text 20 53 Visualizes TIVs coefficients (or intervals) as six unit
+circles, f 64;
+#X obj 21 110 midi2chroma;
+#X msg 21 85 1;
+#X msg 299 117 color auto;
+#X msg 140 117 weights symbolic;
+#X connect 0 0 8 0;
+#X connect 1 0 8 0;
+#X connect 2 0 8 0;
+#X connect 3 0 1 0;
+#X connect 4 0 2 0;
+#X connect 9 0 8 0;
+#X connect 11 0 9 0;
+#X connect 12 0 11 0;
+#X connect 13 0 8 0;
+#X connect 14 0 8 0;

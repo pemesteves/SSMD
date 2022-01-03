@@ -1,0 +1,5915 @@
+#N struct 2747-dot float x float y float c float Nr;
+#N struct 2747-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 1548-f float x float pos;
+#N struct 2540-clusterTrigger float x float y float c float b;
+#N canvas 597 150 816 615 10;
+#X declare -path dependencies -path dependencies/abs -path dependencies/abs/data
+-path dependencies/fx -path dependencies/TIS.library -path dependencies/list-abs
+-lib iem_tab -lib timbreIDLib;
+#N canvas 234 297 1041 493 \$0-lcdPlotks 1;
+#X text 620 5 -- others --;
+#N canvas 15 23 922 361 players 0;
+#X obj 47 229 *~;
+#X msg 314 193 \$1 50;
+#X obj 314 215 line~;
+#X obj 47 251 hip~ 5;
+#X obj 47 39 catch~ \$0-signalL;
+#X obj 170 39 catch~ \$0-signalR;
+#X obj 170 229 *~;
+#X obj 170 251 hip~ 5;
+#N canvas 89 23 446 251 granulator 0;
+#N canvas 457 23 249 236 unitInSamples 0;
+#X obj 62 141 pack;
+#X obj 62 39 inlet;
+#X obj 62 181 outlet;
+#X obj 89 115 expr ($f2-$f1);
+#X obj 62 91 t l l;
+#X obj 62 65 array get \$0-unitsIdx 0 2;
+#X msg 62 115 \$1;
+#X connect 0 0 2 0;
+#X connect 1 0 5 0;
+#X connect 3 0 0 1;
+#X connect 4 0 6 0;
+#X connect 4 1 3 0;
+#X connect 5 0 4 0;
+#X connect 6 0 0 0;
+#X restore 40 77 pd unitInSamples;
+#X obj 40 52 list split 1;
+#X obj 40 101 list append;
+#X obj 187 212 throw~ \$0-signalR;
+#X obj 40 212 throw~ \$0-signalL;
+#X obj 40 28 r \$0-unitPlay;
+#X obj 40 177 clone grain 100 \$0-sample;
+#X obj 40 128 list prepend next;
+#X text 42 6 // unintNr gain pan arrayName;
+#X obj 40 152 list trim;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 1 1 2 1;
+#X connect 2 0 7 0;
+#X connect 5 0 1 0;
+#X connect 6 0 4 0;
+#X connect 6 1 3 0;
+#X connect 7 0 9 0;
+#X connect 9 0 6 0;
+#X restore 314 40 pd granulator;
+#X obj 314 171 r \$0-masterGain;
+#X obj 314 266 env~;
+#X obj 314 308 s \$0-masterGainVU;
+#X obj 314 287 - 100;
+#X obj 47 307 throw~ \$0-outL;
+#X obj 170 307 throw~ \$0-outR;
+#X obj 593 188 tgl 17 0 empty empty phaseLock 0 -7 0 10 -228856 -1
+-1 1 1;
+#X obj 722 103 nbx 5 14 256 1e+037 0 0 \$0-window_size \$0-window_size-set
+empty 0 -8 0 10 -228856 -1 -1 1024 256;
+#X obj 722 55 hradio 15 1 0 7 \$0-window_size-radio \$0-window_size-radio-set
+empty 0 -8 0 10 -228856 -1 -1 2;
+#X obj 722 78 expr pow(2 \, $f1 + 8);
+#X text 782 103 window size;
+#X obj 532 128 nbx 5 14 -1e+037 1e+037 0 0 empty \$0-speed speed(%)
+0 -8 0 10 -228856 -1 -1 100 256;
+#X obj 562 158 nbx 5 14 -1e+037 1e+037 0 0 empty \$0-transpo transpo(cents)
+0 -8 0 10 -228856 -1 -1 0 256;
+#X obj 471 68 tgl 18 0 empty \$0-play play 0 -7 0 10 -228856 -1 -1
+0 1;
+#X obj 722 13 loadbang;
+#X obj 501 98 nbx 10 14 -1e+037 1e+037 0 0 empty \$0-speed pos 0 -8
+0 10 -228856 -1 -1 0 256;
+#X text 581 8 // unintNr gain pan;
+#N canvas 282 273 707 300 PhaseVocoder 0;
+#X obj 239 171 outlet;
+#N canvas 457 23 249 236 unitInSamples 0;
+#X obj 62 141 pack;
+#X obj 62 39 inlet;
+#X obj 62 181 outlet;
+#X obj 89 115 expr ($f2-$f1);
+#X obj 62 91 t l l;
+#X msg 62 115 \$1;
+#X obj 62 65 array get \$0-unitsIdx 0 2;
+#X connect 0 0 2 0;
+#X connect 1 0 6 0;
+#X connect 3 0 0 1;
+#X connect 4 0 5 0;
+#X connect 4 1 3 0;
+#X connect 5 0 0 0;
+#X connect 6 0 4 0;
+#X restore 239 100 pd unitInSamples;
+#X obj 239 51 r \$0-unitPlayPV;
+#X obj 146 268 outlet;
+#X text 232 26 // unintNr gain pan arrayName;
+#X obj 475 40 loadbang;
+#X msg 475 110 100;
+#X msg 523 110 0;
+#X msg 576 110 1;
+#X obj 475 130 outlet;
+#X obj 523 130 outlet;
+#X obj 576 130 outlet;
+#X obj 22 59 r \$0-infiniteLoop;
+#X obj 270 126 unpack f f;
+#X obj 386 171 1;
+#X obj 316 260 delay;
+#X obj 316 280 0;
+#X obj 327 148 t f b b;
+#X msg 420 163 stop;
+#X obj 146 221 change;
+#X obj 239 75 unpack f f f f f, f 30;
+#X obj 316 210 expr ($f1/44.1)/($f2*0.01);
+#X obj 661 249 outlet;
+#X connect 1 0 0 0;
+#X connect 1 0 13 0;
+#X connect 2 0 20 0;
+#X connect 5 0 6 0;
+#X connect 5 0 7 0;
+#X connect 5 0 8 0;
+#X connect 6 0 9 0;
+#X connect 7 0 10 0;
+#X connect 8 0 11 0;
+#X connect 13 1 17 0;
+#X connect 14 0 19 0;
+#X connect 15 0 16 0;
+#X connect 16 0 19 0;
+#X connect 17 0 21 0;
+#X connect 17 1 14 0;
+#X connect 17 2 18 0;
+#X connect 18 0 15 0;
+#X connect 19 0 3 0;
+#X connect 20 0 1 0;
+#X connect 20 1 22 0;
+#X connect 20 3 9 0;
+#X connect 20 3 21 1;
+#X connect 20 4 10 0;
+#X connect 21 0 15 0;
+#X restore 471 38 pd PhaseVocoder;
+#X f 26;
+#N canvas 288 207 524 569 CartesianPV(phase.lock) 0;
+#X obj 341 395 r \$0-window_size;
+#X msg 341 427 set \$1 4;
+#X obj 341 453 block~;
+#X obj 185 360 rifft~;
+#X obj 185 455 /~;
+#X obj 224 440 expr $f1 * 3/2;
+#X obj 67 38 inlet;
+#X obj 184 38 inlet;
+#X obj 260 40 inlet;
+#X obj 137 176 rfft~;
+#X obj 137 130 hann~;
+#X obj 232 175 rfft~;
+#X obj 232 129 hann~;
+#N canvas 278 23 634 731 read-grains 0;
+#X floatatom 326 346 8 0 0 0 - - -;
+#X obj 97 52 inlet;
+#X obj 166 52 inlet;
+#X obj 326 53 inlet;
+#X obj 166 93 nbx 5 20 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+15 -228856 -1 -1 100 256;
+#X obj 326 93 nbx 5 20 -1e+037 1e+037 0 0 empty \$0-transpo empty 0
+-8 0 15 -228856 -1 -1 0 256;
+#X text 100 26 play;
+#X obj 112 246 +;
+#X obj 58 278 f;
+#X obj 48 219 bang~;
+#X obj 326 404 / 4;
+#X obj 196 373 t f f;
+#X obj 205 184 / 4;
+#X obj 246 151 r \$0-window_size;
+#X obj 58 301 spigot;
+#X obj 280 402 +;
+#X obj 97 179 tgl 15 0 empty empty empty 17 7 0 10 -228856 -1 -1 0
+1;
+#X text 330 27 cents;
+#X text 170 26 %;
+#X obj 213 434 pack f f f;
+#X obj 166 232 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -228856 -1 -1 256 256;
+#X obj 326 435 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -228856 -1 -1 256 256;
+#X obj 326 192 cents2ratio;
+#X obj 112 278 wrap2;
+#X text 386 433 new hop;
+#X text 392 346 new window;
+#X text 169 246 step;
+#X obj 166 127 / 100;
+#X obj 166 180 hot;
+#X obj 166 206 *;
+#X obj 326 233 hot;
+#X obj 326 264 *;
+#X obj 246 281 samps2ms;
+#X floatatom 246 321 5 0 0 0 - - -;
+#X obj 256 652 outlet~;
+#X obj 416 662 outlet~;
+#X obj 256 548 -~;
+#X obj 416 563 wrap2~;
+#X obj 213 474 envgen~;
+#X obj 256 577 wrap2~;
+#X text 155 322 window in ms;
+#X obj 49 43 inlet;
+#X obj 160 278 r \$0-sfLength;
+#X obj 455 517 r \$0-sfLength;
+#X obj 256 613 tabread4~ \$0-sample;
+#X obj 416 607 tabread4~ \$0-sample;
+#X connect 0 0 10 0;
+#X connect 0 0 15 1;
+#X connect 1 0 16 0;
+#X connect 2 0 4 0;
+#X connect 3 0 5 0;
+#X connect 4 0 27 0;
+#X connect 5 0 22 0;
+#X connect 7 0 23 0;
+#X connect 8 0 14 0;
+#X connect 9 0 8 0;
+#X connect 10 0 21 0;
+#X connect 11 0 19 0;
+#X connect 11 1 15 0;
+#X connect 12 0 28 1;
+#X connect 13 0 12 0;
+#X connect 13 0 30 1;
+#X connect 13 0 32 0;
+#X connect 14 0 7 0;
+#X connect 14 0 11 0;
+#X connect 15 0 19 2;
+#X connect 16 0 14 1;
+#X connect 19 0 38 0;
+#X connect 20 0 7 1;
+#X connect 21 0 36 1;
+#X connect 22 0 30 0;
+#X connect 23 0 8 1;
+#X connect 27 0 28 0;
+#X connect 28 0 29 0;
+#X connect 28 1 29 1;
+#X connect 29 0 20 0;
+#X connect 30 0 31 0;
+#X connect 30 1 31 1;
+#X connect 31 0 0 0;
+#X connect 32 0 33 0;
+#X connect 33 0 19 1;
+#X connect 36 0 39 0;
+#X connect 37 0 45 0;
+#X connect 38 0 37 0;
+#X connect 38 0 36 0;
+#X connect 39 0 44 0;
+#X connect 41 0 8 1;
+#X connect 42 0 23 2;
+#X connect 43 0 37 2;
+#X connect 43 0 39 2;
+#X connect 44 0 34 0;
+#X connect 45 0 35 0;
+#X restore 137 84 pd read-grains;
+#X obj 185 404 hann~;
+#X text 299 359 Output;
+#X text 302 171 Last Output;
+#X obj 380 36 inlet;
+#X obj 380 80 s \$0-lock;
+#X obj 274 196 tabreceive~ \$0-re2;
+#X obj 274 224 tabreceive~ \$0-im2;
+#X obj 309 309 tabsend~ \$0-im2;
+#X obj 309 334 tabsend~ \$0-re2;
+#N canvas 267 247 815 452 phase.lock 0;
+#X obj 196 359 outlet~;
+#X obj 417 358 outlet~;
+#X obj 196 294 expr~ ($v1 * $v3) - ($v2 * $v4) \; ($v2 * $v3) + ($v1
+* $v4);
+#X obj 234 66 inlet~;
+#X obj 284 66 inlet~;
+#X obj 363 66 inlet~;
+#X obj 417 66 inlet~;
+#X obj 87 66 inlet~;
+#X obj 139 66 inlet~;
+#X obj 87 125 expr~ ($v1 * $v3) + ($v2 * $v4) \; ($v2 * $v3) - ($v1
+* $v4);
+#N canvas 228 78 806 376 phase_lock 0;
+#X obj 412 126 lrshift~ 1;
+#X obj 327 126 lrshift~ -1;
+#X obj 327 223 *~;
+#X obj 309 263 +~;
+#X obj 309 293 outlet~;
+#X obj 307 40 inlet~;
+#X obj 327 182 +~;
+#X obj 361 192 r \$0-lock;
+#X obj 164 130 lrshift~ 1;
+#X obj 79 130 lrshift~ -1;
+#X obj 79 227 *~;
+#X obj 61 267 +~;
+#X obj 61 297 outlet~;
+#X obj 59 44 inlet~;
+#X obj 79 186 +~;
+#X obj 113 196 r \$0-lock;
+#X text 68 22 real;
+#X text 521 139 When on (1) \, the "lock" parameter forces neighbor
+channels to stay in phase. The [lrshift~] object shifts 1 channel to
+the left and right so these channels are summed., f 34;
+#X text 301 20 imaginary;
+#X connect 0 0 6 1;
+#X connect 1 0 6 0;
+#X connect 2 0 3 1;
+#X connect 3 0 4 0;
+#X connect 5 0 0 0;
+#X connect 5 0 1 0;
+#X connect 5 0 3 0;
+#X connect 6 0 2 0;
+#X connect 7 0 2 1;
+#X connect 8 0 14 1;
+#X connect 9 0 14 0;
+#X connect 10 0 11 1;
+#X connect 11 0 12 0;
+#X connect 13 0 8 0;
+#X connect 13 0 9 0;
+#X connect 13 0 11 0;
+#X connect 14 0 10 0;
+#X connect 15 0 10 1;
+#X restore 181 191 pd phase_lock;
+#X text 95 38 Last Output;
+#X text 256 38 Back;
+#X text 383 40 Front;
+#N canvas 367 101 757 250 norm 0;
+#X obj 338 170 outlet~;
+#X obj 26 177 outlet~;
+#X obj 339 21 inlet~;
+#X obj 68 19 inlet~;
+#X obj 26 117 expr~ $v1 / sqrt(pow ($v1 \, 2) + pow($v2 \, 2)) \; $v2
+/ sqrt(pow ($v1 \, 2) + pow($v2 \, 2)) \;;
+#X obj 68 61 expr~ if($v1 == 0 && $v2 == 0 \, 1 \, $v1) \; $v2;
+#X text 354 68 If both parts are equal to 0 \, Real part is 0;
+#X text 355 124 Divide by amplitude to normalize to one.;
+#X connect 2 0 5 1;
+#X connect 3 0 5 0;
+#X connect 4 0 1 0;
+#X connect 4 1 0 0;
+#X connect 5 0 4 0;
+#X connect 5 1 4 1;
+#X restore 223 233 pd norm;
+#X text 203 392 Real;
+#X text 415 389 Imaginary;
+#X text 19 132 Division;
+#X text 87 303 Multiplication;
+#X text 467 140 Here the order has been altered. First we get the phase
+difference between the last output and back window \, then we sum to
+the front window. This order is necessary to apply the phase lock stage.
+, f 42;
+#X text 119 191 open =>;
+#X connect 2 0 0 0;
+#X connect 2 1 1 0;
+#X connect 3 0 9 2;
+#X connect 4 0 9 3;
+#X connect 5 0 2 2;
+#X connect 6 0 2 3;
+#X connect 7 0 9 0;
+#X connect 8 0 9 1;
+#X connect 9 0 10 0;
+#X connect 9 1 10 1;
+#X connect 10 0 14 0;
+#X connect 10 1 14 1;
+#X connect 14 0 2 0;
+#X connect 14 1 2 1;
+#X restore 185 278 pd phase.lock;
+#X obj 119 45 inlet;
+#N canvas 162 23 416 352 tables 0;
+#X obj 107 70 r \$0-window_size;
+#X obj 229 128 table \$0-re;
+#X obj 229 152 table \$0-im;
+#X obj 229 181 table \$0-re2;
+#X obj 229 204 table \$0-im2;
+#X msg 107 124 resize \$1;
+#X obj 115 205 s \$0-re;
+#X obj 107 231 s \$0-im;
+#X obj 134 153 s \$0-re2;
+#X obj 126 179 s \$0-im2;
+#X obj 107 98 / 2;
+#X connect 0 0 10 0;
+#X connect 5 0 6 0;
+#X connect 5 0 8 0;
+#X connect 5 0 7 0;
+#X connect 5 0 9 0;
+#X connect 10 0 5 0;
+#X restore 375 106 pd tables;
+#X obj 185 536 outlet~;
+#X obj 184 502 *~;
+#X obj 463 35 inlet;
+#X msg 463 55 \$1 50;
+#X obj 463 75 line~;
+#X connect 0 0 1 0;
+#X connect 0 0 5 0;
+#X connect 1 0 2 0;
+#X connect 3 0 14 0;
+#X connect 4 0 27 0;
+#X connect 5 0 4 1;
+#X connect 6 0 13 1;
+#X connect 7 0 13 2;
+#X connect 8 0 13 3;
+#X connect 9 0 23 2;
+#X connect 9 1 23 3;
+#X connect 10 0 9 0;
+#X connect 11 0 23 4;
+#X connect 11 1 23 5;
+#X connect 12 0 11 0;
+#X connect 13 0 10 0;
+#X connect 13 1 12 0;
+#X connect 14 0 4 0;
+#X connect 17 0 18 0;
+#X connect 19 0 23 0;
+#X connect 20 0 23 1;
+#X connect 23 0 22 0;
+#X connect 23 0 3 0;
+#X connect 23 1 21 0;
+#X connect 23 1 3 1;
+#X connect 24 0 13 0;
+#X connect 27 0 26 0;
+#X connect 28 0 29 0;
+#X connect 29 0 30 0;
+#X connect 30 0 27 1;
+#X restore 471 215 pd CartesianPV(phase.lock);
+#X msg 722 33 2;
+#X connect 0 0 3 0;
+#X connect 1 0 2 0;
+#X connect 2 0 0 1;
+#X connect 2 0 6 1;
+#X connect 3 0 10 0;
+#X connect 3 0 13 0;
+#X connect 4 0 0 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 10 0;
+#X connect 7 0 14 0;
+#X connect 9 0 1 0;
+#X connect 10 0 12 0;
+#X connect 12 0 11 0;
+#X connect 15 0 27 4;
+#X connect 17 0 18 0;
+#X connect 18 0 16 0;
+#X connect 20 0 27 2;
+#X connect 21 0 27 3;
+#X connect 22 0 27 0;
+#X connect 23 0 28 0;
+#X connect 24 0 27 1;
+#X connect 26 0 22 0;
+#X connect 26 1 24 0;
+#X connect 26 2 20 0;
+#X connect 26 3 21 0;
+#X connect 26 4 15 0;
+#X connect 26 5 27 5;
+#X connect 27 0 0 0;
+#X connect 27 0 6 0;
+#X connect 28 0 17 0;
+#X restore 620 190 pd players;
+#X text 620 167 -- players --;
+#N canvas 376 162 600 442 segment 0;
+#X obj 23 289 outlet;
+#X obj 50 173 spigot;
+#X obj 83 149 == 0;
+#X obj 115 173 spigot;
+#N canvas 28 23 372 461 chop 0;
+#X obj 102 157 until;
+#X obj 83 24 inlet;
+#X obj 102 182 f;
+#X obj 177 168 0;
+#X obj 83 370 f;
+#X obj 102 290 *;
+#X obj 102 211 t f f;
+#X obj 132 182 + 1;
+#X obj 117 241 r \$0-uniformLength;
+#X obj 117 264 * 44.1;
+#X obj 213 108 r \$0-uniformLength;
+#X obj 102 110 f;
+#X obj 102 133 expr $f1/($f2*44.1);
+#X obj 117 87 r \$0-sfLength;
+#X obj 83 414 s \$0-nrUnits;
+#X obj 83 391 - 1;
+#X obj 237 329 outlet;
+#X obj 102 329 array set \$0-unitsIdx;
+#X obj 83 51 t b b b b;
+#X obj 287 329 outlet;
+#X msg 287 308 symbol chop;
+#X obj 112 391 r \$0-nrUnits.r;
+#X connect 0 0 2 0;
+#X connect 1 0 18 0;
+#X connect 2 0 6 0;
+#X connect 2 0 7 0;
+#X connect 3 0 2 1;
+#X connect 4 0 15 0;
+#X connect 5 0 16 0;
+#X connect 5 0 17 0;
+#X connect 6 0 5 0;
+#X connect 6 1 4 1;
+#X connect 6 1 17 1;
+#X connect 7 0 2 1;
+#X connect 8 0 9 0;
+#X connect 9 0 5 1;
+#X connect 10 0 12 1;
+#X connect 11 0 12 0;
+#X connect 12 0 0 0;
+#X connect 13 0 11 1;
+#X connect 15 0 14 0;
+#X connect 18 0 4 0;
+#X connect 18 1 11 0;
+#X connect 18 2 3 0;
+#X connect 18 3 20 0;
+#X connect 20 0 19 0;
+#X connect 21 0 14 0;
+#X restore 50 200 pd chop;
+#N canvas 142 23 356 361 onset 0;
+#X obj 41 13 inlet;
+#X obj 41 239 f;
+#X obj 58 148 t f b;
+#X obj 119 162 f;
+#X obj 145 162 + 1;
+#X obj 58 170 * 44100;
+#X obj 134 138 0;
+#X msg 58 70 analyze;
+#N canvas 411 309 614 311 bark.prop 0;
+#X msg 131 109 mask 4 0.75;
+#X obj 111 252 outlet;
+#X obj 103 19 loadbang;
+#X obj 369 7 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X msg 369 27 loudness \$1;
+#X obj 386 71 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 386 91 filter_avg \$1;
+#X obj 214 26 1;
+#X msg 194 235 minvel 10;
+#X msg 198 190 filter_range 0 20;
+#X msg 151 149 debounce 150;
+#X obj 134 50 r \$0-onsetThresh;
+#X msg 136 70 thresh -1 \$1;
+#X connect 0 0 1 0;
+#X connect 2 0 0 0;
+#X connect 2 0 10 0;
+#X connect 2 0 9 0;
+#X connect 2 0 8 0;
+#X connect 2 0 7 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 6 0 1 0;
+#X connect 7 0 3 0;
+#X connect 7 0 5 0;
+#X connect 8 0 1 0;
+#X connect 9 0 1 0;
+#X connect 10 0 1 0;
+#X connect 11 0 12 0;
+#X connect 12 0 1 0;
+#X restore 263 83 pd bark.prop;
+#X obj 58 194 array set \$0-unitsIdx;
+#X obj 41 283 s \$0-nrUnits;
+#X obj 41 260 - 1;
+#X obj 150 281 outlet;
+#X obj 41 38 t b b b b;
+#X obj 230 281 outlet;
+#X msg 230 261 symbol onsets;
+#X obj 58 98 bark \$0-sample 1024 128 1;
+#X connect 0 0 13 0;
+#X connect 1 0 11 0;
+#X connect 2 0 5 0;
+#X connect 2 1 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 1 1;
+#X connect 3 0 9 1;
+#X connect 4 0 3 1;
+#X connect 5 0 9 0;
+#X connect 5 0 12 0;
+#X connect 6 0 3 1;
+#X connect 7 0 16 0;
+#X connect 8 0 16 0;
+#X connect 11 0 10 0;
+#X connect 13 0 1 0;
+#X connect 13 1 7 0;
+#X connect 13 2 6 0;
+#X connect 13 3 15 0;
+#X connect 15 0 14 0;
+#X connect 16 0 2 0;
+#X restore 115 200 pd onset;
+#X obj 148 149 == 1;
+#X obj 23 15 inlet;
+#X obj 268 88 r \$0-unitsSeg;
+#N canvas 0 23 544 311 plot-segments 0;
+#X obj 292 176 pointer;
+#X msg 357 100 clear;
+#X obj 292 130 \$0;
+#X obj 133 138 array size \$0-sample;
+#X obj 357 121 s pd-\$0-segments;
+#X msg 292 153 traverse pd-\$1-segments \, bang;
+#N canvas 194 105 519 148 template-line 0;
+#X obj 17 19 struct \$0-line float x float y float c;
+#X obj 17 44 drawpolygon -x c 1 0 0 0 1;
+#X restore 66 251 pd template-line;
+#X obj 133 65 r \$0-boa;
+#X obj 66 65 inlet;
+#X obj 133 86 t b b b;
+#X obj 66 227 append \$0-line x y c;
+#X obj 357 77 loadbang;
+#X obj 66 204 pack f 0 950;
+#X obj 66 182 expr_scale 0 300 0 1000;
+#X connect 0 0 10 3;
+#X connect 1 0 4 0;
+#X connect 2 0 5 0;
+#X connect 3 0 13 2;
+#X connect 5 0 0 0;
+#X connect 7 0 9 0;
+#X connect 8 0 13 0;
+#X connect 9 0 3 0;
+#X connect 9 1 2 0;
+#X connect 9 2 1 0;
+#X connect 11 0 1 0;
+#X connect 12 0 10 0;
+#X connect 13 0 12 0;
+#X restore 115 289 pd plot-segments;
+#X obj 86 50 s \$0-boa;
+#X obj 195 173 spigot;
+#N canvas 486 23 383 237 beat 0;
+#X obj 21 172 outlet;
+#X obj 21 25 inlet;
+#X obj 21 61 f;
+#X obj 54 47 r \$0-sfLength;
+#X obj 176 90 array define \$0-beatFlux;
+#X obj 176 116 array define \$0-fluxMag;
+#N canvas 425 37 547 560 tempoDetection 0;
+#X obj 40 98 magSpec \$0-beatFlux;
+#X obj 40 118 t l l;
+#X obj 161 133 list length;
+#X msg 161 153 resize \$1;
+#X obj 40 158 list prepend 0;
+#X obj 23 13 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 23 252 array size \$0-beatFlux;
+#X obj 23 186 t b b;
+#X floatatom 23 306 5 0 0 0 - - -;
+#X floatatom 331 272 5 0 0 0 - - -;
+#X obj 86 340 * 1024;
+#X floatatom 86 360 15 0 0 0 - - -;
+#X floatatom 86 399 15 0 0 0 - - -;
+#X obj 86 379 expr $f1/44.1;
+#X obj 86 418 expr 60000/$f1;
+#X floatatom 86 438 5 0 0 0 - - -;
+#X obj 161 173 s \$0-fluxMag;
+#X text 185 397 // beat in ms;
+#X text 185 434 // bpm;
+#X obj 172 252 array max \$0-fluxMag 50 350;
+#X text 65 305 // every x samples in beatFlux there's a high regularity
+;
+#N canvas 631 23 616 358 barkSpecFlux 0;
+#X obj 306 202 loadbang;
+#X obj 68 51 inlet;
+#X obj 139 136 0;
+#X obj 68 150 f;
+#X obj 68 124 until;
+#X msg 68 216 analyze \$1 2048;
+#X obj 68 76 expr int($f1/1024);
+#X obj 98 150 + 1;
+#X obj 68 171 t f f;
+#X obj 68 192 * 1024;
+#X obj 68 263 array set \$0-beatFlux;
+#X obj 68 100 t f b f;
+#X obj 204 135 s \$0-beatFlux;
+#X msg 204 114 resize \$1;
+#X obj 68 239 barkSpecFlux \$0-sample 0.5 256;
+#X msg 306 224 power_spectrum 1 \, normalize 0 \, mode growth;
+#X connect 0 0 15 0;
+#X connect 1 0 6 0;
+#X connect 2 0 3 1;
+#X connect 3 0 7 0;
+#X connect 3 0 8 0;
+#X connect 4 0 3 0;
+#X connect 5 0 14 0;
+#X connect 6 0 11 0;
+#X connect 7 0 3 1;
+#X connect 8 0 9 0;
+#X connect 8 1 10 1;
+#X connect 9 0 5 0;
+#X connect 11 0 4 0;
+#X connect 11 1 2 0;
+#X connect 11 2 13 0;
+#X connect 13 0 12 0;
+#X connect 14 0 10 0;
+#X connect 15 0 14 0;
+#X restore 74 67 pd barkSpecFlux;
+#X obj 182 59 loadbang;
+#X obj 46 13 inlet;
+#X text 185 360 // beat in samples;
+#X obj 172 201 array size \$0-beatFlux;
+#X obj 23 286 /;
+#X obj 23 47 t b b b f;
+#X floatatom 357 246 5 0 0 0 - - -;
+#X floatatom 405 246 5 0 0 0 - - -;
+#X text 48 289 // adapt to range 13 - 55;
+#X obj 23 461 outlet;
+#X obj 23 325 t f f;
+#X msg 182 83 power_spectrum 1;
+#X obj 75 461 outlet;
+#X obj 172 221 expr rint($f1/55) \; rint(($f1/13)-($f1/55));
+#X obj 136 461 s \$0-iui.r;
+#X obj 383 400 tID_fft \$0-sample;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 1 1 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 16 0;
+#X connect 4 0 16 0;
+#X connect 5 0 27 0;
+#X connect 6 0 26 0;
+#X connect 7 0 6 0;
+#X connect 7 1 25 0;
+#X connect 8 0 32 0;
+#X connect 9 0 26 1;
+#X connect 9 0 34 0;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 12 0 14 0;
+#X connect 13 0 12 0;
+#X connect 13 0 36 0;
+#X connect 14 0 15 0;
+#X connect 19 1 9 0;
+#X connect 22 0 33 0;
+#X connect 23 0 27 0;
+#X connect 25 0 35 0;
+#X connect 26 0 8 0;
+#X connect 27 0 7 0;
+#X connect 27 1 0 0;
+#X connect 27 3 21 0;
+#X connect 32 0 31 0;
+#X connect 32 1 10 0;
+#X connect 33 0 0 0;
+#X connect 35 0 19 0;
+#X connect 35 0 28 0;
+#X connect 35 1 19 1;
+#X connect 35 1 29 0;
+#X restore 21 92 pd tempoDetection;
+#N canvas 0 135 437 566 beatTracking 0;
+#X obj 64 263 until;
+#X obj 64 287 f;
+#X obj 64 201 array size \$0-beatFlux;
+#X floatatom 64 243 5 0 0 0 - - -;
+#X obj 64 222 expr int(($f1-$f2)/$f3);
+#X obj 329 423 t l;
+#X obj 47 423 list;
+#X obj 237 408 list prepend;
+#X obj 74 467 array set \$0-unitsIdx;
+#X obj 134 531 outlet;
+#X obj 47 445 t l l;
+#X obj 47 489 list length;
+#X obj 47 510 - 1;
+#X obj 47 531 s \$0-nrUnits;
+#X obj 237 387 * 1024;
+#X obj 64 309 + 20;
+#X obj 47 176 t b b f b b;
+#X obj 47 12 inlet;
+#X obj 47 72 phaseSpec \$0-beatFlux;
+#X msg 47 92 \$39;
+#X obj 301 12 inlet;
+#X obj 301 57 + 1;
+#X obj 230 47 / 2;
+#X obj 47 32 t b f;
+#X obj 47 112 expr_scale -3.14159 3.14159 0 1;
+#X obj 184 72 * -1;
+#X obj 47 133 moses 0;
+#X obj 47 154 expr $f2 + $f1;
+#X msg 301 77 set \, adddollar \$1;
+#X obj 64 351 expr rint($f1);
+#X obj 64 330 - 2;
+#X obj 64 372 array max \$0-beatFlux 0 5;
+#X connect 0 0 1 0;
+#X connect 1 0 15 0;
+#X connect 2 0 4 0;
+#X connect 3 0 0 0;
+#X connect 4 0 3 0;
+#X connect 5 0 7 1;
+#X connect 6 0 10 0;
+#X connect 7 0 5 0;
+#X connect 7 0 6 1;
+#X connect 10 0 11 0;
+#X connect 10 1 8 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 14 0 7 0;
+#X connect 14 0 9 0;
+#X connect 15 0 30 0;
+#X connect 16 0 6 0;
+#X connect 16 1 2 0;
+#X connect 16 2 4 1;
+#X connect 16 2 1 1;
+#X connect 16 2 14 0;
+#X connect 16 3 7 1;
+#X connect 17 0 23 0;
+#X connect 18 0 19 0;
+#X connect 19 0 24 0;
+#X connect 20 0 21 0;
+#X connect 21 0 28 0;
+#X connect 22 0 24 4;
+#X connect 22 0 25 0;
+#X connect 23 0 18 0;
+#X connect 23 1 4 2;
+#X connect 23 1 15 1;
+#X connect 23 1 22 0;
+#X connect 23 1 27 1;
+#X connect 24 0 26 0;
+#X connect 25 0 24 3;
+#X connect 26 0 27 0;
+#X connect 26 1 16 0;
+#X connect 27 0 16 0;
+#X connect 28 0 19 0;
+#X connect 29 0 31 0;
+#X connect 30 0 29 0;
+#X connect 31 1 1 1;
+#X connect 31 1 14 0;
+#X restore 21 113 pd beatTracking;
+#X msg 176 64 normalize;
+#X connect 1 0 2 0;
+#X connect 2 0 6 0;
+#X connect 3 0 2 1;
+#X connect 6 0 7 0;
+#X connect 6 1 7 1;
+#X connect 7 0 0 0;
+#X connect 8 0 4 0;
+#X connect 8 0 5 0;
+#X restore 195 200 pd beat;
+#X obj 228 149 == 2;
+#X obj 396 236 s \$0-segmentationMode;
+#X msg 396 303 label \$1;
+#X obj 396 324 s \$0-nrUnitsLabel;
+#X obj 396 260 r \$0-nrUnits;
+#X obj 396 281 makefilename %d;
+#X msg 396 215 label \$1;
+#X obj 23 96 t b b;
+#X obj 23 36 t b b;
+#X obj 23 57 delay 50;
+#X obj 85 21 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 268 149 sel 3;
+#N canvas 66 23 375 444 importBeats 0;
+#X obj 52 29 openpanel;
+#X obj 130 114 text define \$0-segmentation;
+#X msg 130 93 read -c \$1;
+#X obj 96 248 text get \$0-segmentation;
+#X obj 96 138 text size \$0-segmentation;
+#X obj 96 205 f;
+#X obj 127 205 + 1;
+#X obj 163 191 0;
+#X obj 96 181 until;
+#X obj 96 226 t f f;
+#X obj 96 311 array set \$0-unitsIdx;
+#X obj 96 159 t f f;
+#X obj 245 195 s \$0-nrUnits;
+#X obj 245 174 - 1;
+#X obj 96 290 * 44100;
+#X obj 79 70 t b b b a;
+#X obj 79 335 stats ---------;
+#X msg 256 321 reset;
+#X obj 74 403 outlet;
+#X obj 96 269 unpack f f;
+#X obj 122 382 expr 60000/$f1;
+#X obj 52 50 t b a;
+#X obj 22 403 outlet;
+#X obj 52 7 inlet;
+#X obj 210 418 s \$0-iui.r;
+#X connect 0 0 21 0;
+#X connect 2 0 1 0;
+#X connect 3 0 19 0;
+#X connect 4 0 11 0;
+#X connect 5 0 6 0;
+#X connect 5 0 9 0;
+#X connect 6 0 5 1;
+#X connect 7 0 5 1;
+#X connect 8 0 5 0;
+#X connect 9 0 3 0;
+#X connect 9 1 10 1;
+#X connect 11 0 8 0;
+#X connect 11 1 13 0;
+#X connect 13 0 12 0;
+#X connect 14 0 10 0;
+#X connect 15 0 16 0;
+#X connect 15 1 4 0;
+#X connect 15 2 7 0;
+#X connect 15 2 17 0;
+#X connect 15 3 2 0;
+#X connect 16 3 20 0;
+#X connect 17 0 16 0;
+#X connect 19 0 14 0;
+#X connect 19 0 18 0;
+#X connect 19 1 16 0;
+#X connect 20 0 24 0;
+#X connect 21 0 22 0;
+#X connect 21 1 15 0;
+#X connect 23 0 0 0;
+#X restore 268 200 pd importBeats;
+#X floatatom 396 142 5 0 0 1 bpm - -;
+#X obj 396 163 makefilename beat::%i;
+#X obj 396 120 expr 60000/$f1;
+#X obj 396 99 r \$0-iui.r;
+#X connect 1 0 4 0;
+#X connect 2 0 1 1;
+#X connect 3 0 5 0;
+#X connect 4 0 9 0;
+#X connect 4 1 19 0;
+#X connect 5 0 9 0;
+#X connect 5 1 19 0;
+#X connect 6 0 3 1;
+#X connect 7 0 21 0;
+#X connect 8 0 2 0;
+#X connect 8 0 6 0;
+#X connect 8 0 13 0;
+#X connect 8 0 24 0;
+#X connect 11 0 12 0;
+#X connect 12 0 9 0;
+#X connect 13 0 11 1;
+#X connect 15 0 16 0;
+#X connect 17 0 18 0;
+#X connect 18 0 15 0;
+#X connect 19 0 14 0;
+#X connect 20 0 0 0;
+#X connect 20 1 1 0;
+#X connect 20 1 3 0;
+#X connect 20 1 11 0;
+#X connect 21 0 22 0;
+#X connect 21 1 10 0;
+#X connect 22 0 20 0;
+#X connect 23 0 21 0;
+#X connect 24 0 25 0;
+#X connect 25 0 0 0;
+#X connect 25 1 9 0;
+#X connect 26 0 27 0;
+#X connect 27 0 19 0;
+#X connect 28 0 26 0;
+#X connect 29 0 28 0;
+#X restore 347 53 pd segment;
+#N canvas 463 23 436 361 plotting 0;
+#X obj 60 11 inlet;
+#N canvas 182 296 602 463 harmonicSpace 0;
+#X obj 47 19 inlet;
+#N canvas 0 23 450 300 car2pol 0;
+#X text 63 26 convert cartesian to polar coordinates;
+#X obj 83 82 inlet x;
+#X obj 82 331 outlet r;
+#X obj 179 331 outlet phi;
+#X text 294 141 r=sqrt(x^2+y^2);
+#X text 296 161 phi=atan2(y \, x);
+#X obj 138 170 t f f f;
+#X obj 138 193 *;
+#X obj 82 233 +;
+#X obj 82 170 t f f f;
+#X obj 82 193 *;
+#X obj 82 265 sqrt;
+#X obj 172 221 pack;
+#X obj 172 260 atan2;
+#X msg 172 241 \$2 \$1;
+#X text 333 8 part of zexy;
+#X obj 83 125 unpack f f;
+#X connect 1 0 16 0;
+#X connect 6 0 7 0;
+#X connect 6 1 7 1;
+#X connect 6 2 12 1;
+#X connect 7 0 8 1;
+#X connect 8 0 11 0;
+#X connect 9 0 10 0;
+#X connect 9 1 10 1;
+#X connect 9 2 12 0;
+#X connect 10 0 8 0;
+#X connect 11 0 2 0;
+#X connect 12 0 14 0;
+#X connect 13 0 3 0;
+#X connect 14 0 13 0;
+#X connect 16 0 9 0;
+#X connect 16 1 6 0;
+#X restore 47 252 pd car2pol;
+#X msg 284 221 \$9 \$10;
+#X obj 47 206 t l l;
+#N canvas 0 23 450 300 car2pol 0;
+#X text 63 26 convert cartesian to polar coordinates;
+#X obj 99 82 inlet x;
+#X obj 82 331 outlet r;
+#X obj 179 331 outlet phi;
+#X text 294 141 r=sqrt(x^2+y^2);
+#X text 296 161 phi=atan2(y \, x);
+#X obj 138 170 t f f f;
+#X obj 138 193 *;
+#X obj 82 233 +;
+#X obj 82 170 t f f f;
+#X obj 82 193 *;
+#X obj 82 265 sqrt;
+#X obj 172 221 pack;
+#X obj 172 260 atan2;
+#X msg 172 241 \$2 \$1;
+#X text 333 8 part of zexy;
+#X obj 99 125 unpack f f;
+#X connect 1 0 16 0;
+#X connect 6 0 7 0;
+#X connect 6 1 7 1;
+#X connect 6 2 12 1;
+#X connect 7 0 8 1;
+#X connect 8 0 11 0;
+#X connect 9 0 10 0;
+#X connect 9 1 10 1;
+#X connect 9 2 12 0;
+#X connect 10 0 8 0;
+#X connect 11 0 2 0;
+#X connect 12 0 14 0;
+#X connect 13 0 3 0;
+#X connect 14 0 13 0;
+#X connect 16 0 9 0;
+#X connect 16 1 6 0;
+#X restore 284 244 pd car2pol;
+#X obj 104 307 pack;
+#X obj 104 372 list trim;
+#X obj 104 351 list prepend addDot;
+#X obj 104 393 s \$0-lcd;
+#X obj 47 91 f;
+#X obj 89 77 r \$0-nrUnits;
+#X obj 47 112 until;
+#X obj 47 133 f;
+#X obj 77 133 + 1;
+#X obj 115 119 0;
+#X obj 104 329 pack f f 950 f;
+#X obj 47 185 2d.tabread \$0-tisDB;
+#X obj 47 41 t b b b;
+#X msg 306 378 pointer 1;
+#X obj 104 280 expr_scale -3.14159 3.14159 0 1000;
+#X obj 341 280 expr_scale -3.14159 3.14159 0 1000;
+#N canvas 333 23 296 255 color 0;
+#X obj 56 30 inlet;
+#X obj 56 215 outlet;
+#X msg 56 139 900 990 209 90 88 838 830 306;
+#X obj 56 115 t b f;
+#X msg 100 180 set \, adddollar \$1;
+#X msg 56 195 \$1;
+#X obj 100 160 + 1;
+#X obj 95 93 b;
+#X obj 95 115 999;
+#X obj 56 51 array get \$0-clustersHarm 0 1;
+#X obj 56 71 moses 8;
+#X connect 0 0 9 0;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 3 1 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 4 0;
+#X connect 7 0 8 0;
+#X connect 8 0 1 0;
+#X connect 9 0 10 0;
+#X connect 10 0 3 0;
+#X connect 10 1 7 0;
+#X restore 118 252 pd color;
+#X obj 47 157 t f f f;
+#X msg 47 230 \$7 \$8;
+#X msg 361 138 \$9 \$10;
+#X obj 361 158 list-map;
+#X obj 419 158 expr_scale -14.5 14.5 0 1000;
+#X text 361 111 // T(5);
+#X connect 0 0 17 0;
+#X connect 1 1 19 0;
+#X connect 2 0 4 0;
+#X connect 3 0 23 0;
+#X connect 3 1 2 0;
+#X connect 4 1 20 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 9 0 11 0;
+#X connect 10 0 9 1;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 0 22 0;
+#X connect 13 0 12 1;
+#X connect 14 0 12 1;
+#X connect 15 0 7 0;
+#X connect 16 0 3 0;
+#X connect 17 0 9 0;
+#X connect 17 1 14 0;
+#X connect 17 2 18 0;
+#X connect 18 0 8 0;
+#X connect 19 0 5 0;
+#X connect 20 0 5 1;
+#X connect 21 0 15 2;
+#X connect 22 0 16 0;
+#X connect 22 1 21 0;
+#X connect 22 2 15 3;
+#X connect 23 0 1 0;
+#X connect 24 0 25 0;
+#X connect 25 0 15 0;
+#X connect 25 1 26 0;
+#X connect 26 0 25 1;
+#X restore 104 247 pd harmonicSpace;
+#X obj 122 44 r \$0-presetXY;
+#X obj 87 74 f 0;
+#X obj 126 148 s \$0-lcd;
+#X msg 126 126 clear;
+#X obj 304 199 r \$0-infinityPointer;
+#X obj 304 244 spigot;
+#X obj 121 270 FOviz \$0-eargram \$0-pad-area \$0;
+#N canvas 386 129 598 505 timbreSpace 0;
+#X obj 58 29 inlet;
+#X obj 58 311 list trim;
+#X obj 58 290 list prepend addDot;
+#X obj 58 332 s \$0-lcd;
+#X obj 58 83 f;
+#X obj 190 68 r \$0-nrUnits;
+#X obj 58 104 until;
+#X obj 58 125 f;
+#X obj 88 125 + 1;
+#X obj 116 111 0;
+#X msg 290 318 pointer 1;
+#X obj 58 267 pack f f f f, f 23;
+#X obj 58 156 t f f f f, f 23;
+#N canvas 333 23 299 298 color 0;
+#X obj 57 30 inlet;
+#X obj 57 215 outlet;
+#X msg 57 139 900 990 209 90 88 838 830 306;
+#X obj 57 115 t b f;
+#X msg 101 180 set \, adddollar \$1;
+#X msg 57 195 \$2;
+#X obj 101 160 + 1;
+#X obj 96 93 b;
+#X obj 96 115 999;
+#X obj 57 51 array get \$0-clustersTimbre 0 1;
+#X obj 57 71 moses 8;
+#X connect 0 0 9 0;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 3 1 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 4 0;
+#X connect 7 0 8 0;
+#X connect 8 0 1 0;
+#X connect 9 0 10 0;
+#X connect 10 0 3 0;
+#X connect 10 1 7 0;
+#X restore 148 240 pd color;
+#N canvas 0 23 450 300 x-norm 0;
+#X obj 24 46 inlet;
+#X obj 223 45 inlet;
+#X obj 223 66 array min \$0-timbreX;
+#X obj 233 96 array max \$0-timbreX;
+#X obj 24 198 outlet;
+#X obj 24 67 array get \$0-timbreX 0 1;
+#X obj 24 177 expr_scale 0 100 0 1000;
+#X connect 0 0 5 0;
+#X connect 1 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 6 1;
+#X connect 3 0 6 2;
+#X connect 5 0 6 0;
+#X connect 6 0 4 0;
+#X restore 58 183 pd x-norm;
+#N canvas 0 23 450 300 y-norm 0;
+#X obj 24 46 inlet;
+#X obj 223 45 inlet;
+#X obj 24 198 outlet;
+#X obj 24 67 array get \$0-timbreY 0 1;
+#X obj 223 66 array min \$0-timbreY;
+#X obj 233 96 array max \$0-timbreY;
+#X obj 24 177 expr_scale 0 100 0 1000;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 1 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 1;
+#X connect 5 0 6 2;
+#X connect 6 0 2 0;
+#X restore 103 211 pd y-norm;
+#X obj 58 53 t b b b b;
+#X obj 38 362 s \$0-endPlot;
+#X connect 0 0 16 0;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 1;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 7 0 12 0;
+#X connect 8 0 7 1;
+#X connect 9 0 7 1;
+#X connect 10 0 3 0;
+#X connect 11 0 2 0;
+#X connect 12 0 14 0;
+#X connect 12 1 15 0;
+#X connect 12 2 13 0;
+#X connect 12 3 11 3;
+#X connect 13 0 11 2;
+#X connect 14 0 11 0;
+#X connect 15 0 11 1;
+#X connect 16 0 4 0;
+#X connect 16 1 9 0;
+#X connect 16 2 14 1;
+#X connect 16 2 15 1;
+#X connect 16 3 10 0;
+#X restore 87 224 pd timbreSpace;
+#X obj 87 196 sel 0 1 2;
+#X obj 337 224 == 2;
+#X obj 87 102 t f f b;
+#X obj 60 271 s \$0-eoa;
+#X obj 272 20 r \$0-reset;
+#X obj 272 40 t b b;
+#X obj 208 85 0;
+#X obj 104 10 r \$0-plot;
+#X obj 208 105 s \$0-presetXY.r;
+#X obj 208 64 once;
+#X obj 60 45 t b b b;
+#X connect 0 0 20 0;
+#X connect 2 0 3 1;
+#X connect 3 0 12 0;
+#X connect 5 0 4 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 1;
+#X connect 10 0 9 0;
+#X connect 10 1 1 0;
+#X connect 10 2 8 0;
+#X connect 11 0 7 1;
+#X connect 12 0 10 0;
+#X connect 12 1 11 0;
+#X connect 12 2 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 19 1;
+#X connect 15 1 5 0;
+#X connect 16 0 18 0;
+#X connect 17 0 3 0;
+#X connect 19 0 16 0;
+#X connect 20 0 13 0;
+#X connect 20 1 3 0;
+#X connect 20 2 19 0;
+#X restore 347 128 pd plotting;
+#N canvas 676 23 273 424 clusterSeq 0;
+#X obj 44 94 f;
+#X obj 74 94 + 1;
+#X floatatom 44 136 5 0 0 1 pulseNr - -;
+#X obj 44 70 metro 250;
+#N canvas 528 86 453 307 selectUnit 0;
+#X obj 22 204 s \$0-unitPlay;
+#X obj 22 27 inlet;
+#X obj 89 156 r \$0-seqGain;
+#X obj 218 90 t b f;
+#X obj 218 113 random;
+#X obj 22 128 list-nth;
+#X obj 22 54 t f f;
+#X obj 22 84 text get \$0-clusterUnitsTimbre;
+#X obj 218 69 text size \$0-clusterUnitsTimbre;
+#X obj 22 182 pack f 0.5 0.5, f 23;
+#X connect 1 0 6 0;
+#X connect 2 0 9 1;
+#X connect 3 0 4 0;
+#X connect 3 1 4 1;
+#X connect 4 0 5 1;
+#X connect 5 0 9 0;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 5 0;
+#X connect 8 0 3 0;
+#X connect 9 0 0 0;
+#X restore 44 445 pd selectUnit;
+#X obj 44 280 array get \$0-clusterColors 0 1;
+#X obj 44 421 f;
+#X obj 81 366 unpack f f f, f 13;
+#X obj 44 156 t b b f;
+#X obj 44 238 f;
+#X obj 69 238 + 1;
+#X obj 63 218 0;
+#X obj 44 177 8;
+#X obj 44 198 until;
+#X obj 44 301 sel 1;
+#X obj 44 322 f;
+#X obj 44 259 t f f;
+#N canvas 0 23 761 536 interface 0;
+#X obj 227 472 pointer;
+#X msg 227 448 traverse pd-\$1-clusterButtons \, bang;
+#X obj 227 426 \$0;
+#X obj 36 81 unpack s p f;
+#X obj 36 60 struct \$0-clusterTrigger float x float y float c float
+b;
+#X msg 38 378 0 900 \, 1 990 \, 2 209 \, 3 90 \, 4 88 \, 5 838 \, 6
+830 \, 7 306;
+#X obj 89 219 set \$0-clusterTrigger b;
+#X obj 119 194 0;
+#X obj 70 103 t b p p;
+#X obj 89 171 sel 0 8;
+#X obj 89 194 8;
+#X obj 38 495 append \$0-clusterTrigger x c y b;
+#X obj 38 399 pack f f 0.1 8;
+#X obj 89 127 get \$0-clusterTrigger b x;
+#X obj 292 223 array set \$0-clusterColors;
+#X obj 292 202 / 8;
+#X obj 268 253 array sum \$0-clusterColors;
+#X obj 268 274 > 0;
+#X obj 89 148 t f b f;
+#X obj 268 315 outlet;
+#X obj 38 323 loadbang;
+#X obj 97 323 r \$0-reset;
+#X obj 38 347 t b b b;
+#X msg 374 361 clear;
+#X obj 374 385 s pd-\$0-clusterButtons;
+#X obj 198 334 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 521 361 const 0;
+#X obj 521 385 array define -k \$0-clusterColors 8;
+#A 0 0 0 0 0 0 0 0 0;
+#X obj 268 295 change;
+#X obj 36 35 filledpolygon c 0 b 0.1 0.1 0.9 0.1 0.9 0.9 0.1 0.9 0.1
+0.1;
+#X connect 0 0 11 4;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 1 8 0;
+#X connect 4 0 3 0;
+#X connect 5 0 12 0;
+#X connect 7 0 6 0;
+#X connect 8 1 13 0;
+#X connect 8 2 6 1;
+#X connect 9 0 10 0;
+#X connect 9 1 7 0;
+#X connect 10 0 6 0;
+#X connect 12 0 11 0;
+#X connect 13 0 18 0;
+#X connect 13 1 14 1;
+#X connect 15 0 14 0;
+#X connect 16 0 17 0;
+#X connect 17 0 28 0;
+#X connect 18 0 9 0;
+#X connect 18 1 16 0;
+#X connect 18 2 15 0;
+#X connect 20 0 22 0;
+#X connect 21 0 22 0;
+#X connect 22 0 5 0;
+#X connect 22 1 2 0;
+#X connect 22 2 23 0;
+#X connect 22 2 26 0;
+#X connect 23 0 24 0;
+#X connect 25 0 22 0;
+#X connect 26 0 27 0;
+#X connect 28 0 19 0;
+#X restore 44 47 pd interface;
+#N canvas 500 23 450 300 keyboard 0;
+#X obj 33 36 key;
+#X obj 33 79 - 49;
+#X obj 72 143 outlet;
+#X obj 33 57 spigot;
+#X obj 66 36 r \$0-keyControl;
+#X obj 72 122 moses 9;
+#X obj 33 101 moses 0;
+#X obj 137 75 sel 0 1;
+#X msg 137 122 color 22 22 \$1;
+#X obj 137 95 22;
+#X obj 167 95 0;
+#X obj 137 141 s \$0-keyControl.r;
+#X connect 0 0 3 0;
+#X connect 1 0 6 0;
+#X connect 3 0 1 0;
+#X connect 4 0 3 1;
+#X connect 4 0 7 0;
+#X connect 5 0 2 0;
+#X connect 6 1 5 0;
+#X connect 7 0 9 0;
+#X connect 7 1 10 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 0;
+#X connect 10 0 8 0;
+#X restore 159 430 pd keyboard;
+#X obj 44 115 % 4;
+#X obj 130 100 r \$0-nrSeqPulses;
+#X obj 130 55 r \$0-iui;
+#X obj 44 397 euclidRhythms 5 0 8;
+#X obj 81 345 text get \$0-euclidPresets;
+#X connect 0 0 1 0;
+#X connect 0 0 19 0;
+#X connect 1 0 0 1;
+#X connect 2 0 8 0;
+#X connect 3 0 0 0;
+#X connect 5 0 14 0;
+#X connect 6 0 4 0;
+#X connect 7 0 22 1;
+#X connect 7 1 22 2;
+#X connect 7 2 22 3;
+#X connect 8 0 12 0;
+#X connect 8 1 11 0;
+#X connect 8 2 15 1;
+#X connect 9 0 10 0;
+#X connect 9 0 16 0;
+#X connect 10 0 9 1;
+#X connect 11 0 9 1;
+#X connect 12 0 13 0;
+#X connect 13 0 9 0;
+#X connect 14 0 15 0;
+#X connect 15 0 22 0;
+#X connect 16 0 5 0;
+#X connect 16 1 6 1;
+#X connect 16 1 23 0;
+#X connect 17 0 3 0;
+#X connect 18 0 4 0;
+#X connect 19 0 2 0;
+#X connect 20 0 19 1;
+#X connect 21 0 3 1;
+#X connect 22 0 6 0;
+#X connect 23 0 7 0;
+#X restore 347 215 pd clusterSeq;
+#N canvas 679 23 552 522 menus 0;
+#X obj 25 6 r \$0-about;
+#X msg 25 190 \; pd-License vis 1;
+#X obj 25 148 r \$0-license;
+#X obj 225 148 r \$0-preferences;
+#X obj 225 6 r \$0-vizWave;
+#X msg 225 48 \; pd-\$1-waveform vis 1;
+#X msg 25 68 \; pd-\$1-About vis 1;
+#X obj 225 27 \$0;
+#X obj 25 169 \$0;
+#X msg 225 201 \; pd-\$1-Preferences vis 1;
+#X obj 225 173 \$0;
+#N canvas 523 290 375 163 \$0-About 0;
+#X obj 8 135 hradio 15 1 0 4 \$0-license empty GPLicense 4 8 0 10 -1
+-1 -262144 1;
+#X obj 11 5 hsl 125 35 0 127 0 0 \$0-about \$0-about.r earGram 15 17
+0 22 -262144 -262144 -1 0 1;
+#X text 8 69 Copyright 2013 Gilberto Bernardes. All Rights Reserved.
+earGram is an open source software released under the GNU Public Licence.
+;
+#X text 187 134 Version 0.2 (December/2019);
+#X restore 25 98 pd \$0-About;
+#N canvas 189 23 404 500 \$0-License 0;
+#X text 23 18 GNU GENERAL PUBLIC LICENSE Version 3 \, 29 June 2007
+Copyright (c) 2007 Free Software Foundation \, Inc. <http://fsf.org/>
+Everyone is permitted to copy and distribute verbatim copies of this
+license document \, but changing it is not allowed. Preamble The GNU
+General Public License is a free \, copyleft license for software and
+other kinds of works. The licenses for most software and other practical
+works are designed to take away your freedom to share and change the
+works. By contrast \, the GNU General Public License is intended to
+guarantee your freedom to share and change all versions of a program--to
+make sure it remains free software for all its users. We \, the Free
+Software Foundation \, use the GNU General Public License for most
+of our software \; it applies also to any other work released this
+way by its authors. You can apply it to your programs \, too. When
+we speak of free software \, we are referring to freedom \, not price.
+Our General Public Licenses are designed to make sure that you have
+the freedom to distribute copies of free software (and charge for them
+if you wish) \, that you receive source code or can get it if you want
+it \, that you can change the software or use pieces of it in new free
+programs \, and that you know you can do these things. To protect your
+rights \, we need to prevent others from denying you these rights or
+asking you to surrender the rights. Therefore \, you have certain responsibilities
+if you distribute copies of the software \, or if you modify it: responsibilities
+to respect the freedom of others. For example \, if you distribute
+copies of such a program \, whether gratis or for a fee \, you must
+pass on to the recipients the same freedoms that you received. You
+must make sure that they \, too \, receive or can get the source code.
+And you must show them these terms so they know their rights. Developers
+that use the GNU GPL protect your rights with two steps: (1) assert
+copyright on the software \, and (2) offer you this License giving
+you legal permission to copy \, distribute and/or modify it. For the
+developers' and authors' protection \, the GPL clearly explains that
+there is no warranty for this free software. For both users' and authors'
+sake \, the GPL requires that modified versions be marked as changed
+\, so that their problems will not be attributed erroneously to authors
+of previous versions. Some devices are designed to deny users access
+to install or run modified versions of the software inside them \,
+although the manufacturer can do so. This is fundamentally incompatible
+with the aim of protecting users' freedom to change the software. The
+systematic pattern of such abuse occurs in the area of products for
+individuals to use \, which is precisely where it is most unacceptable.
+Therefore \, we have designed this version of the GPL to prohibit the
+practice for those products. If such problems arise substantially in
+other domains \, we stand ready to extend this provision to those domains
+in future versions of the GPL \, as needed to protect the freedom of
+users. Finally \, every program is threatened constantly by software
+patents. States should not allow patents to restrict development and
+use of software on general-purpose computers \, but in those that do
+\, we wish to avoid the special danger that patents applied to a free
+program could make it effectively proprietary. To prevent this \, the
+GPL assures that patents cannot be used to render the program non-free.
+The precise terms and conditions for copying \, distribution and modification
+follow. TERMS AND CONDITIONS 0 Definitions. This License refers to
+version 3 of the GNU General Public License. Copyright also means
+copyright-like laws that apply to other kinds of works \, such as semiconductor
+masks. The Program refers to any copyrightable work licensed under
+this License. Each licensee is addressed as you. Licensees and
+recipients may be individuals or organizations. To modify a work
+means to copy from or adapt all or part of the work in a fashion requiring
+copyright permission \, other than the making of an exact copy. The
+resulting work is called a modified version of the earlier work or
+a work based on the earlier work. A covered work means either the
+unmodified Program or a work based on the Program. To propagate a
+work means to do anything with it that \, without permission \, would
+make you directly or secondarily liable for infringement under applicable
+copyright law \, except executing it on a computer or modifying a private
+copy. Propagation includes copying \, distribution (with or without
+modification) \, making available to the public \, and in some countries
+other activities as well. To convey a work means any kind of propagation
+that enables other parties to make or receive copies. Mere interaction
+with a user through a computer network \, with no transfer of a copy
+\, is not conveying. An interactive user interface displays Appropriate
+Legal Notices to the extent that it includes a convenient and prominently
+visible feature that (1) displays an appropriate copyright notice \,
+and (2) tells the user that there is no warranty for the work (except
+to the extent that warranties are provided) \, that licensees may convey
+the work under this License \, and how to view a copy of this License.
+If the interface presents a list of user commands or options \, such
+as a menu \, a prominent item in the list meets this criterion. 1 Source
+Code. The source code for a work means the preferred form of the
+work for making modifications to it. Object code means any non-source
+form of a work. A Standard Interface means an interface that either
+is an official standard defined by a recognized standards body \, or
+\, in the case of interfaces specified for a particular programming
+language \, one that is widely used among developers working in that
+language. The System Libraries of an executable work include anything
+\, other than the work as a whole \, that (a) is included in the normal
+form of packaging a Major Component \, but which is not part of that
+Major Component \, and (b) serves only to enable use of the work with
+that Major Component \, or to implement a Standard Interface for which
+an implementation is available to the public in source code form. A
+Major Component \, in this context \, means a major essential component
+(kernel \, window system \, and so on) of the specific operating system
+(if any) on which the executable work runs \, or a compiler used to
+produce the work \, or an object code interpreter used to run it. The
+Corresponding Source for a work in object code form means all the
+source code needed to generate \, install \, and (for an executable
+work) run the object code and to modify the work \, including scripts
+to control those activities. However \, it does not include the work's
+System Libraries \, or general-purpose tools or generally available
+free programs which are used unmodified in performing those activities
+but which are not part of the work. For example \, Corresponding Source
+includes interface definition files associated with source files for
+the work \, and the source code for shared libraries and dynamically
+linked subprograms that the work is specifically designed to require
+\, such as by intimate data communication or control flow between those
+subprograms and other parts of the work. The Corresponding Source need
+not include anything that users can regenerate automatically from other
+parts of the Corresponding Source. The Corresponding Source for a work
+in source code form is that same work. 2 Basic Permissions. All rights
+granted under this License are granted for the term of copyright on
+the Program \, and are irrevocable provided the stated conditions are
+met. This License explicitly affirms your unlimited permission to run
+the unmodified Program. The output from running a covered work is covered
+by this License only if the output \, given its content \, constitutes
+a covered work. This License acknowledges your rights of fair use or
+other equivalent \, as provided by copyright law. You may make \, run
+and propagate covered works that you do not convey \, without conditions
+so long as your license otherwise remains in force. You may convey
+covered works to others for the sole purpose of having them make modifications
+exclusively for you \, or provide you with facilities for running those
+works \, provided that you comply with the terms of this License in
+conveying all material for which you do not control copyright. Those
+thus making or running the covered works for you must do so exclusively
+on your behalf \, under your direction and control \, on terms that
+prohibit them from making any copies of your copyrighted material outside
+their relationship with you. Conveying under any other circumstances
+is permitted solely under the conditions stated below. Sublicensing
+is not allowed \; section 10 makes it unnecessary. 3 Protecting Users'
+Legal Rights From Anti-Circumvention Law. No covered work shall be
+deemed part of an effective technological measure under any applicable
+law fulfilling obligations under article 11 of the WIPO copyright treaty
+adopted on 20 December 1996 \, or similar laws prohibiting or restricting
+circumvention of such measures. When you convey a covered work \, you
+waive any legal power to forbid circumvention of technological measures
+to the extent such circumvention is effected by exercising rights under
+this License with respect to the covered work \, and you disclaim any
+intention to limit operation or modification of the work as a means
+of enforcing \, against the work's users \, your or third parties'
+legal rights to forbid circumvention of technological measures. 4 Conveying
+Verbatim Copies. You may convey verbatim copies of the Program's source
+code as you receive it \, in any medium \, provided that you conspicuously
+and appropriately publish on each copy an appropriate copyright notice
+\; keep intact all notices stating that this License and any non-permissive
+terms added in accord with section 7 apply to the code \; keep intact
+all notices of the absence of any warranty \; and give all recipients
+a copy of this License along with the Program. You may charge any price
+or no price for each copy that you convey \, and you may offer support
+or warranty protection for a fee. 5 Conveying Modified Source Versions.
+You may convey a work based on the Program \, or the modifications
+to produce it from the Program \, in the form of source code under
+the terms of section 4 \, provided that you also meet all of these
+conditions: "a) The work must carry prominent notices stating that
+you modified it \, and giving a relevant date. "b) The work must carry
+prominent notices stating that it is released under this License and
+any conditions added under section 7 This requirement modifies the
+requirement in section 4 to keep intact all notices. "c) You must
+license the entire work \, as a whole \, under this License to anyone
+who comes into possession of a copy. This License will therefore apply
+\, along with any applicable section 7 additional terms \, to the whole
+of the work \, and all its parts \, regardless of how they are packaged.
+This License gives no permission to license the work in any other way
+\, but it does not invalidate such permission if you have separately
+received it. "d) If the work has interactive user interfaces \, each
+must display Appropriate Legal Notices \; however \, if the Program
+has interactive interfaces that do not display Appropriate Legal Notices
+\, your work need not make them do so. A compilation of a covered work
+with other separate and independent works \, which are not by their
+nature extensions of the covered work \, and which are not combined
+with it such as to form a larger program \, in or on a volume of a
+storage or distribution medium \, is called an aggregate if the compilation
+and its resulting copyright are not used to limit the access or legal
+rights of the compilation's users beyond what the individual works
+permit. Inclusion of a covered work in an aggregate does not cause
+this License to apply to the other parts of the aggregate. 6 Conveying
+Non-Source Forms. You may convey a covered work in object code form
+under the terms of sections 4 and 5 \, provided that you also convey
+the machine-readable Corresponding Source under the terms of this License
+\, in one of these ways: "a) Convey the object code in \, or embodied
+in \, a physical product (including a physical distribution medium)
+\, accompanied by the Corresponding Source fixed on a durable physical
+medium customarily used for software interchange. "b) Convey the object
+code in \, or embodied in \, a physical product (including a physical
+distribution medium) \, accompanied by a written offer \, valid for
+at least three years and valid for as long as you offer spare parts
+or customer support for that product model \, to give anyone who possesses
+the object code either (1) a copy of the Corresponding Source for all
+the software in the product that is covered by this License \, on a
+durable physical medium customarily used for software interchange \,
+for a price no more than your reasonable cost of physically performing
+this conveying of source \, or (2) access to copy the Corresponding
+Source from a network server at no charge. "c) Convey individual copies
+of the object code with a copy of the written offer to provide the
+Corresponding Source. This alternative is allowed only occasionally
+and noncommercially \, and only if you received the object code with
+such an offer \, in accord with subsection 6b. "d) Convey the object
+code by offering access from a designated place (gratis or for a charge)
+\, and offer equivalent access to the Corresponding Source in the same
+way through the same place at no further charge. You need not require
+recipients to copy the Corresponding Source along with the object code.
+If the place to copy the object code is a network server \, the Corresponding
+Source may be on a different server (operated by you or a third party)
+that supports equivalent copying facilities \, provided you maintain
+clear directions next to the object code saying where to find the Corresponding
+Source. Regardless of what server hosts the Corresponding Source \,
+you remain obligated to ensure that it is available for as long as
+needed to satisfy these requirements. "e) Convey the object code using
+peer-to-peer transmission \, provided you inform other peers where
+the object code and Corresponding Source of the work are being offered
+to the general public at no charge under subsection 6d. A separable
+portion of the object code \, whose source code is excluded from the
+Corresponding Source as a System Library \, need not be included in
+conveying the object code work. A User Product is either (1) a consumer
+product \, which means any tangible personal property which is normally
+used for personal \, family \, or household purposes \, or (2) anything
+designed or sold for incorporation into a dwelling. In determining
+whether a product is a consumer product \, doubtful cases shall be
+resolved in favor of coverage. For a particular product received by
+a particular user \, normally used refers to a typical or common
+use of that class of product \, regardless of the status of the particular
+user or of the way in which the particular user actually uses \, or
+expects or is expected to use \, the product. A product is a consumer
+product regardless of whether the product has substantial commercial
+\, industrial or non-consumer uses \, unless such uses represent the
+only significant mode of use of the product. Installation Information
+for a User Product means any methods \, procedures \, authorization
+keys \, or other information required to install and execute modified
+versions of a covered work in that User Product from a modified version
+of its Corresponding Source. The information must suffice to ensure
+that the continued functioning of the modified object code is in no
+case prevented or interfered with solely because modification has been
+made. If you convey an object code work under this section in \, or
+with \, or specifically for use in \, a User Product \, and the conveying
+occurs as part of a transaction in which the right of possession and
+use of the User Product is transferred to the recipient in perpetuity
+or for a fixed term (regardless of how the transaction is characterized)
+\, the Corresponding Source conveyed under this section must be accompanied
+by the Installation Information. But this requirement does not apply
+if neither you nor any third party retains the ability to install modified
+object code on the User Product (for example \, the work has been installed
+in ROM). The requirement to provide Installation Information does not
+include a requirement to continue to provide support service \, warranty
+\, or updates for a work that has been modified or installed by the
+recipient \, or for the User Product in which it has been modified
+or installed. Access to a network may be denied when the modification
+itself materially and adversely affects the operation of the network
+or violates the rules and protocols for communication across the network.
+Corresponding Source conveyed \, and Installation Information provided
+\, in accord with this section must be in a format that is publicly
+documented (and with an implementation available to the public in source
+code form) \, and must require no special password or key for unpacking
+\, reading or copying. 7 Additional Terms. Additional permissions
+are terms that supplement the terms of this License by making exceptions
+from one or more of its conditions. Additional permissions that are
+applicable to the entire Program shall be treated as though they were
+included in this License \, to the extent that they are valid under
+applicable law. If additional permissions apply only to part of the
+Program \, that part may be used separately under those permissions
+\, but the entire Program remains governed by this License without
+regard to the additional permissions. When you convey a copy of a covered
+work \, you may at your option remove any additional permissions from
+that copy \, or from any part of it. (Additional permissions may be
+written to require their own removal in certain cases when you modify
+the work.) You may place additional permissions on material \, added
+by you to a covered work \, for which you have or can give appropriate
+copyright permission. Notwithstanding any other provision of this License
+\, for material you add to a covered work \, you may (if authorized
+by the copyright holders of that material) supplement the terms of
+this License with terms: "a) Disclaiming warranty or limiting liability
+differently from the terms of sections 15 and 16 of this License \;
+or "b) Requiring preservation of specified reasonable legal notices
+or author attributions in that material or in the Appropriate Legal
+Notices displayed by works containing it \; or "c) Prohibiting misrepresentation
+of the origin of that material \, or requiring that modified versions
+of such material be marked in reasonable ways as different from the
+original version \; or "d) Limiting the use for publicity purposes
+of names of licensors or authors of the material \; or "e) Declining
+to grant rights under trademark law for use of some trade names \,
+trademarks \, or service marks \; or "f) Requiring indemnification
+of licensors and authors of that material by anyone who conveys the
+material (or modified versions of it) with contractual assumptions
+of liability to the recipient \, for any liability that these contractual
+assumptions directly impose on those licensors and authors. All other
+non-permissive additional terms are considered further restrictions
+within the meaning of section 10 If the Program as you received it
+\, or any part of it \, contains a notice stating that it is governed
+by this License along with a term that is a further restriction \,
+you may remove that term. If a license document contains a further
+restriction but permits relicensing or conveying under this License
+\, you may add to a covered work material governed by the terms of
+that license document \, provided that the further restriction does
+not survive such relicensing or conveying. If you add terms to a covered
+work in accord with this section \, you must place \, in the relevant
+source files \, a statement of the additional terms that apply to those
+files \, or a notice indicating where to find the applicable terms.
+Additional terms \, permissive or non-permissive \, may be stated in
+the form of a separately written license \, or stated as exceptions
+\; the above requirements apply either way. 8 Termination. You may
+not propagate or modify a covered work except as expressly provided
+under this License. Any attempt otherwise to propagate or modify it
+is void \, and will automatically terminate your rights under this
+License (including any patent licenses granted under the third paragraph
+of section 11). However \, if you cease all violation of this License
+\, then your license from a particular copyright holder is reinstated
+(a) provisionally \, unless and until the copyright holder explicitly
+and finally terminates your license \, and (b) permanently \, if the
+copyright holder fails to notify you of the violation by some reasonable
+means prior to 60 days after the cessation. Moreover \, your license
+from a particular copyright holder is reinstated permanently if the
+copyright holder notifies you of the violation by some reasonable means
+\, this is the first time you have received notice of violation of
+this License (for any work) from that copyright holder \, and you cure
+the violation prior to 30 days after your receipt of the notice. Termination
+of your rights under this section does not terminate the licenses of
+parties who have received copies or rights from you under this License.
+If your rights have been terminated and not permanently reinstated
+\, you do not qualify to receive new licenses for the same material
+under section 10 9 Acceptance Not Required for Having Copies. You are
+not required to accept this License in order to receive or run a copy
+of the Program. Ancillary propagation of a covered work occurring solely
+as a consequence of using peer-to-peer transmission to receive a copy
+likewise does not require acceptance. However \, nothing other than
+this License grants you permission to propagate or modify any covered
+work. These actions infringe copyright if you do not accept this License.
+Therefore \, by modifying or propagating a covered work \, you indicate
+your acceptance of this License to do so. 10 Automatic Licensing of
+Downstream Recipients. Each time you convey a covered work \, the recipient
+automatically receives a license from the original licensors \, to
+run \, modify and propagate that work \, subject to this License. You
+are not responsible for enforcing compliance by third parties with
+this License. An entity transaction is a transaction transferring
+control of an organization \, or substantially all assets of one \,
+or subdividing an organization \, or merging organizations. If propagation
+of a covered work results from an entity transaction \, each party
+to that transaction who receives a copy of the work also receives whatever
+licenses to the work the party's predecessor in interest had or could
+give under the previous paragraph \, plus a right to possession of
+the Corresponding Source of the work from the predecessor in interest
+\, if the predecessor has it or can get it with reasonable efforts.
+You may not impose any further restrictions on the exercise of the
+rights granted or affirmed under this License. For example \, you may
+not impose a license fee \, royalty \, or other charge for exercise
+of rights granted under this License \, and you may not initiate litigation
+(including a cross-claim or counterclaim in a lawsuit) alleging that
+any patent claim is infringed by making \, using \, selling \, offering
+for sale \, or importing the Program or any portion of it. 11 Patents.
+A contributor is a copyright holder who authorizes use under this
+License of the Program or a work on which the Program is based. The
+work thus licensed is called the contributor's contributor version.
+A contributor's essential patent claims are all patent claims owned
+or controlled by the contributor \, whether already acquired or hereafter
+acquired \, that would be infringed by some manner \, permitted by
+this License \, of making \, using \, or selling its contributor version
+\, but do not include claims that would be infringed only as a consequence
+of further modification of the contributor version. For purposes of
+this definition \, control includes the right to grant patent sublicenses
+in a manner consistent with the requirements of this License. Each
+contributor grants you a non-exclusive \, worldwide \, royalty-free
+patent license under the contributor's essential patent claims \, to
+make \, use \, sell \, offer for sale \, import and otherwise run \,
+modify and propagate the contents of its contributor version. In the
+following three paragraphs \, a patent license is any express agreement
+or commitment \, however denominated \, not to enforce a patent (such
+as an express permission to practice a patent or covenant not to sue
+for patent infringement). To grant such a patent license to a party
+means to make such an agreement or commitment not to enforce a patent
+against the party. If you convey a covered work \, knowingly relying
+on a patent license \, and the Corresponding Source of the work is
+not available for anyone to copy \, free of charge and under the terms
+of this License \, through a publicly available network server or other
+readily accessible means \, then you must either (1) cause the Corresponding
+Source to be so available \, or (2) arrange to deprive yourself of
+the benefit of the patent license for this particular work \, or (3)
+arrange \, in a manner consistent with the requirements of this License
+\, to extend the patent license to downstream recipients. Knowingly
+relying means you have actual knowledge that \, but for the patent
+license \, your conveying the covered work in a country \, or your
+recipient's use of the covered work in a country \, would infringe
+one or more identifiable patents in that country that you have reason
+to believe are valid. If \, pursuant to or in connection with a single
+transaction or arrangement \, you convey \, or propagate by procuring
+conveyance of \, a covered work \, and grant a patent license to some
+of the parties receiving the covered work authorizing them to use \,
+propagate \, modify or convey a specific copy of the covered work \,
+then the patent license you grant is automatically extended to all
+recipients of the covered work and works based on it. A patent license
+is discriminatory if it does not include within the scope of its
+coverage \, prohibits the exercise of \, or is conditioned on the non-exercise
+of one or more of the rights that are specifically granted under this
+License. You may not convey a covered work if you are a party to an
+arrangement with a third party that is in the business of distributing
+software \, under which you make payment to the third party based on
+the extent of your activity of conveying the work \, and under which
+the third party grants \, to any of the parties who would receive the
+covered work from you \, a discriminatory patent license (a) in connection
+with copies of the covered work conveyed by you (or copies made from
+those copies) \, or (b) primarily for and in connection with specific
+products or compilations that contain the covered work \, unless you
+entered into that arrangement \, or that patent license was granted
+\, prior to 28 March 2007 Nothing in this License shall be construed
+as excluding or limiting any implied license or other defenses to infringement
+that may otherwise be available to you under applicable patent law.
+12 No Surrender of Others' Freedom. If conditions are imposed on you
+(whether by court order \, agreement or otherwise) that contradict
+the conditions of this License \, they do not excuse you from the conditions
+of this License. If you cannot convey a covered work so as to satisfy
+simultaneously your obligations under this License and any other pertinent
+obligations \, then as a consequence you may not convey it at all.
+For example \, if you agree to terms that obligate you to collect a
+royalty for further conveying from those to whom you convey the Program
+\, the only way you could satisfy both those terms and this License
+would be to refrain entirely from conveying the Program. 13 Use with
+the GNU Affero General Public License. Notwithstanding any other provision
+of this License \, you have permission to link or combine any covered
+work with a work licensed under version 3 of the GNU Affero General
+Public License into a single combined work \, and to convey the resulting
+work. The terms of this License will continue to apply to the part
+which is the covered work \, but the special requirements of the GNU
+Affero General Public License \, section 13 \, concerning interaction
+through a network will apply to the combination as such. 14 Revised
+Versions of this License. The Free Software Foundation may publish
+revised and/or new versions of the GNU General Public License from
+time to time. Such new versions will be similar in spirit to the present
+version \, but may differ in detail to address new problems or concerns.
+Each version is given a distinguishing version number. If the Program
+specifies that a certain numbered version of the GNU General Public
+License or any later version applies to it \, you have the option
+of following the terms and conditions either of that numbered version
+or of any later version published by the Free Software Foundation.
+If the Program does not specify a version number of the GNU General
+Public License \, you may choose any version ever published by the
+Free Software Foundation. If the Program specifies that a proxy can
+decide which future versions of the GNU General Public License can
+be used \, that proxy's public statement of acceptance of a version
+permanently authorizes you to choose that version for the Program.
+Later license versions may give you additional or different permissions.
+However \, no additional obligations are imposed on any author or copyright
+holder as a result of your choosing to follow a later version. 15 Disclaimer
+of Warranty. THERE IS NO WARRANTY FOR THE PROGRAM \, TO THE EXTENT
+PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING
+THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM AS
+IS WITHOUT WARRANTY OF ANY KIND \, EITHER EXPRESSED OR IMPLIED \,
+INCLUDING \, BUT NOT LIMITED TO \, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY
+AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE
+DEFECTIVE \, YOU ASSUME THE COST OF ALL NECESSARY SERVICING \, REPAIR
+OR CORRECTION. 16 Limitation of Liability. IN NO EVENT UNLESS REQUIRED
+BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER
+\, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS THE PROGRAM AS PERMITTED
+ABOVE \, BE LIABLE TO YOU FOR DAMAGES \, INCLUDING ANY GENERAL \, SPECIAL
+\, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY
+TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA
+BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES
+OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS) \,
+EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY
+OF SUCH DAMAGES. 17 Interpretation of Sections 15 and 16 If the disclaimer
+of warranty and limitation of liability provided above cannot be given
+local legal effect according to their terms \, reviewing courts shall
+apply local law that most closely approximates an absolute waiver of
+all civil liability in connection with the Program \, unless a warranty
+or assumption of liability accompanies a copy of the Program in return
+for a fee. END OF TERMS AND CONDITIONS How to Apply These Terms to
+Your New Programs If you develop a new program \, and you want it to
+be of the greatest possible use to the public \, the best way to achieve
+this is to make it free software which everyone can redistribute and
+change under these terms. To do so \, attach the following notices
+to the program. It is safest to attach them to the start of each source
+file to most effectively state the exclusion of warranty \; and each
+file should have at least the copyright line and a pointer to where
+the full notice is found. <one line to give the program's name and
+a brief idea of what it does.> Copyright (C) <year> <name of author>
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation \, either version 3 of the License \,
+or (at your option) any later version. This program is distributed
+in the hope that it will be useful \, but WITHOUT ANY WARRANTY \; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. See the GNU General Public License for more details. You should
+have received a copy of the GNU General Public License along with this
+program. If not \, see <http://www.gnu.org/licenses/>. Also add information
+on how to contact you by electronic and paper mail. If the program
+does terminal interaction \, make it output a short notice like this
+when it starts in an interactive mode: <program> Copyright (C) <year>
+<name of author> This program comes with ABSOLUTELY NO WARRANTY \;
+for details type `show w'. This is free software \, and you are welcome
+to redistribute it under certain conditions \; type `show c' for details.
+The hypothetical commands `show w' and `show c' should show the appropriate
+parts of the General Public License. Of course \, your program's commands
+might be different \; for a GUI interface \, you would use an about
+box. You should also get your employer (if you work as a programmer)
+or school \, if any \, to sign a copyright disclaimer for the program
+\, if necessary. For more information on this \, and how to apply and
+follow the GNU GPL \, see <http://www.gnu.org/licenses/>. The GNU General
+Public License does not permit incorporating your program into proprietary
+programs. If your program is a subroutine library \, you may consider
+it more useful to permit linking proprietary applications with the
+library. If this is what you want to do \, use the GNU Lesser General
+Public License instead of this License. But first \, please read <http://www.gnu.org/philosophy/why-not-lgpl.html>.
+;
+#X restore 25 220 pd \$0-License;
+#N canvas 363 117 423 333 \$0-Preferences 0;
+#X obj 1 1 cnv 15 420 330 empty empty empty 25 12 0 14 -1 -66577 0
+;
+#X obj 10 39 vradio 16 1 0 4 \$0-unitsSeg \$0-unitsSeg.r empty 10 -8
+0 10 -1 -260097 -262144 1;
+#X obj 28 39 nbx 3 14 -1e+037 1e+037 0 0 \$0-uniformLength \$0-uniformLength.r
+chop/ms 37 7 0 10 -1 -260097 -262144 100 256;
+#X obj 28 55 nbx 3 14 -1e+037 1e+037 0 0 \$0-onsetThresh \$0-onsetThresh.r
+onset/tresh 37 7 0 10 -1 -260097 -262144 5 256;
+#X obj 174 55 nbx 4 14 0 9999 0 0 \$0-clusterThreshTimbre \$0-clusterThreshTimbre.r
+thresh 45 6 0 10 -1 -260097 -262144 0.4 256;
+#X obj 174 71 bng 15 250 50 0 \$0-clusterRunTimbre empty run 0 7 0
+10 -1 -1 -260097;
+#X obj 120 168 nbx 3 14 10 2000 0 0 \$0-density \$0-density.r density
+45 7 0 10 -1 -260097 -262144 25 256;
+#X obj 120 200 nbx 3 14 0 1 0 0 \$0-pan \$0-pan.r pan 45 6 0 10 -1
+-260097 -262144 0.5 256;
+#X obj 120 216 nbx 3 14 0 100 0 0 \$0-rndPan \$0-rndPan.r %panDev 45
+6 0 10 -1 -260097 -262144 50 256;
+#X obj 120 184 nbx 3 14 0 100 0 0 \$0-rndPosition \$0-rndPosition.r
+%posDev 45 6 0 10 -1 -260097 -262144 4 256;
+#X obj 45 71 cnv 15 15 15 empty empty beat 20 7 0 10 -1 -262144 0;
+#X obj 45 88 cnv 15 15 15 empty empty importBeat 20 7 0 10 -1 -262144
+0;
+#X obj 120 144 cnv 15 15 15 empty empty ::spaceMap:: 8 7 0 10 -1 -262144
+0;
+#X obj 150 15 cnv 15 15 15 empty empty ::clusterTimbre:: 10 7 0 10
+-1 -262144 0;
+#X obj 6 144 cnv 15 15 15 empty empty ::infinite:: 8 7 0 10 -1 -262144
+0;
+#X obj 4 15 cnv 15 15 15 empty empty ::segmentation:: 15 7 0 10 -1
+-262144 0;
+#X obj 174 39 nbx 4 14 0 100 0 0 \$0-minNrClusterTimbre \$0-minNrClusterTimbre.r
+minNr 45 6 0 10 -1 -260097 -262144 4 256;
+#X obj 10 169 nbx 3 14 0 100 0 0 \$0-infiniteProb \$0-infiniteProb.r
+prob 35 6 0 10 -1 -260097 -262144 40 256;
+#X obj 10 185 nbx 2 14 1 32 0 0 \$0-infiniteMeter \$0-infiniteMeter.r
+meter 35 6 0 10 -1 -260097 -262144 1 256;
+#X obj 10 218 bng 15 250 50 0 \$0-infiniteRun empty run 0 7 0 10 -1
+-1 -260097;
+#X obj 304 55 nbx 4 14 0 5000 0 0 \$0-clusterThreshHarm \$0-clusterThreshHarm.r
+thresh 45 6 0 10 -1 -260097 -262144 0.8 256;
+#X obj 304 71 bng 15 250 50 0 \$0-clusterRunHarm empty run 0 7 0 10
+-1 -1 -260097;
+#X obj 289 15 cnv 15 15 15 empty empty ::clusterHarm:: 10 7 0 10 -1
+-262144 0;
+#X obj 304 39 nbx 4 14 0 100 0 0 \$0-minNrClusterHarm \$0-minNrClusterHarm.r
+minNr 45 6 0 10 -1 -260097 -262144 4 256;
+#X obj 10 201 tgl 15 0 \$0-metricViewpoint \$0-metricViewpoint.r M
+5 8 0 10 -1 -260097 -262144 1 1;
+#X obj 30 201 tgl 15 0 \$0-harmonicViewpoint \$0-harmonicViewpoint.r
+H 5 8 0 10 -1 -260097 -262144 1 1;
+#X obj 50 201 tgl 15 0 \$0-timbricViewpoint \$0-timbricViewpoint.r
+T 5 8 0 10 -1 -260097 -262144 1 1;
+#N canvas 270 247 971 511 \$0-euclidInterface8 0;
+#X obj 100 100 cnv 15 175 177 empty empty ::EuclidSequencer:: 27 9
+0 10 -1 -262144 0;
+#X obj 207 159 nbx 2 14 0 99 0 0 empty empty hits -2 -8 0 10 -1 -258113
+-262144 0 256;
+#X obj 242 159 nbx 2 14 0 99 0 0 empty empty offset -5 -8 0 10 -1 -258113
+-262144 0 256;
+#X obj 207 173 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -257985
+-1 0 256;
+#X obj 242 173 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -257985
+-1 0 256;
+#X obj 207 187 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -4160
+-1 0 256;
+#X obj 242 187 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -4160
+-1 0 256;
+#X obj 207 201 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -4034
+-1 0 256;
+#X obj 242 201 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -4034
+-1 0 256;
+#X obj 207 215 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -4032
+-1 0 256;
+#X obj 242 215 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -4032
+-1 0 256;
+#X obj 207 229 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -253999
+-1 0 256;
+#X obj 242 229 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -253999
+-1 0 256;
+#X obj 207 243 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -260097
+-1 0 256;
+#X obj 242 243 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -260097
+-1 0 256;
+#X obj 207 257 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -159808
+-1 0 256;
+#X obj 242 257 nbx 2 14 0 99 0 0 empty empty empty 0 -8 0 10 -1 -159808
+-1 0 256;
+#N canvas 0 23 450 300 \$0-euclidPlot 0;
+#X coords -50 -50 50 50 100 100 1 100 100;
+#X restore 105 171 pd \$0-euclidPlot;
+#N canvas 308 427 359 184 red 0;
+#X obj 19 20 inlet;
+#X obj 59 20 inlet;
+#X obj 99 40 t b f;
+#X obj 19 100 pack f f f;
+#X obj 59 40 t b f;
+#N canvas 462 23 447 497 draw 0;
+#X obj 38 12 inlet;
+#X obj 184 70 unpack f f f;
+#X obj 147 174 +;
+#X obj 147 193 *;
+#X obj 147 214 %;
+#X obj 147 234 <;
+#X obj 147 112 until;
+#X obj 147 90 f;
+#X obj 147 132 f;
+#X obj 174 132 + 1;
+#X obj 221 117 0;
+#X obj 147 152 t f f;
+#X obj 301 253 expr 360/$f1;
+#X obj 246 288 *;
+#N canvas 0 23 450 300 poltocar 0;
+#X text 294 141 x=r*cos(phi);
+#X text 295 156 y=r*sin(phi);
+#X obj 99 82 inlet r;
+#X obj 179 82 inlet phi;
+#X obj 82 331 outlet x;
+#X obj 179 331 outlet y;
+#X obj 156 153 t f f;
+#X obj 156 177 cos;
+#X obj 186 177 sin;
+#X obj 82 201 t f f;
+#X obj 82 237 * 1;
+#X obj 112 236 * 0;
+#X text 63 26 convert polar to cartesian coordinates;
+#X text 341 8 part of zexy;
+#X obj 99 105 pack f f;
+#X obj 99 125 unpack 0 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 1 6 0;
+#X restore 246 327 pd poltocar;
+#X obj 147 254 sel 1;
+#X obj 147 273 f;
+#X obj 246 307 swap 50;
+#X obj 246 347 pack;
+#X obj 246 368 list prepend;
+#X obj 344 382 t l;
+#X obj 74 383 list;
+#X obj 301 273 expr $f1*3.14159/180;
+#N canvas 0 23 450 300 once 0;
+#X obj 99 172 spigot;
+#X obj 44 69 inlet;
+#X obj 99 121 t a b;
+#X obj 136 150 f 1;
+#X obj 99 204 t a b;
+#X obj 129 226 f 0;
+#X obj 99 257 outlet;
+#X obj 217 66 inlet;
+#X obj 217 89 bang;
+#X obj 217 112 f 1;
+#X text 18 16 once;
+#X text 74 17 only the first message passes through;
+#X text 39 47 message in;
+#X text 39 299 message out (only once);
+#X text 213 46 anything to init once;
+#X obj 44 90 route bang;
+#X obj 44 120 t b b;
+#X obj 44 172 spigot;
+#X obj 44 204 t b b;
+#X text 106 385 IEM KUG;
+#X text 90 373 musil;
+#X text 120 373 @;
+#X text 126 373 iem.at;
+#X text 41 362 (c) Thomas Musil 2000 - 2005;
+#X text 89 395 Graz \, Austria;
+#X text 112 346 @;
+#X text 118 346 iem.at;
+#X text 40 346 (c) zmoelnig;
+#X connect 0 0 4 0;
+#X connect 1 0 15 0;
+#X connect 2 0 0 0;
+#X connect 2 1 3 0;
+#X connect 3 0 0 1;
+#X connect 3 0 17 1;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 1;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 3 1;
+#X connect 15 0 16 0;
+#X connect 15 1 2 0;
+#X connect 16 0 17 0;
+#X connect 16 1 3 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 18 1 5 0;
+#X restore 147 294 pd once;
+#X obj 246 267 f;
+#X obj 38 42 t b b b b l b, f 31;
+#X obj 38 448 s \$0-updateEuclidPlot;
+#X obj 74 403 list prepend 900;
+#X obj 74 424 text set \$0-euclidPolygons 0;
+#X connect 0 0 25 0;
+#X connect 1 0 3 1;
+#X connect 1 0 5 1;
+#X connect 1 1 2 1;
+#X connect 1 2 4 1;
+#X connect 1 2 7 1;
+#X connect 1 2 12 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 2 0;
+#X connect 11 1 16 1;
+#X connect 12 0 22 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 14 1 18 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 16 0 23 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 1;
+#X connect 20 0 19 1;
+#X connect 21 0 27 0;
+#X connect 22 0 13 1;
+#X connect 23 0 24 1;
+#X connect 24 0 13 0;
+#X connect 25 0 26 0;
+#X connect 25 1 21 0;
+#X connect 25 2 24 0;
+#X connect 25 3 7 0;
+#X connect 25 4 1 0;
+#X connect 25 5 10 0;
+#X connect 25 5 19 1;
+#X connect 25 5 23 1;
+#X connect 27 0 28 0;
+#X restore 247 115 pd draw;
+#X obj 99 20 r \$0-nrSeqPulses;
+#X obj 19 121 text set \$0-euclidPresets 0;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 2;
+#X connect 3 0 5 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 6 0 2 0;
+#X restore 338 173 pd red;
+#X obj 729 308 pointer;
+#X obj 486 116 t b b b;
+#N canvas 73 23 450 300 templat-euclidPolygon 0;
+#X obj 7 21 struct \$0-euclidPolygon float color float a float b float
+c float d;
+#X obj 7 57 drawpolygon color 2 a b c d;
+#X restore 486 346 pd templat-euclidPolygon;
+#X msg 729 131 clear;
+#X obj 729 268 \$0;
+#X msg 729 288 traverse pd-\$1-euclidPlot \, bang;
+#N canvas 0 23 258 235 groupCoords 0;
+#X obj 39 18 inlet;
+#X obj 39 38 list split 4;
+#X obj 66 174 outlet;
+#X obj 39 58 t l l;
+#X obj 79 101 list split 2;
+#X obj 113 121 list;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 1 1 5 1;
+#X connect 3 0 4 0;
+#X connect 3 1 2 0;
+#X connect 4 1 5 0;
+#X connect 5 0 1 0;
+#X restore 486 279 pd groupCoords;
+#X obj 486 156 until;
+#X obj 486 176 f;
+#X obj 516 176 + 1;
+#X obj 615 161 0;
+#X obj 486 323 append \$0-euclidPolygon color a b c d;
+#X obj 729 151 s pd-\$0-euclidPlot;
+#X obj 486 217 list split 1;
+#X obj 486 301 list prepend;
+#X obj 486 237 t b f;
+#X obj 486 257 list;
+#N canvas 308 427 359 184 yellow 0;
+#X obj 19 20 inlet;
+#X obj 59 20 inlet;
+#X obj 99 40 t b f;
+#X obj 19 100 pack f f f;
+#X obj 59 40 t b f;
+#N canvas 462 23 447 497 draw 0;
+#X obj 38 12 inlet;
+#X obj 184 70 unpack f f f;
+#X obj 147 174 +;
+#X obj 147 193 *;
+#X obj 147 214 %;
+#X obj 147 234 <;
+#X obj 147 112 until;
+#X obj 147 90 f;
+#X obj 147 132 f;
+#X obj 174 132 + 1;
+#X obj 221 117 0;
+#X obj 147 152 t f f;
+#X obj 301 253 expr 360/$f1;
+#X obj 246 288 *;
+#N canvas 0 23 450 300 poltocar 0;
+#X text 294 141 x=r*cos(phi);
+#X text 295 156 y=r*sin(phi);
+#X obj 99 82 inlet r;
+#X obj 179 82 inlet phi;
+#X obj 82 331 outlet x;
+#X obj 179 331 outlet y;
+#X obj 156 153 t f f;
+#X obj 156 177 cos;
+#X obj 186 177 sin;
+#X obj 82 201 t f f;
+#X obj 82 237 * 1;
+#X obj 112 236 * 0;
+#X text 63 26 convert polar to cartesian coordinates;
+#X text 341 8 part of zexy;
+#X obj 99 105 pack f f;
+#X obj 99 125 unpack 0 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 1 6 0;
+#X restore 246 327 pd poltocar;
+#X obj 147 254 sel 1;
+#X obj 147 273 f;
+#X obj 246 307 swap 50;
+#X obj 246 347 pack;
+#X obj 246 368 list prepend;
+#X obj 344 382 t l;
+#X obj 74 383 list;
+#X obj 301 273 expr $f1*3.14159/180;
+#N canvas 0 23 450 300 once 0;
+#X obj 99 172 spigot;
+#X obj 44 69 inlet;
+#X obj 99 121 t a b;
+#X obj 136 150 f 1;
+#X obj 99 204 t a b;
+#X obj 129 226 f 0;
+#X obj 99 257 outlet;
+#X obj 217 66 inlet;
+#X obj 217 89 bang;
+#X obj 217 112 f 1;
+#X text 18 16 once;
+#X text 74 17 only the first message passes through;
+#X text 39 47 message in;
+#X text 39 299 message out (only once);
+#X text 213 46 anything to init once;
+#X obj 44 90 route bang;
+#X obj 44 120 t b b;
+#X obj 44 172 spigot;
+#X obj 44 204 t b b;
+#X text 106 385 IEM KUG;
+#X text 90 373 musil;
+#X text 120 373 @;
+#X text 126 373 iem.at;
+#X text 41 362 (c) Thomas Musil 2000 - 2005;
+#X text 89 395 Graz \, Austria;
+#X text 112 346 @;
+#X text 118 346 iem.at;
+#X text 40 346 (c) zmoelnig;
+#X connect 0 0 4 0;
+#X connect 1 0 15 0;
+#X connect 2 0 0 0;
+#X connect 2 1 3 0;
+#X connect 3 0 0 1;
+#X connect 3 0 17 1;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 1;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 3 1;
+#X connect 15 0 16 0;
+#X connect 15 1 2 0;
+#X connect 16 0 17 0;
+#X connect 16 1 3 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 18 1 5 0;
+#X restore 147 294 pd once;
+#X obj 246 267 f;
+#X obj 38 42 t b b b b l b, f 31;
+#X obj 38 448 s \$0-updateEuclidPlot;
+#X obj 74 403 list prepend 990;
+#X obj 74 424 text set \$0-euclidPolygons 1;
+#X connect 0 0 25 0;
+#X connect 1 0 3 1;
+#X connect 1 0 5 1;
+#X connect 1 1 2 1;
+#X connect 1 2 4 1;
+#X connect 1 2 7 1;
+#X connect 1 2 12 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 2 0;
+#X connect 11 1 16 1;
+#X connect 12 0 22 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 14 1 18 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 16 0 23 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 1;
+#X connect 20 0 19 1;
+#X connect 21 0 27 0;
+#X connect 22 0 13 1;
+#X connect 23 0 24 1;
+#X connect 24 0 13 0;
+#X connect 25 0 26 0;
+#X connect 25 1 21 0;
+#X connect 25 2 24 0;
+#X connect 25 3 7 0;
+#X connect 25 4 1 0;
+#X connect 25 5 10 0;
+#X connect 25 5 19 1;
+#X connect 25 5 23 1;
+#X connect 27 0 28 0;
+#X restore 247 115 pd draw;
+#X obj 99 20 r \$0-nrSeqPulses;
+#X obj 19 121 text set \$0-euclidPresets 1;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 2;
+#X connect 3 0 5 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 6 0 2 0;
+#X restore 403 187 pd yellow;
+#X obj 486 96 r \$0-updateEuclidPlot;
+#N canvas 308 427 359 184 dBlue 0;
+#X obj 19 20 inlet;
+#X obj 59 20 inlet;
+#X obj 99 40 t b f;
+#X obj 19 100 pack f f f;
+#X obj 59 40 t b f;
+#N canvas 462 23 447 497 draw 0;
+#X obj 38 12 inlet;
+#X obj 184 70 unpack f f f;
+#X obj 147 174 +;
+#X obj 147 193 *;
+#X obj 147 214 %;
+#X obj 147 234 <;
+#X obj 147 112 until;
+#X obj 147 90 f;
+#X obj 147 132 f;
+#X obj 174 132 + 1;
+#X obj 221 117 0;
+#X obj 147 152 t f f;
+#X obj 301 253 expr 360/$f1;
+#X obj 246 288 *;
+#N canvas 0 23 450 300 poltocar 0;
+#X text 294 141 x=r*cos(phi);
+#X text 295 156 y=r*sin(phi);
+#X obj 99 82 inlet r;
+#X obj 179 82 inlet phi;
+#X obj 82 331 outlet x;
+#X obj 179 331 outlet y;
+#X obj 156 153 t f f;
+#X obj 156 177 cos;
+#X obj 186 177 sin;
+#X obj 82 201 t f f;
+#X obj 82 237 * 1;
+#X obj 112 236 * 0;
+#X text 63 26 convert polar to cartesian coordinates;
+#X text 341 8 part of zexy;
+#X obj 99 105 pack f f;
+#X obj 99 125 unpack 0 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 1 6 0;
+#X restore 246 327 pd poltocar;
+#X obj 147 254 sel 1;
+#X obj 147 273 f;
+#X obj 246 307 swap 50;
+#X obj 246 347 pack;
+#X obj 246 368 list prepend;
+#X obj 344 382 t l;
+#X obj 74 383 list;
+#X obj 301 273 expr $f1*3.14159/180;
+#N canvas 0 23 450 300 once 0;
+#X obj 99 172 spigot;
+#X obj 44 69 inlet;
+#X obj 99 121 t a b;
+#X obj 136 150 f 1;
+#X obj 99 204 t a b;
+#X obj 129 226 f 0;
+#X obj 99 257 outlet;
+#X obj 217 66 inlet;
+#X obj 217 89 bang;
+#X obj 217 112 f 1;
+#X text 18 16 once;
+#X text 74 17 only the first message passes through;
+#X text 39 47 message in;
+#X text 39 299 message out (only once);
+#X text 213 46 anything to init once;
+#X obj 44 90 route bang;
+#X obj 44 120 t b b;
+#X obj 44 172 spigot;
+#X obj 44 204 t b b;
+#X text 106 385 IEM KUG;
+#X text 90 373 musil;
+#X text 120 373 @;
+#X text 126 373 iem.at;
+#X text 41 362 (c) Thomas Musil 2000 - 2005;
+#X text 89 395 Graz \, Austria;
+#X text 112 346 @;
+#X text 118 346 iem.at;
+#X text 40 346 (c) zmoelnig;
+#X connect 0 0 4 0;
+#X connect 1 0 15 0;
+#X connect 2 0 0 0;
+#X connect 2 1 3 0;
+#X connect 3 0 0 1;
+#X connect 3 0 17 1;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 1;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 3 1;
+#X connect 15 0 16 0;
+#X connect 15 1 2 0;
+#X connect 16 0 17 0;
+#X connect 16 1 3 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 18 1 5 0;
+#X restore 147 294 pd once;
+#X obj 246 267 f;
+#X obj 38 42 t b b b b l b, f 31;
+#X obj 38 448 s \$0-updateEuclidPlot;
+#X obj 74 403 list prepend 209;
+#X obj 74 424 text set \$0-euclidPolygons 2;
+#X connect 0 0 25 0;
+#X connect 1 0 3 1;
+#X connect 1 0 5 1;
+#X connect 1 1 2 1;
+#X connect 1 2 4 1;
+#X connect 1 2 7 1;
+#X connect 1 2 12 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 2 0;
+#X connect 11 1 16 1;
+#X connect 12 0 22 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 14 1 18 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 16 0 23 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 1;
+#X connect 20 0 19 1;
+#X connect 21 0 27 0;
+#X connect 22 0 13 1;
+#X connect 23 0 24 1;
+#X connect 24 0 13 0;
+#X connect 25 0 26 0;
+#X connect 25 1 21 0;
+#X connect 25 2 24 0;
+#X connect 25 3 7 0;
+#X connect 25 4 1 0;
+#X connect 25 5 10 0;
+#X connect 25 5 19 1;
+#X connect 25 5 23 1;
+#X connect 27 0 28 0;
+#X restore 247 115 pd draw;
+#X obj 99 20 r \$0-nrSeqPulses;
+#X obj 19 121 text set \$0-euclidPresets 2;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 2;
+#X connect 3 0 5 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 6 0 2 0;
+#X restore 338 201 pd dBlue;
+#N canvas 308 427 359 184 green 0;
+#X obj 19 20 inlet;
+#X obj 59 20 inlet;
+#X obj 99 40 t b f;
+#X obj 19 100 pack f f f;
+#X obj 59 40 t b f;
+#N canvas 462 23 447 497 draw 0;
+#X obj 38 12 inlet;
+#X obj 184 70 unpack f f f;
+#X obj 147 174 +;
+#X obj 147 193 *;
+#X obj 147 214 %;
+#X obj 147 234 <;
+#X obj 147 112 until;
+#X obj 147 90 f;
+#X obj 147 132 f;
+#X obj 174 132 + 1;
+#X obj 221 117 0;
+#X obj 147 152 t f f;
+#X obj 301 253 expr 360/$f1;
+#X obj 246 288 *;
+#N canvas 0 23 450 300 poltocar 0;
+#X text 294 141 x=r*cos(phi);
+#X text 295 156 y=r*sin(phi);
+#X obj 99 82 inlet r;
+#X obj 179 82 inlet phi;
+#X obj 82 331 outlet x;
+#X obj 179 331 outlet y;
+#X obj 156 153 t f f;
+#X obj 156 177 cos;
+#X obj 186 177 sin;
+#X obj 82 201 t f f;
+#X obj 82 237 * 1;
+#X obj 112 236 * 0;
+#X text 63 26 convert polar to cartesian coordinates;
+#X text 341 8 part of zexy;
+#X obj 99 105 pack f f;
+#X obj 99 125 unpack 0 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 1 6 0;
+#X restore 246 327 pd poltocar;
+#X obj 147 254 sel 1;
+#X obj 147 273 f;
+#X obj 246 307 swap 50;
+#X obj 246 347 pack;
+#X obj 246 368 list prepend;
+#X obj 344 382 t l;
+#X obj 74 383 list;
+#X obj 301 273 expr $f1*3.14159/180;
+#N canvas 0 23 450 300 once 0;
+#X obj 99 172 spigot;
+#X obj 44 69 inlet;
+#X obj 99 121 t a b;
+#X obj 136 150 f 1;
+#X obj 99 204 t a b;
+#X obj 129 226 f 0;
+#X obj 99 257 outlet;
+#X obj 217 66 inlet;
+#X obj 217 89 bang;
+#X obj 217 112 f 1;
+#X text 18 16 once;
+#X text 74 17 only the first message passes through;
+#X text 39 47 message in;
+#X text 39 299 message out (only once);
+#X text 213 46 anything to init once;
+#X obj 44 90 route bang;
+#X obj 44 120 t b b;
+#X obj 44 172 spigot;
+#X obj 44 204 t b b;
+#X text 106 385 IEM KUG;
+#X text 90 373 musil;
+#X text 120 373 @;
+#X text 126 373 iem.at;
+#X text 41 362 (c) Thomas Musil 2000 - 2005;
+#X text 89 395 Graz \, Austria;
+#X text 112 346 @;
+#X text 118 346 iem.at;
+#X text 40 346 (c) zmoelnig;
+#X connect 0 0 4 0;
+#X connect 1 0 15 0;
+#X connect 2 0 0 0;
+#X connect 2 1 3 0;
+#X connect 3 0 0 1;
+#X connect 3 0 17 1;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 1;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 3 1;
+#X connect 15 0 16 0;
+#X connect 15 1 2 0;
+#X connect 16 0 17 0;
+#X connect 16 1 3 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 18 1 5 0;
+#X restore 147 294 pd once;
+#X obj 246 267 f;
+#X obj 38 42 t b b b b l b, f 31;
+#X obj 38 448 s \$0-updateEuclidPlot;
+#X obj 74 403 list prepend 90;
+#X obj 74 424 text set \$0-euclidPolygons 3;
+#X connect 0 0 25 0;
+#X connect 1 0 3 1;
+#X connect 1 0 5 1;
+#X connect 1 1 2 1;
+#X connect 1 2 4 1;
+#X connect 1 2 7 1;
+#X connect 1 2 12 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 2 0;
+#X connect 11 1 16 1;
+#X connect 12 0 22 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 14 1 18 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 16 0 23 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 1;
+#X connect 20 0 19 1;
+#X connect 21 0 27 0;
+#X connect 22 0 13 1;
+#X connect 23 0 24 1;
+#X connect 24 0 13 0;
+#X connect 25 0 26 0;
+#X connect 25 1 21 0;
+#X connect 25 2 24 0;
+#X connect 25 3 7 0;
+#X connect 25 4 1 0;
+#X connect 25 5 10 0;
+#X connect 25 5 19 1;
+#X connect 25 5 23 1;
+#X connect 27 0 28 0;
+#X restore 247 115 pd draw;
+#X obj 99 20 r \$0-nrSeqPulses;
+#X obj 19 121 text set \$0-euclidPresets 3;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 2;
+#X connect 3 0 5 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 6 0 2 0;
+#X restore 403 215 pd green;
+#N canvas 308 427 359 184 lBlue 0;
+#X obj 19 20 inlet;
+#X obj 59 20 inlet;
+#X obj 99 40 t b f;
+#X obj 19 100 pack f f f;
+#X obj 59 40 t b f;
+#N canvas 767 23 447 497 draw 0;
+#X obj 38 12 inlet;
+#X obj 184 70 unpack f f f;
+#X obj 147 174 +;
+#X obj 147 193 *;
+#X obj 147 214 %;
+#X obj 147 234 <;
+#X obj 147 112 until;
+#X obj 147 90 f;
+#X obj 147 132 f;
+#X obj 174 132 + 1;
+#X obj 221 117 0;
+#X obj 147 152 t f f;
+#X obj 301 253 expr 360/$f1;
+#X obj 246 288 *;
+#N canvas 0 23 450 300 poltocar 0;
+#X text 294 141 x=r*cos(phi);
+#X text 295 156 y=r*sin(phi);
+#X obj 99 82 inlet r;
+#X obj 179 82 inlet phi;
+#X obj 82 331 outlet x;
+#X obj 179 331 outlet y;
+#X obj 156 153 t f f;
+#X obj 156 177 cos;
+#X obj 186 177 sin;
+#X obj 82 201 t f f;
+#X obj 82 237 * 1;
+#X obj 112 236 * 0;
+#X text 63 26 convert polar to cartesian coordinates;
+#X text 341 8 part of zexy;
+#X obj 99 105 pack f f;
+#X obj 99 125 unpack 0 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 1 6 0;
+#X restore 246 327 pd poltocar;
+#X obj 147 254 sel 1;
+#X obj 147 273 f;
+#X obj 246 307 swap 50;
+#X obj 246 347 pack;
+#X obj 246 368 list prepend;
+#X obj 344 382 t l;
+#X obj 74 383 list;
+#X obj 301 273 expr $f1*3.14159/180;
+#N canvas 0 23 450 300 once 0;
+#X obj 99 172 spigot;
+#X obj 44 69 inlet;
+#X obj 99 121 t a b;
+#X obj 136 150 f 1;
+#X obj 99 204 t a b;
+#X obj 129 226 f 0;
+#X obj 99 257 outlet;
+#X obj 217 66 inlet;
+#X obj 217 89 bang;
+#X obj 217 112 f 1;
+#X text 18 16 once;
+#X text 74 17 only the first message passes through;
+#X text 39 47 message in;
+#X text 39 299 message out (only once);
+#X text 213 46 anything to init once;
+#X obj 44 90 route bang;
+#X obj 44 120 t b b;
+#X obj 44 172 spigot;
+#X obj 44 204 t b b;
+#X text 106 385 IEM KUG;
+#X text 90 373 musil;
+#X text 120 373 @;
+#X text 126 373 iem.at;
+#X text 41 362 (c) Thomas Musil 2000 - 2005;
+#X text 89 395 Graz \, Austria;
+#X text 112 346 @;
+#X text 118 346 iem.at;
+#X text 40 346 (c) zmoelnig;
+#X connect 0 0 4 0;
+#X connect 1 0 15 0;
+#X connect 2 0 0 0;
+#X connect 2 1 3 0;
+#X connect 3 0 0 1;
+#X connect 3 0 17 1;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 1;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 3 1;
+#X connect 15 0 16 0;
+#X connect 15 1 2 0;
+#X connect 16 0 17 0;
+#X connect 16 1 3 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 18 1 5 0;
+#X restore 147 294 pd once;
+#X obj 246 267 f;
+#X obj 38 42 t b b b b l b, f 31;
+#X obj 38 448 s \$0-updateEuclidPlot;
+#X obj 74 403 list prepend 88;
+#X obj 74 424 text set \$0-euclidPolygons 4;
+#X connect 0 0 25 0;
+#X connect 1 0 3 1;
+#X connect 1 0 5 1;
+#X connect 1 1 2 1;
+#X connect 1 2 4 1;
+#X connect 1 2 7 1;
+#X connect 1 2 12 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 2 0;
+#X connect 11 1 16 1;
+#X connect 12 0 22 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 14 1 18 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 16 0 23 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 1;
+#X connect 20 0 19 1;
+#X connect 21 0 27 0;
+#X connect 22 0 13 1;
+#X connect 23 0 24 1;
+#X connect 24 0 13 0;
+#X connect 25 0 26 0;
+#X connect 25 1 21 0;
+#X connect 25 2 24 0;
+#X connect 25 3 7 0;
+#X connect 25 4 1 0;
+#X connect 25 5 10 0;
+#X connect 25 5 19 1;
+#X connect 25 5 23 1;
+#X connect 27 0 28 0;
+#X restore 247 115 pd draw;
+#X obj 99 20 r \$0-nrSeqPulses;
+#X obj 19 121 text set \$0-euclidPresets 4;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 2;
+#X connect 3 0 5 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 6 0 2 0;
+#X restore 338 229 pd lBlue;
+#N canvas 308 427 359 184 purple 0;
+#X obj 19 20 inlet;
+#X obj 59 20 inlet;
+#X obj 99 40 t b f;
+#X obj 19 100 pack f f f;
+#X obj 59 40 t b f;
+#N canvas 404 167 447 497 draw 0;
+#X obj 38 12 inlet;
+#X obj 184 70 unpack f f f;
+#X obj 147 174 +;
+#X obj 147 193 *;
+#X obj 147 214 %;
+#X obj 147 234 <;
+#X obj 147 112 until;
+#X obj 147 90 f;
+#X obj 147 132 f;
+#X obj 174 132 + 1;
+#X obj 221 117 0;
+#X obj 147 152 t f f;
+#X obj 301 253 expr 360/$f1;
+#X obj 246 288 *;
+#N canvas 0 23 450 300 poltocar 0;
+#X text 294 141 x=r*cos(phi);
+#X text 295 156 y=r*sin(phi);
+#X obj 99 82 inlet r;
+#X obj 179 82 inlet phi;
+#X obj 82 331 outlet x;
+#X obj 179 331 outlet y;
+#X obj 156 153 t f f;
+#X obj 156 177 cos;
+#X obj 186 177 sin;
+#X obj 82 201 t f f;
+#X obj 82 237 * 1;
+#X obj 112 236 * 0;
+#X text 63 26 convert polar to cartesian coordinates;
+#X text 341 8 part of zexy;
+#X obj 99 105 pack f f;
+#X obj 99 125 unpack 0 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 1 6 0;
+#X restore 246 327 pd poltocar;
+#X obj 147 254 sel 1;
+#X obj 147 273 f;
+#X obj 246 307 swap 50;
+#X obj 246 347 pack;
+#X obj 246 368 list prepend;
+#X obj 344 382 t l;
+#X obj 74 383 list;
+#X obj 301 273 expr $f1*3.14159/180;
+#N canvas 0 23 450 300 once 0;
+#X obj 99 172 spigot;
+#X obj 44 69 inlet;
+#X obj 99 121 t a b;
+#X obj 136 150 f 1;
+#X obj 99 204 t a b;
+#X obj 129 226 f 0;
+#X obj 99 257 outlet;
+#X obj 217 66 inlet;
+#X obj 217 89 bang;
+#X obj 217 112 f 1;
+#X text 18 16 once;
+#X text 74 17 only the first message passes through;
+#X text 39 47 message in;
+#X text 39 299 message out (only once);
+#X text 213 46 anything to init once;
+#X obj 44 90 route bang;
+#X obj 44 120 t b b;
+#X obj 44 172 spigot;
+#X obj 44 204 t b b;
+#X text 106 385 IEM KUG;
+#X text 90 373 musil;
+#X text 120 373 @;
+#X text 126 373 iem.at;
+#X text 41 362 (c) Thomas Musil 2000 - 2005;
+#X text 89 395 Graz \, Austria;
+#X text 112 346 @;
+#X text 118 346 iem.at;
+#X text 40 346 (c) zmoelnig;
+#X connect 0 0 4 0;
+#X connect 1 0 15 0;
+#X connect 2 0 0 0;
+#X connect 2 1 3 0;
+#X connect 3 0 0 1;
+#X connect 3 0 17 1;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 1;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 3 1;
+#X connect 15 0 16 0;
+#X connect 15 1 2 0;
+#X connect 16 0 17 0;
+#X connect 16 1 3 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 18 1 5 0;
+#X restore 147 294 pd once;
+#X obj 246 267 f;
+#X obj 38 42 t b b b b l b, f 31;
+#X obj 38 448 s \$0-updateEuclidPlot;
+#X obj 74 403 list prepend 306;
+#X obj 74 424 text set \$0-euclidPolygons 7;
+#X connect 0 0 25 0;
+#X connect 1 0 3 1;
+#X connect 1 0 5 1;
+#X connect 1 1 2 1;
+#X connect 1 2 4 1;
+#X connect 1 2 7 1;
+#X connect 1 2 12 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 2 0;
+#X connect 11 1 16 1;
+#X connect 12 0 22 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 14 1 18 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 16 0 23 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 1;
+#X connect 20 0 19 1;
+#X connect 21 0 27 0;
+#X connect 22 0 13 1;
+#X connect 23 0 24 1;
+#X connect 24 0 13 0;
+#X connect 25 0 26 0;
+#X connect 25 1 21 0;
+#X connect 25 2 24 0;
+#X connect 25 3 7 0;
+#X connect 25 4 1 0;
+#X connect 25 5 10 0;
+#X connect 25 5 19 1;
+#X connect 25 5 23 1;
+#X connect 27 0 28 0;
+#X restore 247 115 pd draw;
+#X obj 99 20 r \$0-nrSeqPulses;
+#X obj 19 121 text set \$0-euclidPresets 7;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 2;
+#X connect 3 0 5 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 6 0 2 0;
+#X restore 403 271 pd purple;
+#N canvas 308 427 359 184 pink 0;
+#X obj 19 20 inlet;
+#X obj 59 20 inlet;
+#X obj 99 40 t b f;
+#X obj 19 100 pack f f f;
+#X obj 59 40 t b f;
+#N canvas 462 23 447 497 draw 0;
+#X obj 38 12 inlet;
+#X obj 184 70 unpack f f f;
+#X obj 147 174 +;
+#X obj 147 193 *;
+#X obj 147 214 %;
+#X obj 147 234 <;
+#X obj 147 112 until;
+#X obj 147 90 f;
+#X obj 147 132 f;
+#X obj 174 132 + 1;
+#X obj 221 117 0;
+#X obj 147 152 t f f;
+#X obj 301 253 expr 360/$f1;
+#X obj 246 288 *;
+#N canvas 0 23 450 300 poltocar 0;
+#X text 294 141 x=r*cos(phi);
+#X text 295 156 y=r*sin(phi);
+#X obj 99 82 inlet r;
+#X obj 179 82 inlet phi;
+#X obj 82 331 outlet x;
+#X obj 179 331 outlet y;
+#X obj 156 153 t f f;
+#X obj 156 177 cos;
+#X obj 186 177 sin;
+#X obj 82 201 t f f;
+#X obj 82 237 * 1;
+#X obj 112 236 * 0;
+#X text 63 26 convert polar to cartesian coordinates;
+#X text 341 8 part of zexy;
+#X obj 99 105 pack f f;
+#X obj 99 125 unpack 0 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 1 6 0;
+#X restore 246 327 pd poltocar;
+#X obj 147 254 sel 1;
+#X obj 147 273 f;
+#X obj 246 307 swap 50;
+#X obj 246 347 pack;
+#X obj 246 368 list prepend;
+#X obj 344 382 t l;
+#X obj 74 383 list;
+#X obj 301 273 expr $f1*3.14159/180;
+#N canvas 0 23 450 300 once 0;
+#X obj 99 172 spigot;
+#X obj 44 69 inlet;
+#X obj 99 121 t a b;
+#X obj 136 150 f 1;
+#X obj 99 204 t a b;
+#X obj 129 226 f 0;
+#X obj 99 257 outlet;
+#X obj 217 66 inlet;
+#X obj 217 89 bang;
+#X obj 217 112 f 1;
+#X text 18 16 once;
+#X text 74 17 only the first message passes through;
+#X text 39 47 message in;
+#X text 39 299 message out (only once);
+#X text 213 46 anything to init once;
+#X obj 44 90 route bang;
+#X obj 44 120 t b b;
+#X obj 44 172 spigot;
+#X obj 44 204 t b b;
+#X text 106 385 IEM KUG;
+#X text 90 373 musil;
+#X text 120 373 @;
+#X text 126 373 iem.at;
+#X text 41 362 (c) Thomas Musil 2000 - 2005;
+#X text 89 395 Graz \, Austria;
+#X text 112 346 @;
+#X text 118 346 iem.at;
+#X text 40 346 (c) zmoelnig;
+#X connect 0 0 4 0;
+#X connect 1 0 15 0;
+#X connect 2 0 0 0;
+#X connect 2 1 3 0;
+#X connect 3 0 0 1;
+#X connect 3 0 17 1;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 1;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 3 1;
+#X connect 15 0 16 0;
+#X connect 15 1 2 0;
+#X connect 16 0 17 0;
+#X connect 16 1 3 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 18 1 5 0;
+#X restore 147 294 pd once;
+#X obj 246 267 f;
+#X obj 38 42 t b b b b l b, f 31;
+#X obj 38 448 s \$0-updateEuclidPlot;
+#X obj 74 403 list prepend 838;
+#X obj 74 424 text set \$0-euclidPolygons 5;
+#X connect 0 0 25 0;
+#X connect 1 0 3 1;
+#X connect 1 0 5 1;
+#X connect 1 1 2 1;
+#X connect 1 2 4 1;
+#X connect 1 2 7 1;
+#X connect 1 2 12 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 2 0;
+#X connect 11 1 16 1;
+#X connect 12 0 22 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 14 1 18 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 16 0 23 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 1;
+#X connect 20 0 19 1;
+#X connect 21 0 27 0;
+#X connect 22 0 13 1;
+#X connect 23 0 24 1;
+#X connect 24 0 13 0;
+#X connect 25 0 26 0;
+#X connect 25 1 21 0;
+#X connect 25 2 24 0;
+#X connect 25 3 7 0;
+#X connect 25 4 1 0;
+#X connect 25 5 10 0;
+#X connect 25 5 19 1;
+#X connect 25 5 23 1;
+#X connect 27 0 28 0;
+#X restore 247 115 pd draw;
+#X obj 99 20 r \$0-nrSeqPulses;
+#X obj 19 121 text set \$0-euclidPresets 5;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 2;
+#X connect 3 0 5 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 6 0 2 0;
+#X restore 403 243 pd pink;
+#N canvas 308 427 359 184 orange 0;
+#X obj 19 20 inlet;
+#X obj 59 20 inlet;
+#X obj 99 40 t b f;
+#X obj 19 100 pack f f f;
+#X obj 59 40 t b f;
+#N canvas 602 23 447 497 draw 0;
+#X obj 38 12 inlet;
+#X obj 184 70 unpack f f f;
+#X obj 147 174 +;
+#X obj 147 193 *;
+#X obj 147 214 %;
+#X obj 147 234 <;
+#X obj 147 112 until;
+#X obj 147 90 f;
+#X obj 147 132 f;
+#X obj 174 132 + 1;
+#X obj 221 117 0;
+#X obj 147 152 t f f;
+#X obj 301 253 expr 360/$f1;
+#X obj 246 288 *;
+#N canvas 0 23 450 300 poltocar 0;
+#X text 294 141 x=r*cos(phi);
+#X text 295 156 y=r*sin(phi);
+#X obj 99 82 inlet r;
+#X obj 179 82 inlet phi;
+#X obj 82 331 outlet x;
+#X obj 179 331 outlet y;
+#X obj 156 153 t f f;
+#X obj 156 177 cos;
+#X obj 186 177 sin;
+#X obj 82 201 t f f;
+#X obj 82 237 * 1;
+#X obj 112 236 * 0;
+#X text 63 26 convert polar to cartesian coordinates;
+#X text 341 8 part of zexy;
+#X obj 99 105 pack f f;
+#X obj 99 125 unpack 0 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 1 8 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 1;
+#X connect 9 0 10 0;
+#X connect 9 1 11 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
+#X connect 14 0 15 0;
+#X connect 15 0 9 0;
+#X connect 15 1 6 0;
+#X restore 246 327 pd poltocar;
+#X obj 147 254 sel 1;
+#X obj 147 273 f;
+#X obj 246 307 swap 50;
+#X obj 246 347 pack;
+#X obj 246 368 list prepend;
+#X obj 344 382 t l;
+#X obj 74 383 list;
+#X obj 301 273 expr $f1*3.14159/180;
+#N canvas 0 23 450 300 once 0;
+#X obj 99 172 spigot;
+#X obj 44 69 inlet;
+#X obj 99 121 t a b;
+#X obj 136 150 f 1;
+#X obj 99 204 t a b;
+#X obj 129 226 f 0;
+#X obj 99 257 outlet;
+#X obj 217 66 inlet;
+#X obj 217 89 bang;
+#X obj 217 112 f 1;
+#X text 18 16 once;
+#X text 74 17 only the first message passes through;
+#X text 39 47 message in;
+#X text 39 299 message out (only once);
+#X text 213 46 anything to init once;
+#X obj 44 90 route bang;
+#X obj 44 120 t b b;
+#X obj 44 172 spigot;
+#X obj 44 204 t b b;
+#X text 106 385 IEM KUG;
+#X text 90 373 musil;
+#X text 120 373 @;
+#X text 126 373 iem.at;
+#X text 41 362 (c) Thomas Musil 2000 - 2005;
+#X text 89 395 Graz \, Austria;
+#X text 112 346 @;
+#X text 118 346 iem.at;
+#X text 40 346 (c) zmoelnig;
+#X connect 0 0 4 0;
+#X connect 1 0 15 0;
+#X connect 2 0 0 0;
+#X connect 2 1 3 0;
+#X connect 3 0 0 1;
+#X connect 3 0 17 1;
+#X connect 4 0 6 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 1;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 3 1;
+#X connect 15 0 16 0;
+#X connect 15 1 2 0;
+#X connect 16 0 17 0;
+#X connect 16 1 3 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 18 1 5 0;
+#X restore 147 294 pd once;
+#X obj 246 267 f;
+#X obj 38 42 t b b b b l b, f 31;
+#X obj 38 448 s \$0-updateEuclidPlot;
+#X obj 74 403 list prepend 830;
+#X obj 74 424 text set \$0-euclidPolygons 6;
+#X connect 0 0 25 0;
+#X connect 1 0 3 1;
+#X connect 1 0 5 1;
+#X connect 1 1 2 1;
+#X connect 1 2 4 1;
+#X connect 1 2 7 1;
+#X connect 1 2 12 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 15 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 2 0;
+#X connect 11 1 16 1;
+#X connect 12 0 22 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 14 1 18 1;
+#X connect 15 0 16 0;
+#X connect 16 0 13 0;
+#X connect 16 0 23 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 1;
+#X connect 20 0 19 1;
+#X connect 21 0 27 0;
+#X connect 22 0 13 1;
+#X connect 23 0 24 1;
+#X connect 24 0 13 0;
+#X connect 25 0 26 0;
+#X connect 25 1 21 0;
+#X connect 25 2 24 0;
+#X connect 25 3 7 0;
+#X connect 25 4 1 0;
+#X connect 25 5 10 0;
+#X connect 25 5 19 1;
+#X connect 25 5 23 1;
+#X connect 27 0 28 0;
+#X restore 247 115 pd draw;
+#X obj 99 20 r \$0-nrSeqPulses;
+#X obj 19 121 text set \$0-euclidPresets 6;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 2 1 3 2;
+#X connect 3 0 5 0;
+#X connect 3 0 7 0;
+#X connect 4 0 3 0;
+#X connect 4 1 3 1;
+#X connect 6 0 2 0;
+#X restore 338 257 pd orange;
+#X obj 104 127 nbx 2 14 0 99 0 0 \$0-nrSeqPulses \$0-nrSeqPulses.r
+pulses 30 6 0 10 -1 -260097 -262144 8 256;
+#X obj 203 127 nbx 3 14 10 2000 0 0 \$0-iui \$0-iui.r time 35 6 0 10
+-1 -260097 -262144 603.719 256;
+#X obj 101 334 text define -k \$0-euclidPresets;
+#A set 0 0 8 \; 0 0 8 \; 0 0 8 \; 0 0 8 \; 0 0 8 \; 0 0 8 \; 0 0 8
+\; 0 0 8 \;;
+#X obj 101 358 text define -k \$0-euclidPolygons;
+#A set 900 50 0 \; 990 50 0 \; 209 50 0 \; 90 50 0 \; 88 50 0 \; 838
+50 0 \; 830 50 0 \; 306 50 0 \;;
+#X obj 486 197 text get \$0-euclidPolygons;
+#X obj 486 136 text size \$0-euclidPolygons;
+#X connect 1 0 18 0;
+#X connect 2 0 18 1;
+#X connect 3 0 36 0;
+#X connect 4 0 36 1;
+#X connect 5 0 38 0;
+#X connect 6 0 38 1;
+#X connect 7 0 39 0;
+#X connect 8 0 39 1;
+#X connect 9 0 40 0;
+#X connect 10 0 40 1;
+#X connect 11 0 42 0;
+#X connect 12 0 42 1;
+#X connect 13 0 43 0;
+#X connect 14 0 43 1;
+#X connect 15 0 41 0;
+#X connect 16 0 41 1;
+#X connect 19 0 30 5;
+#X connect 20 0 49 0;
+#X connect 20 1 23 0;
+#X connect 20 2 22 0;
+#X connect 20 2 29 0;
+#X connect 22 0 31 0;
+#X connect 23 0 24 0;
+#X connect 24 0 19 0;
+#X connect 25 0 33 0;
+#X connect 26 0 27 0;
+#X connect 27 0 28 0;
+#X connect 27 0 48 0;
+#X connect 28 0 27 1;
+#X connect 29 0 27 1;
+#X connect 32 0 34 0;
+#X connect 32 1 35 1;
+#X connect 33 0 30 0;
+#X connect 34 0 35 0;
+#X connect 34 1 33 1;
+#X connect 35 0 25 0;
+#X connect 37 0 20 0;
+#X connect 48 0 32 0;
+#X connect 49 0 26 0;
+#X coords 0 -1 1 1 175 177 1 100 100;
+#X restore 235 142 pd \$0-euclidInterface8;
+#X obj 70 201 tgl 15 0 \$0-dynamicsViewpoint \$0-dynamicsViewpoint.r
+D 5 8 0 10 -1 -260097 -262144 1 1;
+#X obj 9 281 tgl 15 0 \$0-matchHarmony \$0-matchHarmony.r H 5 8 0 10
+-1 -260097 -262144 0 1;
+#X obj 29 281 tgl 15 0 \$0-matchTimbre \$0-matchTimbre.r T 5 8 0 10
+-1 -260097 -262144 1 1;
+#X obj 49 281 tgl 15 0 \$0-matchDynamics \$0-matchDynamics.r D 5 8
+0 10 -1 -260097 -262144 1 1;
+#X obj 9 298 bng 15 250 50 0 \$0-runMatch empty run 0 7 0 10 -1 -1
+-260097;
+#X obj 10 265 nbx 5 14 -1e+037 1e+037 0 0 \$0-NNmatch \$0-NNmatch.r
+nnMatch 35 6 0 10 -1 -260097 -262144 5 256;
+#X obj 6 244 cnv 15 15 15 empty empty ::match:: 8 7 0 10 -1 -262144
+0;
+#X restore 225 231 pd \$0-Preferences;
+#N canvas 310 51 828 232 \$0-waveform 0;
+#N canvas 0 23 450 278 (subpatch) 0;
+#X array \$0-sample 423360 float 2;
+#X coords 0 1 423360 -1 800 140 2 0 0;
+#X restore 10 27 graph;
+#X obj 382 184 cnv 14 120 14 empty empty empty 0 7 0 10 -1 -262144
+0;
+#X obj 382 200 cnv 14 120 14 empty empty empty 0 7 0 10 -1 -262144
+0;
+#X obj 138 184 cnv 14 120 14 empty empty units 0 7 0 10 -1 -262144
+0;
+#X obj 138 200 cnv 14 120 14 empty \$0-nrUnitsLabel 34 0 7 0 10 -1
+-262144 0;
+#X obj 260 184 cnv 14 120 14 empty empty segmentationMode 0 7 0 10
+-1 -262144 0;
+#X obj 260 200 cnv 14 120 14 empty \$0-segmentationMode beat::99 0
+7 0 10 -1 -262144 0;
+#X obj 10 167 cnv 15 800 15 empty \$0-sfPathLabel projects/audio/beatbox.aiff
+0 7 0 10 -1 -262144 0;
+#N canvas 0 23 450 300 \$0-segments 0;
+#X coords 0 0 1000 1 800 140 2 100 100;
+#X restore 10 27 pd \$0-segments;
+#X obj 504 184 cnv 15 306 30 empty empty empty 0 7 0 10 -1 -66577 0
+;
+#N canvas 45 364 882 372 (subpatch) 0;
+#X obj 96 0 bng 30 250 50 0 \$0-play.button+ empty >> 7 14 0 15 -1
+-262144 -262144;
+#X obj 64 0 bng 30 248 50 0 empty empty > 7 13 0 30 -1 -262144 -262144
+;
+#X obj 32 0 bng 30 250 50 0 \$0-play.button- \$0-play.button-.r <<
+6 14 0 15 -1 -262144 -262144;
+#X obj 0 0 bng 30 250 50 0 \$0-play.button< \$0-play.button<.r < 10
+14 0 15 -1 -262144 -262144;
+#X obj 134 61 b;
+#X obj 66 61 b;
+#N canvas 0 23 450 300 alternate 0;
+#X obj 86 10 inlet;
+#X obj 158 244 outlet;
+#X obj 285 244 outlet;
+#X obj 158 217 spigot;
+#X obj 285 217 spigot;
+#X obj 158 57 trigger anything bang;
+#X obj 86 34 route reset;
+#X msg 86 75 0;
+#X obj 86 54 bang;
+#X obj 300 108 i;
+#X obj 300 130 == 0;
+#X obj 300 150 t f f f;
+#X text 40 295 (c) 2006 IOhannes m zmoelnig \, licensed under GnuGPL
+v2.0;
+#X text 44 318 original abstraction (c) 2005 Hans Christoph Steiner
+;
+#X obj 322 181 == 0;
+#X connect 0 0 6 0;
+#X connect 3 0 1 0;
+#X connect 4 0 2 0;
+#X connect 5 0 3 0;
+#X connect 5 0 4 0;
+#X connect 5 1 9 0;
+#X connect 6 0 8 0;
+#X connect 6 1 5 0;
+#X connect 7 0 9 1;
+#X connect 8 0 7 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 3 1;
+#X connect 11 1 14 0;
+#X connect 11 2 9 1;
+#X connect 14 0 4 1;
+#X restore 66 38 pd alternate;
+#X msg 134 85 label > \, label_font 0 30 \, label_pos 7 13;
+#X msg 43 110 label || \, label_font 1 25 \, label_pos 9 15;
+#X obj 360 236 array get \$0-unitsIdx 0 2;
+#X obj 360 170 f;
+#X obj 389 170 + 1;
+#X obj 359 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 452 133 array size \$0-unitsIdx;
+#X floatatom 452 154 5 0 0 0 - - -;
+#X obj 386 293 expr ($f2-$f1)/44.1;
+#X obj 527 307 delay;
+#X obj 452 175 - 1;
+#X obj 360 200 moses;
+#X obj 387 146 0;
+#X obj 660 182 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 527 285 stop;
+#X obj 590 242 *~;
+#X obj 660 228 vline~;
+#X obj 359 119 t b b b, f 10;
+#X msg 660 204 0 \, 1 5 \, 0 15 5;
+#X obj 590 165 osc~ 1800;
+#X obj 760 195 s \$0-beat-viz;
+#X obj 402 216 b;
+#X obj 71 283 s \$0-sfBar.r;
+#X obj 71 259 line;
+#X msg 71 234 \$1 \, \$2 \$3;
+#X obj 71 208 pack f f f;
+#X obj 71 185 expr_scale 0 200 0 1;
+#X obj 129 160 r \$0-sfLength;
+#X obj 360 257 t l l;
+#X obj 238 192 unpack f f;
+#X obj 149 234 expr_scale 0 200 0 1;
+#X obj 590 275 throw~ \$0-outL;
+#X obj 610 295 throw~ \$0-outR;
+#X floatatom 465 77 5 0 0 0 - - -;
+#X obj 325 328 pack f 1 0.5 100 0;
+#X obj 325 352 s \$0-unitPlayPV;
+#X connect 1 0 6 0;
+#X connect 4 0 7 0;
+#X connect 4 0 21 0;
+#X connect 5 0 8 0;
+#X connect 5 0 24 0;
+#X connect 6 0 5 0;
+#X connect 6 1 4 0;
+#X connect 7 0 1 0;
+#X connect 8 0 1 0;
+#X connect 9 0 35 0;
+#X connect 10 0 11 0;
+#X connect 10 0 18 0;
+#X connect 11 0 10 1;
+#X connect 12 0 10 0;
+#X connect 13 0 14 0;
+#X connect 14 0 17 0;
+#X connect 15 0 16 0;
+#X connect 15 0 32 2;
+#X connect 16 0 12 0;
+#X connect 17 0 18 1;
+#X connect 18 0 9 0;
+#X connect 18 0 20 0;
+#X connect 18 0 41 0;
+#X connect 18 1 28 0;
+#X connect 19 0 10 1;
+#X connect 20 0 25 0;
+#X connect 20 0 27 0;
+#X connect 21 0 16 0;
+#X connect 22 0 38 0;
+#X connect 22 0 39 0;
+#X connect 23 0 22 1;
+#X connect 24 0 12 0;
+#X connect 24 1 19 0;
+#X connect 24 2 13 0;
+#X connect 25 0 23 0;
+#X connect 26 0 22 0;
+#X connect 28 0 1 0;
+#X connect 30 0 29 0;
+#X connect 31 0 30 0;
+#X connect 32 0 31 0;
+#X connect 34 0 33 2;
+#X connect 34 0 37 2;
+#X connect 35 0 36 0;
+#X connect 35 1 15 0;
+#X connect 36 0 33 0;
+#X connect 36 1 37 0;
+#X connect 37 0 32 1;
+#X connect 40 0 11 0;
+#X connect 41 0 42 0;
+#X coords 0 1 100 -1 126 30 1 0 0;
+#X restore 10 184 graph;
+#X obj 13 12 hsl 795 15 0 1 0 0 \$0-sfReadBar \$0-sfReadBar.r empty
+-2 -8 0 10 -1 -1 -1 0 1;
+#X obj 780 184 bng 30 250 50 0 empty \$0-beat-viz empty 17 7 0 10 -1
+-262144 -1;
+#X restore 225 78 pd \$0-waveform;
+#X obj 25 281 \$0;
+#X obj 226 280 r \$0-eoa;
+#X obj 25 27 b;
+#X obj 25 47 \$0;
+#N canvas 349 197 699 659 \$0-mixer 1;
+#X obj 5 351 dac~, f 18;
+#X obj 5 235 catch~ \$0-outL;
+#X obj 110 235 catch~ \$0-outR;
+#X text 311 6 // in this window you can add several effects, f 18
+;
+#X obj 1 1 cnv 15 300 200 empty empty empty 20 12 0 14 -1 -66577 0
+;
+#X obj 82 30 vsl 14 159 0 1 0 0 \$0-infiniteGain \$0-infiniteGain.r
+infinite -12 -9 0 9 -262144 -260097 -262144 15800 1;
+#X obj 137 30 vsl 14 159 0 1 0 0 \$0-seqGain \$0-seqGain.r sequencer
+-15 -9 0 9 -262144 -260097 -262144 15800 1;
+#X obj 252 30 vu 14 160 \$0-masterGainVU empty -1 -8 0 10 -1 -1 0 0
+;
+#X obj 192 30 vsl 14 159 0 1 0 0 \$0-masterGain \$0-masterGain.r master
+-8 -9 0 10 -262144 -260097 -262144 15800 1;
+#X obj 27 30 vsl 14 159 0 1 0 0 \$0-spaceGain \$0-spaceGain.r space
+-5 -9 0 9 -262144 -260097 -262144 15800 1;
+#X obj 269 30 vu 14 160 \$0-masterGainVU empty -1 -8 0 10 -1 -1 0 0
+;
+#X obj 208 280 cnv 15 275 225 empty empty Save_File 2 -7 0 14 -216373
+-65569 0;
+#X obj 246 301 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 246 466 writesf~ 2;
+#X msg 348 447 start;
+#X msg 246 420 stop;
+#X obj 246 332 sel 0 1;
+#X obj 348 426 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 246 367 delay 500 1 msec;
+#X msg 395 382 open \$1;
+#X text 482 281 It should receive a message fileName to initialize
+a file, f 29;
+#X obj 395 287 r \$0-fileName;
+#X obj 245 237 r \$0-recordAttempt;
+#X text 366 236 Start / Stop Recording;
+#X connect 1 0 0 0;
+#X connect 1 0 13 0;
+#X connect 2 0 0 1;
+#X connect 2 0 13 1;
+#X connect 12 0 16 0;
+#X connect 14 0 13 0;
+#X connect 15 0 13 0;
+#X connect 16 0 18 0;
+#X connect 16 1 17 0;
+#X connect 17 0 14 0;
+#X connect 18 0 15 0;
+#X connect 19 0 13 0;
+#X connect 21 0 19 0;
+#X connect 22 0 12 0;
+#X restore 26 332 pd \$0-mixer;
+#X obj 25 260 r \$0-mixer;
+#X msg 25 302 \; pd-\$1-mixer vis 1;
+#X obj 291 287 r \$0-presetXY;
+#X obj 226 302 f;
+#X obj 405 65 pdcontrol;
+#X msg 405 45 browse https://sites.google.com/site/eargram/;
+#X obj 405 5 r \$0-about;
+#X obj 405 25 b;
+#X msg 225 436 \; \$2-presetXY.r label \$1;
+#X obj 225 407 pack s \$0;
+#X msg 260 345 FOracle;
+#X obj 226 322 sel 0 1 2;
+#X obj 405 373 \$0;
+#X obj 405 351 r \$0-boa;
+#X msg 243 365 HarmonicSpace;
+#X msg 226 385 TimbreSpace;
+#X msg 405 392 Analyzing;
+#X connect 0 0 17 0;
+#X connect 2 0 8 0;
+#X connect 3 0 10 0;
+#X connect 4 0 7 0;
+#X connect 7 0 5 0;
+#X connect 8 0 1 0;
+#X connect 10 0 9 0;
+#X connect 15 0 21 0;
+#X connect 16 0 23 0;
+#X connect 17 0 18 0;
+#X connect 18 0 6 0;
+#X connect 20 0 15 0;
+#X connect 22 0 23 0;
+#X connect 23 0 31 0;
+#X connect 25 0 24 0;
+#X connect 26 0 27 0;
+#X connect 27 0 25 0;
+#X connect 29 0 28 0;
+#X connect 30 0 29 0;
+#X connect 31 0 35 0;
+#X connect 31 1 34 0;
+#X connect 31 2 30 0;
+#X connect 32 0 36 0;
+#X connect 33 0 32 0;
+#X connect 34 0 29 0;
+#X connect 35 0 29 0;
+#X connect 36 0 29 0;
+#X restore 620 78 pd menus;
+#N canvas 85 129 674 510 init 0;
+#X obj 389 51 \$0;
+#X obj 43 258 s \$0-eargram;
+#X obj 43 217 1;
+#X obj 43 197 route bang float;
+#X obj 62 102 pdcontrol;
+#X obj 62 142 route float symbol;
+#X obj 43 177 f;
+#X obj 82 162 1;
+#X msg 62 82 args;
+#X obj 62 122 list-drip;
+#X msg 43 238 donecanvasdialog 0 0 \$1 0 -1 1 1 300 360 0 0 \, dirty
+0;
+#X obj 114 162 s \$0-open;
+#X obj 43 16 loadbang;
+#X obj 43 36 t b b;
+#X obj 43 62 t b b b;
+#X msg 389 79 \; \$1-sfPathLabel label --- \; \$1-sfPathLabel vis_size
+800 15 \; \$1-sfPathLabel label_pos 0 7 \; \$1-sfPathLabel label_font
+0 10 \; \$1-sfPathLabel color 22 0 0 \; \$1-lcd clear \; \$1-unitsSeg.r
+2 \; \$1-uniformLength.r 100 \; \$1-clusterThreshTimbre.r 0.4 \; \$1-minNrClusterTimbre.r
+4 \; \$1-clusterThreshHarm.r 0.8 \; \$1-minNrClusterHarm.r 4 \; \$1-onsetThresh.r
+5 \; \$1-density.r 25 \; \$1-rndPosition.r 4 \; \$1-spaceGain.r 1 \;
+\$1-rndSpaceGain 0 \; \$1-pan.r 0.5 \; \$1-rndPan.r 0 \; \$1-masterGain.r
+1 \; \$1-iui.r 200 \; \$1-nrSeqPulses.r 8 \; \$1-seqGain.r 1 \; \$1-infiniteGain.r
+1 \; \$1-infiniteProb.r 40 \; \$1-infiniteMeter.r 1 \; \$1-metricViewpoint.r
+1 \; \$1-harmonicViewpoint.r 1 \; \$1-timbricViewpoint.r 1 \; \$1-dynamicsViewpoint.r
+1 \; \$1-keyControl.r 0 \; \$1-synthControl 0 \; \$1-matchTimbre.r
+1 \; \$1-matchDynamics.r 1 \; \$1-matchHarmony.r 1 \; \$1-NNmatch.r
+5 \;;
+#X connect 0 0 15 0;
+#X connect 2 0 10 0;
+#X connect 3 0 2 0;
+#X connect 3 1 10 0;
+#X connect 4 0 9 0;
+#X connect 5 0 6 1;
+#X connect 5 1 11 0;
+#X connect 6 0 3 0;
+#X connect 7 0 6 1;
+#X connect 8 0 4 0;
+#X connect 9 0 5 0;
+#X connect 10 0 1 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 13 1 0 0;
+#X connect 14 0 6 0;
+#X connect 14 1 8 0;
+#X connect 14 2 7 0;
+#X restore 620 28 pd init;
+#X text 347 5 -- analysis --;
+#X text 347 167 -- generation --;
+#X obj 0 0 cnv 15 300 360 empty empty empty 10 347 0 10 -1 -262144
+0;
+#N canvas 292 23 732 377 spaceMap 0;
+#X obj 148 45 r \$0-density;
+#X text 125 24 (xy position);
+#X obj 57 24 r \$0-mouse;
+#X msg 382 139 clear \, dimensions 2;
+#X obj 110 153 nearestPoint 2;
+#X msg 534 139 num_matches \$1;
+#X obj 91 92 t b l b, f 34;
+#X obj 110 174 list prepend;
+#X obj 197 188 t l;
+#X obj 91 197 list;
+#X obj 91 218 t l b;
+#X obj 137 232 random;
+#X obj 137 253 + 1;
+#X msg 137 274 set \, adddollar \$1;
+#X msg 91 288 \$2;
+#X obj 592 92 r \$0-rndPosition;
+#X obj 91 341 s \$0-unitPlay;
+#X obj 534 86 r \$0-eoa;
+#X obj 534 107 f;
+#N canvas 325 23 765 302 gain-pan 0;
+#X obj 35 34 inlet;
+#X obj 35 55 t f b;
+#X obj 222 136 +;
+#X obj 222 90 / 100;
+#X obj 222 157 clip 0 1;
+#X obj 35 250 outlet;
+#X obj 409 69 random 100;
+#X obj 409 136 +;
+#X obj 409 90 / 100;
+#X obj 466 47 r \$0-rndPan;
+#X obj 424 111 r \$0-pan;
+#X obj 35 219 pack f f f, f 63;
+#X obj 222 69 random 0;
+#X obj 237 111 r \$0-spaceGain;
+#X obj 267 47 r \$0-rndSpaceGain;
+#X connect 0 0 1 0;
+#X connect 1 0 11 0;
+#X connect 1 1 6 0;
+#X connect 1 1 12 0;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 4 0 11 1;
+#X connect 6 0 8 0;
+#X connect 7 0 11 2;
+#X connect 8 0 7 0;
+#X connect 9 0 6 1;
+#X connect 10 0 7 1;
+#X connect 11 0 5 0;
+#X connect 12 0 3 0;
+#X connect 13 0 2 1;
+#X connect 14 0 12 1;
+#X restore 91 314 pd gain-pan;
+#X obj 330 91 r \$0-lcd;
+#X obj 330 112 route addDot clear;
+#X obj 110 126 list split 2;
+#X obj 57 45 list split 1;
+#X obj 91 68 speedlimit;
+#X floatatom 645 150 5 0 0 0 - - -;
+#X connect 0 0 24 1;
+#X connect 2 0 23 0;
+#X connect 3 0 4 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 6 0 9 0;
+#X connect 6 1 4 1;
+#X connect 6 2 7 1;
+#X connect 7 0 8 0;
+#X connect 7 0 9 1;
+#X connect 8 0 7 1;
+#X connect 9 0 10 0;
+#X connect 10 0 14 0;
+#X connect 10 1 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 19 0;
+#X connect 15 0 18 0;
+#X connect 17 0 18 0;
+#X connect 18 0 5 0;
+#X connect 18 0 11 1;
+#X connect 18 0 25 0;
+#X connect 19 0 16 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 21 1 3 0;
+#X connect 22 0 4 0;
+#X connect 23 1 24 0;
+#X connect 24 0 6 0;
+#X restore 347 190 pd spaceMap;
+#X obj 0 -24 r \$0-lcd;
+#X obj 5 1 hsl 50 30 0 127 0 0 \$0-about \$0-about.r earGram 0 13 0
+10 -1 -1 -262144 0 1;
+#X obj 188 0 bng 30 250 50 0 \$0-preferences empty settings -8 15 0
+10 -1 -1 -262144;
+#X obj 236 0 bng 30 250 50 0 \$0-mixer empty mixer 1 15 0 10 -1 -1
+-262144;
+#X obj 79 0 bng 30 250 50 0 \$0-new empty new 7 15 0 10 -1 -1 -262144
+;
+#X obj 111 0 bng 30 250 50 0 \$0-open empty open 4 15 0 10 -1 -1 -262144
+;
+#X obj 144 0 bng 30 250 50 0 \$0-save empty save 3 15 0 10 -1 -1 -262144
+;
+#X obj 269 0 bng 30 250 50 0 \$0-vizWave \$0-vizWave.r viz 6 15 0 10
+-1 -1 -262144;
+#N canvas 275 51 615 547 analyze 0;
+#X obj 79 127 until;
+#X obj 32 18 inlet;
+#X obj 157 136 0;
+#X obj 79 152 f 0;
+#X obj 112 152 + 1;
+#X obj 32 447 outlet;
+#X obj 106 198 s \$0-storeIdx;
+#X obj 79 282 pack;
+#X obj 142 89 r \$0-nrUnits;
+#X obj 79 104 f;
+#X obj 79 175 t f f;
+#X obj 79 222 array get \$0-unitsIdx 0 2;
+#X obj 130 32 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 79 246 expr $f1 \; int($f2-$f1);
+#N canvas 520 149 760 434 timbreSpace 0;
+#X obj 184 179 r \$0-storeIdx;
+#X obj 95 22 inlet;
+#X obj 138 23 r \$0-samplerate;
+#X obj 95 70 mfcc \$0-sample 100;
+#X obj 95 122 list split 1;
+#X obj 241 23 loadbang;
+#X obj 239 199 r \$0-nrUnits;
+#X obj 129 144 list split 12;
+#X obj 82 221 outlet;
+#X obj 129 221 2d.tabwrite \$0-mfccDB 100 12;
+#X msg 138 43 samplerate \$1;
+#X obj 552 216 outlet;
+#X text 338 172 // reduce to 2D using star coordinates;
+#X obj 336 220 unpack;
+#X obj 336 199 starCoordinates 12;
+#X obj 394 220 r \$0-storeIdx;
+#X obj 369 265 array set \$0-timbreY;
+#X obj 336 244 array set \$0-timbreX;
+#X text 54 335 * One DCT properties is that it de-correlates and keeps
+most of the information in first few coefficients., f 91;
+#X obj 366 80 loadbang;
+#X obj 261 141 list-emath *;
+#X obj 371 147 route weights;
+#X msg 477 146 weights 1 1 1 1 1 1 1 1 1 1 1 1;
+#X msg 384 103 weights 10 15 20 25 35 30 75 80 85 90 95 100;
+#X msg 367 125 weights 100 100 100 90 95 80 30 35 25 20 15 10;
+#X msg 241 43 normalize 0;
+#X connect 0 0 9 1;
+#X connect 1 0 3 0;
+#X connect 2 0 10 0;
+#X connect 3 0 4 0;
+#X connect 4 0 11 0;
+#X connect 4 1 7 0;
+#X connect 5 0 25 0;
+#X connect 6 0 9 2;
+#X connect 7 0 8 0;
+#X connect 7 0 9 0;
+#X connect 7 0 20 0;
+#X connect 10 0 3 0;
+#X connect 13 0 17 0;
+#X connect 13 1 16 0;
+#X connect 14 0 13 0;
+#X connect 15 0 16 1;
+#X connect 15 0 17 1;
+#X connect 19 0 24 0;
+#X connect 20 0 14 0;
+#X connect 21 0 20 1;
+#X connect 22 0 14 0;
+#X connect 24 0 21 0;
+#X connect 24 0 14 0;
+#X connect 25 0 3 0;
+#X restore 79 371 pd timbreSpace;
+#N canvas 346 273 346 305 harmonicSpace 0;
+#X obj 78 30 inlet;
+#X obj 78 76 tis audio;
+#N canvas 21 326 335 176 tis 0;
+#X obj 31 22 inlet;
+#X obj 84 53 r \$0-storeIdx;
+#X obj 137 77 r \$0-nrUnits;
+#X obj 31 111 2d.tabwrite \$0-tisDB 100 12;
+#X connect 0 0 3 0;
+#X connect 1 0 3 1;
+#X connect 2 0 3 2;
+#X restore 78 125 pd tis;
+#X obj 78 53 chroma \$0-sample 50 5000 0.1;
+#X obj 35 125 outlet;
+#X obj 153 126 keyInduction audio;
+#N canvas 0 23 450 364 list 0;
+#N canvas 0 22 199 262 drip 0;
+#X obj 53 174 list split 1;
+#X obj 53 91 until;
+#X obj 53 129 list append;
+#X obj 79 58 t b l;
+#X obj 135 176 bang;
+#X obj 79 31 inlet;
+#X obj 53 199 outlet;
+#X connect 0 0 6 0;
+#X connect 0 1 2 1;
+#X connect 0 2 4 0;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X connect 3 0 1 0;
+#X connect 3 1 2 1;
+#X connect 4 0 1 1;
+#X connect 5 0 3 0;
+#X restore 152 84 pd drip;
+#X obj 153 219 list prepend;
+#X obj 251 219 t a;
+#N canvas 0 22 450 300 dripslow 0;
+#X obj 158 196 list split 1;
+#X obj 158 171 list append;
+#X obj 158 247 outlet;
+#X obj 158 47 inlet;
+#X obj 239 247 outlet;
+#X obj 232 45 inlet;
+#X obj 158 82 b;
+#X text 275 46 list;
+#X text 113 47 bang;
+#X text 283 247 EOL;
+#X text 99 246 element;
+#X obj 239 217 b;
+#X connect 0 0 2 0;
+#X connect 0 1 1 1;
+#X connect 0 2 11 0;
+#X connect 1 0 0 0;
+#X connect 3 0 6 0;
+#X connect 5 0 1 1;
+#X connect 6 0 1 0;
+#X connect 11 0 4 0;
+#X restore 205 141 pd dripslow;
+#X obj 268 106 inlet;
+#X obj 152 110 t f b;
+#X obj 132 254 list;
+#X obj 152 182 + 0;
+#X obj 133 24 inlet;
+#X obj 132 304 outlet;
+#X obj 132 50 t b a b;
+#X msg 167 157 0;
+#X obj 132 274 t l b;
+#X obj 182 304 outlet;
+#X obj 183 285 1;
+#X connect 0 0 5 0;
+#X connect 1 0 2 0;
+#X connect 1 0 6 1;
+#X connect 2 0 1 1;
+#X connect 3 0 7 1;
+#X connect 4 0 3 1;
+#X connect 5 0 7 0;
+#X connect 5 1 3 0;
+#X connect 6 0 12 0;
+#X connect 7 0 1 0;
+#X connect 8 0 10 0;
+#X connect 10 0 6 0;
+#X connect 10 1 0 0;
+#X connect 10 2 1 1;
+#X connect 10 2 11 0;
+#X connect 11 0 7 1;
+#X connect 12 0 9 0;
+#X connect 12 1 14 0;
+#X connect 14 0 13 0;
+#X restore 153 90 pd list add;
+#X obj 234 75 list;
+#X obj 198 26 r \$0-analReset;
+#X obj 153 176 moses 12;
+#X obj 228 191 expr ($f1+9)%12;
+#X floatatom 228 211 5 0 0 0 - - -;
+#X obj 153 225 v \$0-key;
+#X obj 173 245 s \$0-key;
+#X obj 139 152 f;
+#X obj 133 28 inlet;
+#X floatatom 269 236 5 0 0 0 - - -;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 1 0 2 0;
+#X connect 1 0 6 0;
+#X connect 3 0 1 0;
+#X connect 5 0 14 1;
+#X connect 6 0 7 0;
+#X connect 6 0 5 0;
+#X connect 6 1 5 1;
+#X connect 7 0 6 1;
+#X connect 8 0 6 1;
+#X connect 9 0 12 0;
+#X connect 9 0 13 0;
+#X connect 9 0 16 0;
+#X connect 9 1 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 11 0 13 0;
+#X connect 11 0 16 0;
+#X connect 14 0 9 0;
+#X connect 15 0 14 0;
+#X restore 269 370 pd harmonicSpace;
+#X obj 79 302 list prepend analyze;
+#X obj 79 323 list trim;
+#X obj 79 346 t a a;
+#N canvas 0 23 502 206 similMtxTimbre 0;
+#X msg 313 112 clear \, nrCases \$1;
+#X obj 18 68 list prepend add;
+#X obj 18 89 list trim;
+#X obj 328 58 r \$0-nrUnits;
+#X obj 313 89 f;
+#X obj 18 19 inlet;
+#X obj 18 127 similMtx.write \$0-distancesTimbre 40 12 cosine;
+#X obj 313 19 r \$0-analReset;
+#X connect 0 0 6 0;
+#X connect 1 0 2 0;
+#X connect 2 0 6 0;
+#X connect 3 0 4 0;
+#X connect 4 0 0 0;
+#X connect 5 0 1 0;
+#X connect 7 0 4 0;
+#X restore 79 393 pd similMtxTimbre;
+#N canvas 521 102 478 228 resize&cleanTables 0;
+#X obj 34 66 pack f \$0;
+#X msg 34 89 \; \$2-unitsIdx const 0 \; \$2-unitsIdx resize \$1;
+#X obj 34 43 r \$0-sfLength;
+#X obj 260 43 r \$0-nrUnits;
+#X obj 260 89 + 1;
+#X obj 260 66 t f f, f 6;
+#X obj 260 111 pack f f \$0, f 12;
+#X text 252 19 -- end of segmentation: resize --;
+#X text 24 19 -- init: resize (sfLength--;
+#X msg 260 134 \; \$3-unitsIdx resize \$1 \; \$3-loudnessDB resize
+\$2 \; \$3-dynamicsDB resize \$2 \; \$3-timbreX resize \$2 \; \$3-timbreY
+resize \$2 \;;
+#X connect 0 0 1 0;
+#X connect 2 0 0 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 5 1 6 1;
+#X connect 6 0 9 0;
+#X restore 352 37 pd resize&cleanTables;
+#X obj 352 88 array define \$0-unitsIdx;
+#X obj 352 111 array define \$0-tisDB;
+#X obj 352 134 array define \$0-mfccDB;
+#X obj 352 203 array define \$0-timbreX;
+#X obj 352 226 array define \$0-timbreY;
+#X text 353 13 -- databases --;
+#N canvas 0 23 466 206 similMtxHarm 0;
+#X msg 292 112 clear \, nrCases \$1;
+#X obj 17 68 list prepend add;
+#X obj 17 89 list trim;
+#X obj 307 58 r \$0-nrUnits;
+#X obj 292 89 f;
+#X obj 17 19 inlet;
+#X obj 17 127 similMtx.write \$0-distancesHarm 40 12 cosine;
+#X obj 292 19 r \$0-analReset;
+#X connect 0 0 6 0;
+#X connect 1 0 2 0;
+#X connect 2 0 6 0;
+#X connect 3 0 4 0;
+#X connect 4 0 0 0;
+#X connect 5 0 1 0;
+#X connect 7 0 4 0;
+#X restore 269 393 pd similMtxHarm;
+#X obj 352 180 array define \$0-dynamicsDB;
+#N canvas 275 23 793 488 dynamics 0;
+#X obj 156 199 r \$0-storeIdx;
+#X obj 89 144 inlet;
+#X obj 349 101 sort 1;
+#X obj 399 99 r \$0-nrUnits;
+#X obj 399 119 expr int($f1*0.25) \; int($f1*0.5) \; int($f1*0.75)
+;
+#X obj 322 79 t l l;
+#X obj 322 269 moses;
+#X obj 349 300 moses;
+#X msg 349 248 \$8;
+#X msg 399 159 set \, adddollar \$1;
+#X msg 376 278 \$17;
+#X msg 454 179 set \, adddollar \$1;
+#X msg 510 200 set \, adddollar \$1;
+#X obj 376 322 moses;
+#X msg 403 301 \$25;
+#X obj 322 345 b;
+#X obj 322 367 0;
+#X obj 349 345 b;
+#X obj 349 367 1;
+#X obj 376 345 b;
+#X obj 403 345 b;
+#X obj 322 182 list-enumerate;
+#X obj 322 203 swap;
+#X obj 480 44 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 322 37 inlet;
+#X obj 322 407 array set \$0-dynamicsDB;
+#X obj 403 367 3;
+#X obj 376 367 2;
+#X obj 89 231 array set \$0-loudnessDB;
+#X obj 322 59 array get \$0-loudnessDB;
+#X obj 336 134 t l l;
+#X connect 0 0 28 1;
+#X connect 1 0 28 0;
+#X connect 2 0 30 0;
+#X connect 3 0 4 0;
+#X connect 4 0 9 0;
+#X connect 4 1 11 0;
+#X connect 4 2 12 0;
+#X connect 5 0 21 0;
+#X connect 5 1 2 0;
+#X connect 6 0 15 0;
+#X connect 6 1 7 0;
+#X connect 7 0 17 0;
+#X connect 7 1 13 0;
+#X connect 8 0 6 1;
+#X connect 9 0 8 0;
+#X connect 10 0 7 1;
+#X connect 11 0 10 0;
+#X connect 12 0 14 0;
+#X connect 13 0 19 0;
+#X connect 13 1 20 0;
+#X connect 14 0 13 1;
+#X connect 15 0 16 0;
+#X connect 16 0 25 0;
+#X connect 17 0 18 0;
+#X connect 18 0 25 0;
+#X connect 19 0 27 0;
+#X connect 20 0 26 0;
+#X connect 21 0 22 0;
+#X connect 22 0 6 0;
+#X connect 22 1 25 1;
+#X connect 23 0 29 0;
+#X connect 24 0 29 0;
+#X connect 26 0 25 0;
+#X connect 27 0 25 0;
+#X connect 29 0 5 0;
+#X connect 30 0 8 0;
+#X connect 30 1 10 0;
+#X connect 30 1 14 0;
+#X restore 193 391 pd dynamics;
+#N canvas 0 23 468 391 sendAnal 0;
+#X obj 168 334 t l;
+#X obj 66 350 list;
+#X obj 124 258 array get \$0-tisDB 0 12;
+#X obj 80 167 array get \$0-mfccDB 0 12;
+#X obj 109 234 array get \$0-dynamicsDB 0 1;
+#X obj 81 319 list append, f 12;
+#X obj 98 26 r \$0-nrUnits;
+#X obj 66 41 f;
+#X obj 66 6 inlet;
+#X obj 66 84 until;
+#X obj 130 89 0;
+#X obj 66 377 s \$0-analMatch;
+#X msg 226 362 clear;
+#X obj 66 104 f;
+#X obj 96 104 + 1;
+#X obj 66 61 t f b;
+#X obj 192 26 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 218 26 r \$0-runMatch;
+#X obj 80 210 list-math /;
+#X obj 143 189 array get \$0-loudnessDB 0 1;
+#X obj 138 284 v \$0-key;
+#X obj 66 137 t b f f f f b b;
+#X connect 0 0 5 1;
+#X connect 1 0 11 0;
+#X connect 2 0 5 0;
+#X connect 3 0 18 0;
+#X connect 4 0 5 0;
+#X connect 5 0 0 0;
+#X connect 5 0 1 1;
+#X connect 6 0 7 1;
+#X connect 7 0 15 0;
+#X connect 8 0 7 0;
+#X connect 9 0 13 0;
+#X connect 10 0 13 1;
+#X connect 12 0 11 0;
+#X connect 13 0 14 0;
+#X connect 13 0 21 0;
+#X connect 14 0 13 1;
+#X connect 15 0 9 0;
+#X connect 15 1 10 0;
+#X connect 15 1 12 0;
+#X connect 16 0 7 0;
+#X connect 17 0 7 0;
+#X connect 18 0 5 0;
+#X connect 19 0 18 1;
+#X connect 20 0 5 0;
+#X connect 21 0 1 0;
+#X connect 21 1 3 0;
+#X connect 21 2 19 0;
+#X connect 21 3 4 0;
+#X connect 21 4 2 0;
+#X connect 21 5 20 0;
+#X connect 21 6 5 1;
+#X restore 47 419 pd sendAnal;
+#X obj 32 47 t b b b b b;
+#X obj 95 67 s \$0-analReset;
+#X obj 352 157 array define \$0-loudnessDB;
+#X connect 0 0 3 0;
+#X connect 1 0 31 0;
+#X connect 2 0 3 1;
+#X connect 3 0 4 0;
+#X connect 3 0 10 0;
+#X connect 4 0 3 1;
+#X connect 7 0 16 0;
+#X connect 8 0 9 1;
+#X connect 9 0 0 0;
+#X connect 10 0 11 0;
+#X connect 10 1 6 0;
+#X connect 11 0 13 0;
+#X connect 12 0 31 0;
+#X connect 13 0 7 0;
+#X connect 13 1 7 1;
+#X connect 14 0 19 0;
+#X connect 14 1 29 0;
+#X connect 15 0 27 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 14 0;
+#X connect 18 1 15 0;
+#X connect 31 0 5 0;
+#X connect 31 1 30 0;
+#X connect 31 2 29 1;
+#X connect 31 2 15 1;
+#X connect 31 3 9 0;
+#X connect 31 4 32 0;
+#X connect 31 4 2 0;
+#X restore 347 78 pd analyze;
+#N canvas 456 23 746 490 save/open 0;
+#X msg 24 278 clear;
+#X obj 24 215 savepanel;
+#X obj 147 146 s \$0-loadParam;
+#X obj 24 45 t b b b b, f 21;
+#X obj 24 257 t b a;
+#X msg 24 236 write \$1;
+#X obj 24 22 r \$0-save;
+#N canvas 394 181 450 300 storeArrays 0;
+#X obj 20 168 array get;
+#X obj 20 145 t b s;
+#X obj 20 124 makefilename \$0-%s;
+#X obj 20 83 symbol;
+#X msg 53 233 1e+015;
+#X obj 20 211 t l b, f 6;
+#X obj 20 190 list prepend;
+#X msg 89 168 array \$1;
+#X obj 20 21 inlet;
+#X obj 20 103 t s s;
+#X obj 20 255 text set \$0-saveProject;
+#X msg 20 42 unitsIdx \, tisDB \, mfccDB \, dynamicsDB \, timbreX \,
+timbreY \, distancesTimbre \, distancesHarm \, clustersTimbre \, clustersHarm
+;
+#X connect 0 0 6 0;
+#X connect 1 0 0 0;
+#X connect 1 1 0 2;
+#X connect 2 0 1 0;
+#X connect 3 0 9 0;
+#X connect 4 0 10 1;
+#X connect 5 0 10 0;
+#X connect 5 1 4 0;
+#X connect 6 0 5 0;
+#X connect 7 0 6 1;
+#X connect 8 0 11 0;
+#X connect 9 0 2 0;
+#X connect 9 1 7 0;
+#X connect 11 0 3 0;
+#X restore 106 169 pd storeArrays;
+#N canvas 0 23 450 361 storeTexts 0;
+#X msg 82 302 1e+015;
+#X obj 49 280 t l b, f 6;
+#X obj 49 98 makefilename \$0-%s;
+#X obj 49 57 symbol;
+#X obj 49 236 text get;
+#X obj 49 259 list prepend;
+#X obj 49 139 text size;
+#X obj 49 160 until;
+#X obj 49 180 f;
+#X obj 79 180 + 1;
+#X obj 114 165 0;
+#X obj 49 119 t b b s;
+#X msg 118 236 text \$2 \$1;
+#X obj 118 215 pack f s;
+#X obj 49 15 inlet;
+#X obj 49 77 t s s;
+#X obj 49 200 t f f;
+#X obj 49 324 text set \$0-saveProject;
+#X msg 49 36 clusterUnitsTimbre \, euclidPresets \, euclidPolygons
+;
+#X connect 0 0 17 1;
+#X connect 1 0 17 0;
+#X connect 1 1 0 0;
+#X connect 2 0 11 0;
+#X connect 3 0 15 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 0 16 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 6 0;
+#X connect 11 1 10 0;
+#X connect 11 2 4 3;
+#X connect 11 2 6 1;
+#X connect 12 0 5 1;
+#X connect 13 0 12 0;
+#X connect 14 0 18 0;
+#X connect 15 0 2 0;
+#X connect 15 1 13 1;
+#X connect 16 0 4 0;
+#X connect 16 1 13 0;
+#X connect 18 0 3 0;
+#X restore 66 192 pd storeTexts;
+#X obj 24 331 r \$0-open;
+#X obj 24 371 route param array text;
+#N canvas 601 23 276 194 loadParam 0;
+#X obj 52 42 inlet;
+#X obj 52 132 s;
+#X obj 52 62 list split 1;
+#X obj 52 107 list;
+#X obj 52 82 t b s;
+#X obj 100 97 makefilename \$0-%s.r;
+#X connect 0 0 2 0;
+#X connect 2 0 4 0;
+#X connect 2 1 3 1;
+#X connect 3 0 1 0;
+#X connect 4 0 3 0;
+#X connect 4 1 5 0;
+#X connect 5 0 1 1;
+#X restore 24 440 pd loadParam;
+#N canvas 0 23 450 300 loadArrays 0;
+#X obj 33 25 inlet;
+#X obj 33 48 list split 1;
+#X obj 33 93 list;
+#X obj 33 68 t b s;
+#X obj 33 118 array set 0;
+#X obj 96 83 makefilename \$0-%s;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 1 1 2 1;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 3 1 5 0;
+#X connect 5 0 4 2;
+#X restore 67 418 pd loadArrays;
+#N canvas 0 23 450 361 loadTexts 0;
+#X obj 52 42 inlet;
+#X obj 52 127 list;
+#X obj 52 102 t b s;
+#X obj 52 152 text set;
+#X obj 97 117 makefilename \$0-%s;
+#X obj 52 62 list split 2;
+#X obj 52 82 unpack s f;
+#X connect 0 0 5 0;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 2 1 4 0;
+#X connect 4 0 3 3;
+#X connect 5 0 6 0;
+#X connect 5 1 1 1;
+#X connect 6 0 2 0;
+#X connect 6 1 3 1;
+#X restore 110 395 pd loadTexts;
+#X obj 301 15 saveParam \$0 sfPath 0;
+#N canvas 0 23 287 379 dumpFile 0;
+#X obj 38 17 inlet;
+#X obj 38 57 openpanel;
+#X obj 113 118 text define \$0-openProject;
+#X msg 113 98 read \$1;
+#X obj 83 143 text size \$0-openProject;
+#X obj 83 204 text get \$0-openProject;
+#X obj 83 163 until;
+#X obj 83 183 f;
+#X obj 111 183 + 1;
+#X obj 147 168 0;
+#X obj 83 244 outlet;
+#X obj 83 224 list trim;
+#X obj 53 297 0;
+#X obj 53 317 s \$0-presetXY.r;
+#X obj 38 346 s \$0-eoa;
+#X obj 68 272 s \$0-runMatch;
+#X obj 38 77 t b b b b b s;
+#X obj 38 37 route bang symbol;
+#X connect 0 0 17 0;
+#X connect 1 0 16 0;
+#X connect 3 0 2 0;
+#X connect 4 0 6 0;
+#X connect 5 0 11 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 7 0 5 0;
+#X connect 8 0 7 1;
+#X connect 9 0 7 1;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 16 0 14 0;
+#X connect 16 1 12 0;
+#X connect 16 2 15 0;
+#X connect 16 3 4 0;
+#X connect 16 4 9 0;
+#X connect 16 5 3 0;
+#X connect 17 0 1 0;
+#X connect 17 1 16 0;
+#X restore 24 351 pd dumpFile;
+#X obj 24 300 text define \$0-saveProject;
+#X obj 301 35 saveParam \$0 nrUnits 1;
+#X obj 301 55 saveParam \$0 unitsSeg 2;
+#X obj 301 75 saveParam \$0 uniformLength 3;
+#X obj 301 95 saveParam \$0 onsetThresh 4;
+#X obj 147 65 t b b;
+#X obj 147 85 25;
+#X obj 147 105 until;
+#X obj 147 125 f;
+#X obj 177 125 + 1;
+#X obj 205 110 0;
+#X obj 301 115 saveParam \$0 key 5;
+#X obj 301 135 saveParam \$0 iui 6;
+#X obj 301 155 saveParam \$0 minNrClusterTimbre 7;
+#X obj 301 175 saveParam \$0 clusterThreshTimbre 8;
+#X obj 301 195 saveParam \$0 minNrClusterHarm 9;
+#X obj 301 215 saveParam \$0 minNrClusterHarm 10;
+#X obj 301 235 saveParam \$0 infiniteProb 11;
+#X obj 301 255 saveParam \$0 infiniteMeter 12;
+#X obj 301 275 saveParam \$0 metricViewpoint 13;
+#X obj 301 295 saveParam \$0 harmonicViewpoint 14;
+#X obj 301 315 saveParam \$0 timbricViewpoint 15;
+#X obj 301 335 saveParam \$0 dynamicsViewpoint 16;
+#X obj 301 355 saveParam \$0 density 17;
+#X obj 301 375 saveParam \$0 rndPosition 18;
+#X obj 301 395 saveParam \$0 pan 19;
+#X obj 540 15 saveParam \$0 rndPan 20;
+#X obj 540 35 saveParam \$0 nrSeqPulses 21;
+#X obj 540 55 saveParam \$0 NNmatch 22;
+#X obj 540 75 saveParam \$0 matchHarmony 23;
+#X obj 540 95 saveParam \$0 matchTimbre 24;
+#X obj 540 115 saveParam \$0 matchDynamics 25;
+#X obj 540 135 saveParam \$0 nrSeqPulses 26;
+#X connect 0 0 16 0;
+#X connect 1 0 5 0;
+#X connect 3 0 1 0;
+#X connect 3 1 8 0;
+#X connect 3 2 7 0;
+#X connect 3 3 21 0;
+#X connect 4 0 0 0;
+#X connect 4 1 16 0;
+#X connect 5 0 4 0;
+#X connect 6 0 3 0;
+#X connect 9 0 15 0;
+#X connect 10 0 11 0;
+#X connect 10 1 12 0;
+#X connect 10 2 13 0;
+#X connect 15 0 10 0;
+#X connect 21 0 22 0;
+#X connect 21 1 26 0;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 24 0 2 0;
+#X connect 25 0 24 1;
+#X connect 26 0 24 1;
+#X restore 620 53 pd save/open;
+#X obj 108 341 tgl 15 0 \$0-keyControl \$0-keyControl.r k 4 7 0 10
+-1 -1 -1 0 1;
+#X obj 108 431 s \$0-keyControl;
+#N canvas 544 23 450 300 mouseCoord 0;
+#X obj 18 147 s \$0-mouse, f 12;
+#X obj 18 27 inlet;
+#X text 64 25 // send (x \, y) mouse coordinates between 0-1000;
+#X connect 1 0 0 0;
+#X restore 0 430 pd mouseCoord;
+#X obj 0 25 xy-pad \$0;
+#N canvas 118 23 682 537 synth-disabled 0;
+#X obj 146 79 r \$0-unitPlay;
+#X obj 146 100 list split 1;
+#X obj 366 106 midi2hpcp;
+#X obj 366 129 tis audio;
+#X obj 366 186 text set \$0-picthColl;
+#X obj 366 150 t l b;
+#X msg 407 164 1e+015;
+#X msg 443 63 clear;
+#X obj 443 83 text define -k \$0-picthColl;
+#A set 0.91435 -0.389164 1.30287 -3.16255 1.29911 -4.52877 -3.71735
+-2.23473 -3.97591 -3.68214 -1.94905 -2.35964e-006 \; 0.120149 -0.986434
+-3.39029 0.45295 -1.29912 4.52876 3.794 -2.10195 1.20089 -5.28431 -1.94905
+-1.01267e-005 \; -0.389164 -0.914352 -1.30288 3.16255 4.52876 1.29912
+-3.71734 -2.23474 -3.68216 3.97588 1.94905 5.68548e-006 \; -0.986435
+-0.120153 3.39028 -0.452948 -4.52878 -1.29914 3.79398 -2.10191 -5.28431
+-1.20089 1.94905 3.83854e-005 \; -0.597274 0.794199 -2.0874 -2.7096
+4.52877 1.29914 -0.0767018 4.33662 -1.60213 -5.17682 1.94905 3.71421e-005
+\; -0.120155 0.986433 -3.39028 0.452936 1.29914 -4.52878 3.79398 -2.10189
+-1.20093 5.28431 -1.94905 -4.42612e-005 \; 0.794198 0.597273 2.08739
+2.7096 -1.29916 4.52876 -0.0767218 4.33661 -5.17682 1.60209 -1.94905
+-6.71076e-005 \;;
+#X obj 131 146 2d.tabread \$0-tisDB;
+#X obj 131 167 list split 12;
+#X obj 148 297 list-cosine;
+#X obj 148 275 text get \$0-picthColl;
+#X obj 148 232 until;
+#X obj 148 253 f;
+#X obj 178 253 + 1;
+#X obj 205 239 0;
+#X obj 131 124 f;
+#X msg 341 374 set \, adddollar \$1;
+#X msg 226 388 \$6;
+#X obj 13 487 noteout;
+#X obj 148 318 list prepend;
+#X obj 248 332 t l;
+#X obj 127 341 list;
+#X obj 131 188 t b b b l;
+#X obj 127 361 list-datasort asc;
+#X obj 49 328 r \$0-scale;
+#X obj 13 342 list;
+#X obj 367 28 r \$0-scale;
+#X obj 367 82 list-drip;
+#X obj 367 49 t l l b;
+#X obj 272 196 list length;
+#X obj 148 211 f 12;
+#X obj 13 93 t b b f;
+#X msg 226 438 set \, adddollar \$1;
+#X msg 13 365 \$5;
+#N canvas 0 23 450 300 key 0;
+#X obj 143 160 keyup;
+#X obj 6 -2 key;
+#X obj 134 337 * 20;
+#X obj 135 386 delay;
+#X obj 134 410 f;
+#X obj 138 268 t f f;
+#X obj 22 232 t f f;
+#X obj 20 378 change;
+#X obj 214 574 outlet;
+#X obj 271 577 outlet;
+#X obj 17 553 outlet;
+#X msg 265 343 5.55556e+006;
+#X obj 265 320 loadbang;
+#X obj 20 412 sel 1;
+#X msg 21 297 1;
+#X obj 135 438 sel 1;
+#X msg 22 203 0;
+#X msg 141 235 1;
+#X obj 6 45 moses 49;
+#X obj 143 195 sel;
+#X msg 137 463 0;
+#X obj 21 450 f;
+#X obj 51 100 t f f;
+#X obj 21 476 - 49;
+#X obj 51 74 moses 56;
+#X obj 6 18 spigot;
+#X obj 61 3 r \$0-synthControl;
+#X obj 189 40 sel 0 1;
+#X msg 189 87 color 22 22 \$1;
+#X obj 189 60 22;
+#X obj 219 60 0;
+#X obj 319 91 sel 115;
+#X obj 189 106 s \$0-synthControl.r;
+#X connect 0 0 19 0;
+#X connect 1 0 25 0;
+#X connect 1 0 31 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 15 0;
+#X connect 5 0 2 0;
+#X connect 5 1 4 1;
+#X connect 6 0 3 0;
+#X connect 6 0 14 0;
+#X connect 6 1 4 1;
+#X connect 7 0 13 0;
+#X connect 11 0 7 0;
+#X connect 12 0 11 0;
+#X connect 13 0 21 0;
+#X connect 13 0 8 0;
+#X connect 14 0 7 0;
+#X connect 15 0 20 0;
+#X connect 15 0 9 0;
+#X connect 16 0 6 0;
+#X connect 17 0 5 0;
+#X connect 18 1 24 0;
+#X connect 19 0 17 0;
+#X connect 20 0 7 0;
+#X connect 21 0 23 0;
+#X connect 22 0 19 1;
+#X connect 22 0 16 0;
+#X connect 22 1 21 1;
+#X connect 23 0 10 0;
+#X connect 24 0 22 0;
+#X connect 25 0 18 0;
+#X connect 26 0 25 1;
+#X connect 26 0 27 0;
+#X connect 27 0 29 0;
+#X connect 27 1 30 0;
+#X connect 28 0 32 0;
+#X connect 29 0 28 0;
+#X connect 30 0 28 0;
+#X connect 31 0 32 0;
+#X restore 13 6 pd key;
+#X obj 341 353 + 1;
+#X obj 226 409 + 1;
+#X obj 13 67 once;
+#X obj 46 28 t b b;
+#X obj 13 464 swap;
+#X obj 13 417 t b f;
+#X obj 72 66 0;
+#X obj 13 439 120;
+#X obj 13 396 + 36;
+#X connect 0 0 1 0;
+#X connect 1 0 17 1;
+#X connect 2 0 3 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X connect 5 1 6 0;
+#X connect 6 0 4 1;
+#X connect 7 0 8 0;
+#X connect 9 0 10 0;
+#X connect 10 0 24 0;
+#X connect 11 0 21 0;
+#X connect 12 0 11 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 0 12 0;
+#X connect 15 0 14 1;
+#X connect 16 0 14 1;
+#X connect 17 0 9 0;
+#X connect 18 0 19 0;
+#X connect 19 0 38 0;
+#X connect 21 0 22 0;
+#X connect 21 0 23 1;
+#X connect 22 0 21 1;
+#X connect 23 0 25 0;
+#X connect 24 0 23 0;
+#X connect 24 1 32 0;
+#X connect 24 2 16 0;
+#X connect 24 2 21 1;
+#X connect 24 3 11 1;
+#X connect 25 1 19 0;
+#X connect 26 0 27 1;
+#X connect 27 0 35 0;
+#X connect 28 0 30 0;
+#X connect 29 0 2 0;
+#X connect 30 0 29 0;
+#X connect 30 1 31 0;
+#X connect 30 2 7 0;
+#X connect 31 0 32 1;
+#X connect 32 0 13 0;
+#X connect 33 0 27 0;
+#X connect 33 1 17 0;
+#X connect 33 2 37 0;
+#X connect 34 0 35 0;
+#X connect 35 0 45 0;
+#X connect 37 0 18 0;
+#X connect 38 0 34 0;
+#X connect 39 0 33 0;
+#X connect 40 1 43 0;
+#X connect 41 0 20 0;
+#X connect 41 1 20 1;
+#X connect 42 0 44 0;
+#X connect 42 1 41 1;
+#X connect 43 0 41 0;
+#X connect 44 0 41 0;
+#X connect 45 0 42 0;
+#X restore 617 285 pd synth-disabled;
+#X obj 0 339 hradio 20 1 0 3 empty \$0-presetXY.r TimbreSpace 5 -8
+0 8 -1 -262144 -262144 0;
+#N canvas 247 291 1033 398 clustering 0;
+#X obj 338 24 inlet;
+#N canvas 580 23 412 443 findLargestCluster 0;
+#X obj 45 143 until;
+#X obj 45 163 f;
+#X obj 75 163 + 1;
+#X obj 110 148 0;
+#X obj 45 206 *;
+#X obj 160 191 r \$0-nrUnits;
+#X obj 45 252 max;
+#X obj 115 287 t f;
+#X obj 45 272 change;
+#X obj 45 292 b;
+#X obj 45 312 f;
+#X obj 45 183 t f f;
+#X obj 28 11 inlet;
+#X obj 28 380 outlet;
+#X obj 163 132 f;
+#X obj 191 132 + 1;
+#X obj 28 337 f;
+#X obj 28 119 t b f b b;
+#X obj 28 98 f;
+#X obj 43 74 r \$0-nrUnits;
+#X obj 28 31 t b b;
+#X obj 28 358 pack;
+#X text 66 358 // LargestCluster \, clusterNr;
+#X obj 78 11 inlet;
+#X text 221 131 // cluster Number;
+#X obj 178 112 0;
+#X obj 28 51 until;
+#X obj 45 227 array sum \$0-clustDistancesTimbre 0 100;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 1 0 11 0;
+#X connect 2 0 1 1;
+#X connect 3 0 1 1;
+#X connect 3 0 6 1;
+#X connect 4 0 27 0;
+#X connect 5 0 4 1;
+#X connect 5 0 27 1;
+#X connect 6 0 8 0;
+#X connect 7 0 6 1;
+#X connect 8 0 7 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 16 1;
+#X connect 11 0 4 0;
+#X connect 11 1 10 1;
+#X connect 12 0 20 0;
+#X connect 14 0 15 0;
+#X connect 14 0 21 1;
+#X connect 15 0 14 1;
+#X connect 16 0 21 0;
+#X connect 17 0 16 0;
+#X connect 17 1 0 0;
+#X connect 17 2 3 0;
+#X connect 17 3 14 0;
+#X connect 18 0 17 0;
+#X connect 19 0 18 1;
+#X connect 20 0 26 0;
+#X connect 20 1 25 0;
+#X connect 21 0 13 0;
+#X connect 23 0 26 1;
+#X connect 25 0 14 1;
+#X connect 26 0 18 0;
+#X connect 27 0 6 0;
+#X restore 104 238 pd findLargestCluster;
+#N canvas 188 23 488 276 binaryClusterDistances 0;
+#X msg 236 89 resize \$1;
+#X obj 26 96 until;
+#X obj 26 116 f;
+#X obj 56 116 + 1;
+#X obj 86 101 0;
+#X obj 26 74 t f b f;
+#X obj 26 136 t f f;
+#X obj 26 193 <;
+#X obj 26 33 inlet;
+#X obj 26 54 array size \$0-distancesTimbre;
+#X obj 26 156 array get \$0-distancesTimbre 0 1;
+#X obj 236 214 array define \$0-clustDistancesTimbre;
+#X obj 26 214 array set \$0-clustDistancesTimbre;
+#X obj 55 178 r \$0-clusterThreshTimbre;
+#X connect 0 0 11 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 0 6 0;
+#X connect 3 0 2 1;
+#X connect 4 0 2 1;
+#X connect 5 0 1 0;
+#X connect 5 1 4 0;
+#X connect 5 2 0 0;
+#X connect 6 0 10 0;
+#X connect 6 1 12 1;
+#X connect 7 0 12 0;
+#X connect 8 0 9 0;
+#X connect 9 0 5 0;
+#X connect 10 0 7 0;
+#X connect 13 0 7 1;
+#X restore 121 211 pd binaryClusterDistances;
+#X obj 60 294 outlet;
+#X obj 376 105 r \$0-nrUnits;
+#N canvas 689 23 591 520 store&While 0;
+#X obj 55 12 inlet;
+#X obj 55 163 *;
+#X obj 74 225 list-enumerate;
+#X obj 74 265 spigot;
+#X obj 74 305 f;
+#X obj 74 245 unpack;
+#X obj 55 53 t f f;
+#X obj 55 142 spigot;
+#X obj 300 149 sel 0;
+#X obj 300 127 >=;
+#X obj 415 53 r \$0-nrUnits;
+#X obj 291 344 until;
+#X obj 291 364 f;
+#X obj 318 364 + 1;
+#X obj 291 322 f;
+#X obj 55 32 unpack;
+#X obj 327 192 outlet;
+#X obj 353 307 r \$0-nrUnits;
+#X obj 291 404 *;
+#X obj 291 424 +;
+#X obj 300 68 *;
+#X obj 170 148 r \$0-nrUnits;
+#X text 301 17 // while: loops until clusters are smaller then '\$0-minNrClusters'
+, f 35;
+#X obj 291 444 swap 0;
+#X obj 291 384 t f f;
+#X obj 380 405 *;
+#X obj 365 444 swap 0;
+#X obj 365 424 +;
+#X obj 291 300 t b f b;
+#X obj 341 348 0;
+#X obj 74 285 t b f f;
+#N canvas 0 23 432 314 NrRemainingUnits 0;
+#X obj 47 27 inlet;
+#X obj 95 27 inlet;
+#X obj 47 89 until;
+#X obj 47 47 t b b;
+#X obj 47 109 f;
+#X obj 77 109 + 1;
+#X obj 109 94 0;
+#X obj 47 129 t f f;
+#X obj 47 192 f;
+#X obj 75 192 + 1;
+#X obj 219 207 swap;
+#X obj 47 170 sel -1;
+#X obj 219 232 text set \$0-clusterUnitsTimbre;
+#X obj 47 215 array set \$0-clustersTimbre;
+#X obj 47 150 array get \$0-clustersTimbre 0 1;
+#X obj 47 69 array size \$0-clustersTimbre;
+#X connect 0 0 3 0;
+#X connect 1 0 8 1;
+#X connect 2 0 4 0;
+#X connect 3 0 15 0;
+#X connect 3 1 6 0;
+#X connect 4 0 5 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 1;
+#X connect 6 0 4 1;
+#X connect 7 0 14 0;
+#X connect 7 1 10 1;
+#X connect 7 1 13 1;
+#X connect 8 0 9 0;
+#X connect 8 0 10 0;
+#X connect 8 0 13 0;
+#X connect 9 0 8 1;
+#X connect 10 0 12 0;
+#X connect 10 1 12 1;
+#X connect 11 0 8 0;
+#X connect 14 0 11 0;
+#X connect 15 0 2 0;
+#X restore 300 216 pd NrRemainingUnits;
+#X obj 300 169 t b b;
+#X obj 76 357 list prepend;
+#X obj 158 372 t l;
+#X obj 55 382 list;
+#X obj 55 204 t b l b;
+#X obj 300 89 array sum \$0-clustDistancesTimbre 0 100;
+#X obj 340 112 r \$0-minNrClusterTimbre;
+#X obj 74 327 array set \$0-clustersTimbre;
+#X obj 55 184 array get \$0-clustDistancesTimbre 0 100;
+#X obj 55 406 text set \$0-clusterUnitsTimbre;
+#X obj 291 474 array set \$0-clustDistancesTimbre 0;
+#X connect 0 0 15 0;
+#X connect 1 0 40 0;
+#X connect 2 0 5 0;
+#X connect 3 0 30 0;
+#X connect 3 0 33 0;
+#X connect 4 0 39 0;
+#X connect 5 0 3 0;
+#X connect 5 1 3 1;
+#X connect 6 0 7 0;
+#X connect 6 1 20 0;
+#X connect 6 1 41 1;
+#X connect 7 0 1 0;
+#X connect 8 0 32 0;
+#X connect 9 0 7 1;
+#X connect 9 0 8 0;
+#X connect 10 0 20 1;
+#X connect 10 0 37 1;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 0 24 0;
+#X connect 13 0 12 1;
+#X connect 14 0 11 0;
+#X connect 15 0 6 0;
+#X connect 15 1 4 1;
+#X connect 15 1 31 1;
+#X connect 17 0 14 1;
+#X connect 17 0 18 1;
+#X connect 17 0 25 1;
+#X connect 18 0 19 0;
+#X connect 19 0 23 0;
+#X connect 20 0 37 0;
+#X connect 21 0 1 1;
+#X connect 21 0 40 1;
+#X connect 23 0 42 0;
+#X connect 23 1 42 1;
+#X connect 24 0 18 0;
+#X connect 24 1 27 0;
+#X connect 25 0 27 1;
+#X connect 26 0 42 0;
+#X connect 26 1 42 1;
+#X connect 27 0 26 0;
+#X connect 28 0 14 0;
+#X connect 28 1 19 1;
+#X connect 28 1 25 0;
+#X connect 28 2 29 0;
+#X connect 29 0 12 1;
+#X connect 30 0 4 0;
+#X connect 30 1 39 1;
+#X connect 30 2 28 0;
+#X connect 32 0 31 0;
+#X connect 32 1 16 0;
+#X connect 33 0 34 0;
+#X connect 33 0 35 1;
+#X connect 34 0 33 1;
+#X connect 35 0 41 0;
+#X connect 36 0 35 0;
+#X connect 36 1 2 0;
+#X connect 36 2 33 1;
+#X connect 37 0 9 0;
+#X connect 38 0 9 1;
+#X connect 40 0 36 0;
+#X restore 104 258 pd store&While;
+#X msg 377 145 clear;
+#X msg 138 118 const -1;
+#X msg 376 125 resize \$1;
+#X obj 138 140 array define \$0-clustersTimbre;
+#X obj 138 160 text define \$0-clusterUnitsTimbre;
+#X obj 60 24 r \$0-clusterRunTimbre;
+#N canvas 580 23 412 443 findLargestCluster 0;
+#X obj 45 143 until;
+#X obj 45 163 f;
+#X obj 75 163 + 1;
+#X obj 110 148 0;
+#X obj 45 206 *;
+#X obj 160 191 r \$0-nrUnits;
+#X obj 45 287 max;
+#X obj 115 322 t f;
+#X obj 45 307 change;
+#X obj 45 327 b;
+#X obj 45 347 f;
+#X obj 45 183 t f f;
+#X obj 28 11 inlet;
+#X obj 28 415 outlet;
+#X obj 163 132 f;
+#X obj 191 132 + 1;
+#X obj 28 372 f;
+#X obj 28 119 t b f b b;
+#X obj 28 98 f;
+#X obj 43 74 r \$0-nrUnits;
+#X obj 28 31 t b b;
+#X obj 28 393 pack;
+#X text 66 393 // LargestCluster \, clusterNr;
+#X obj 78 11 inlet;
+#X text 221 131 // cluster Number;
+#X obj 178 112 0;
+#X obj 28 51 until;
+#X obj 45 247 moses;
+#X obj 128 257 r \$0-nrUnits;
+#X obj 128 297 i;
+#X text 209 254 // this need to be checked;
+#X obj 128 277 * 0.8;
+#X obj 45 227 array sum \$0-clustDistancesHarm 0 100;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 1 0 11 0;
+#X connect 2 0 1 1;
+#X connect 3 0 1 1;
+#X connect 3 0 6 1;
+#X connect 4 0 32 0;
+#X connect 5 0 4 1;
+#X connect 5 0 32 1;
+#X connect 6 0 8 0;
+#X connect 7 0 6 1;
+#X connect 8 0 7 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 16 1;
+#X connect 11 0 4 0;
+#X connect 11 1 10 1;
+#X connect 12 0 20 0;
+#X connect 14 0 15 0;
+#X connect 14 0 21 1;
+#X connect 15 0 14 1;
+#X connect 16 0 21 0;
+#X connect 17 0 16 0;
+#X connect 17 1 0 0;
+#X connect 17 2 3 0;
+#X connect 17 3 14 0;
+#X connect 18 0 17 0;
+#X connect 19 0 18 1;
+#X connect 20 0 26 0;
+#X connect 20 1 25 0;
+#X connect 21 0 13 0;
+#X connect 23 0 26 1;
+#X connect 25 0 14 1;
+#X connect 26 0 18 0;
+#X connect 27 0 6 0;
+#X connect 28 0 31 0;
+#X connect 29 0 27 1;
+#X connect 31 0 29 0;
+#X connect 32 0 27 0;
+#X restore 559 238 pd findLargestCluster;
+#N canvas 0 23 488 276 binaryClusterDistances 0;
+#X msg 236 89 resize \$1;
+#X obj 26 96 until;
+#X obj 26 116 f;
+#X obj 56 116 + 1;
+#X obj 86 101 0;
+#X obj 26 74 t f b f;
+#X obj 26 136 t f f;
+#X obj 26 193 <;
+#X obj 26 33 inlet;
+#X obj 236 214 array define \$0-clustDistancesHarm;
+#X obj 26 214 array set \$0-clustDistancesHarm;
+#X obj 55 178 r \$0-clusterThreshHarm;
+#X obj 26 156 array get \$0-distancesHarm 0 1;
+#X obj 26 54 array size \$0-distancesHarm;
+#X connect 0 0 9 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 0 6 0;
+#X connect 3 0 2 1;
+#X connect 4 0 2 1;
+#X connect 5 0 1 0;
+#X connect 5 1 4 0;
+#X connect 5 2 0 0;
+#X connect 6 0 12 0;
+#X connect 6 1 10 1;
+#X connect 7 0 10 0;
+#X connect 8 0 13 0;
+#X connect 11 0 7 1;
+#X connect 12 0 7 0;
+#X connect 13 0 5 0;
+#X restore 576 211 pd binaryClusterDistances;
+#X obj 858 105 r \$0-nrUnits;
+#X obj 542 92 t b b b b;
+#N canvas 689 23 591 520 store&While 0;
+#X obj 55 12 inlet;
+#X obj 55 163 *;
+#X obj 74 225 list-enumerate;
+#X obj 74 265 spigot;
+#X obj 74 305 f;
+#X obj 74 245 unpack;
+#X obj 55 53 t f f;
+#X obj 55 142 spigot;
+#X obj 300 149 sel 0;
+#X obj 300 127 >=;
+#X obj 409 53 r \$0-nrUnits;
+#X obj 291 344 until;
+#X obj 291 364 f;
+#X obj 318 364 + 1;
+#X obj 291 322 f;
+#X obj 55 32 unpack;
+#X obj 327 192 outlet;
+#X obj 353 307 r \$0-nrUnits;
+#X obj 291 404 *;
+#X obj 291 424 +;
+#X obj 300 68 *;
+#X obj 164 148 r \$0-nrUnits;
+#X text 301 17 // while: loops until clusters are smaller then '\$0-minNrClusters'
+, f 35;
+#X obj 291 444 swap 0;
+#X obj 291 384 t f f;
+#X obj 364 405 *;
+#X obj 349 444 swap 0;
+#X obj 349 424 +;
+#X obj 291 300 t b f b;
+#X obj 341 348 0;
+#X obj 74 285 t b f f;
+#N canvas 0 23 432 314 NrRemainingUnits 0;
+#X obj 47 27 inlet;
+#X obj 95 27 inlet;
+#X obj 47 89 until;
+#X obj 47 47 t b b;
+#X obj 47 109 f;
+#X obj 77 109 + 1;
+#X obj 109 94 0;
+#X obj 47 129 t f f;
+#X obj 47 192 f;
+#X obj 75 192 + 1;
+#X obj 219 207 swap;
+#X obj 47 170 sel -1;
+#X obj 47 150 array get \$0-clustersHarm 0 1;
+#X obj 47 215 array set \$0-clustersHarm;
+#X obj 219 232 text set \$0-clusterUnitsHarm;
+#X obj 47 69 array size \$0-clustersHarm;
+#X connect 0 0 3 0;
+#X connect 1 0 8 1;
+#X connect 2 0 4 0;
+#X connect 3 0 15 0;
+#X connect 3 1 6 0;
+#X connect 4 0 5 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 1;
+#X connect 6 0 4 1;
+#X connect 7 0 12 0;
+#X connect 7 1 10 1;
+#X connect 7 1 13 1;
+#X connect 8 0 9 0;
+#X connect 8 0 10 0;
+#X connect 8 0 13 0;
+#X connect 9 0 8 1;
+#X connect 10 0 14 0;
+#X connect 10 1 14 1;
+#X connect 11 0 8 0;
+#X connect 12 0 11 0;
+#X connect 15 0 2 0;
+#X restore 300 216 pd NrRemainingUnits;
+#X obj 300 169 t b b;
+#X obj 76 357 list prepend;
+#X obj 158 372 t l;
+#X obj 55 382 list;
+#X obj 55 204 t b l b;
+#X obj 300 89 array sum \$0-clustDistancesHarm 0 100;
+#X obj 340 112 r \$0-minNrClusterHarm;
+#X obj 74 327 array set \$0-clustersHarm;
+#X obj 55 184 array get \$0-clustDistancesHarm 0 100;
+#X obj 55 406 text set \$0-clusterUnitsHarm;
+#X obj 291 474 array set \$0-clustDistancesHarm;
+#X connect 0 0 15 0;
+#X connect 1 0 40 0;
+#X connect 2 0 5 0;
+#X connect 3 0 30 0;
+#X connect 3 0 33 0;
+#X connect 4 0 39 0;
+#X connect 5 0 3 0;
+#X connect 5 1 3 1;
+#X connect 6 0 7 0;
+#X connect 6 1 20 0;
+#X connect 6 1 41 1;
+#X connect 7 0 1 0;
+#X connect 8 0 32 0;
+#X connect 9 0 7 1;
+#X connect 9 0 8 0;
+#X connect 10 0 20 1;
+#X connect 10 0 37 1;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 12 0 24 0;
+#X connect 13 0 12 1;
+#X connect 14 0 11 0;
+#X connect 15 0 6 0;
+#X connect 15 1 4 1;
+#X connect 15 1 31 1;
+#X connect 17 0 14 1;
+#X connect 17 0 18 1;
+#X connect 17 0 25 1;
+#X connect 18 0 19 0;
+#X connect 19 0 23 0;
+#X connect 20 0 37 0;
+#X connect 21 0 1 1;
+#X connect 21 0 40 1;
+#X connect 23 0 42 0;
+#X connect 23 1 42 1;
+#X connect 24 0 18 0;
+#X connect 24 1 27 0;
+#X connect 25 0 27 1;
+#X connect 26 0 42 0;
+#X connect 26 1 42 1;
+#X connect 27 0 26 0;
+#X connect 28 0 14 0;
+#X connect 28 1 19 1;
+#X connect 28 1 25 0;
+#X connect 28 2 29 0;
+#X connect 29 0 12 1;
+#X connect 30 0 4 0;
+#X connect 30 1 39 1;
+#X connect 30 2 28 0;
+#X connect 32 0 31 0;
+#X connect 32 1 16 0;
+#X connect 33 0 34 0;
+#X connect 33 0 35 1;
+#X connect 34 0 33 1;
+#X connect 35 0 41 0;
+#X connect 36 0 35 0;
+#X connect 36 1 2 0;
+#X connect 36 2 33 1;
+#X connect 37 0 9 0;
+#X connect 38 0 9 1;
+#X connect 40 0 36 0;
+#X restore 559 258 pd store&While;
+#X msg 859 145 clear;
+#X msg 593 118 const -1;
+#X msg 858 125 resize \$1;
+#X obj 515 24 r \$0-clusterRunHarm;
+#X obj 593 140 array define \$0-clustersHarm;
+#X obj 593 160 text define \$0-clusterUnitsHarm;
+#X obj 87 92 t b b b b;
+#X obj 60 44 t b b;
+#X obj 515 44 t b b;
+#X obj 338 46 t b b b;
+#X connect 0 0 26 0;
+#X connect 1 0 5 0;
+#X connect 4 0 8 0;
+#X connect 5 0 1 1;
+#X connect 6 0 10 0;
+#X connect 7 0 9 0;
+#X connect 8 0 9 0;
+#X connect 11 0 24 0;
+#X connect 12 0 16 0;
+#X connect 14 0 19 0;
+#X connect 15 1 12 0;
+#X connect 15 2 13 0;
+#X connect 15 3 17 0;
+#X connect 15 3 18 0;
+#X connect 16 0 12 1;
+#X connect 17 0 22 0;
+#X connect 18 0 21 0;
+#X connect 19 0 21 0;
+#X connect 20 0 25 0;
+#X connect 23 1 1 0;
+#X connect 23 2 2 0;
+#X connect 23 3 6 0;
+#X connect 23 3 7 0;
+#X connect 24 0 3 0;
+#X connect 24 1 23 0;
+#X connect 25 0 3 0;
+#X connect 25 1 15 0;
+#X connect 26 0 3 0;
+#X connect 26 1 23 0;
+#X connect 26 2 15 0;
+#X restore 347 103 pd clustering;
+#N canvas 0 23 1280 570 \$0-clusterButtons 0;
+#X scalar 2540-clusterTrigger 0 0.1 900 8 \;;
+#X scalar 2540-clusterTrigger 1 0.1 990 8 \;;
+#X scalar 2540-clusterTrigger 2 0.1 209 8 \;;
+#X scalar 2540-clusterTrigger 3 0.1 90 8 \;;
+#X scalar 2540-clusterTrigger 4 0.1 88 8 \;;
+#X scalar 2540-clusterTrigger 5 0.1 838 8 \;;
+#X scalar 2540-clusterTrigger 6 0.1 830 8 \;;
+#X scalar 2540-clusterTrigger 7 0.1 306 8 \;;
+#X coords 0 0 8 1 175 15 1 0 0;
+#X restore 124 341 pd \$0-clusterButtons;
+#X obj 805 34 inlet;
+#N canvas 528 161 440 408 newProject 0;
+#X obj 151 210 soundfiler;
+#X msg 135 257 normalize;
+#X obj 135 280 s \$0-sample;
+#X obj 151 232 s \$0-sfLength;
+#X obj 120 315 outlet;
+#X obj 120 22 r \$0-new;
+#X obj 120 43 openpanel;
+#X obj 183 84 s \$0-reset;
+#X msg 151 187 read -resize \$1 \$2-sample;
+#X obj 151 165 pack s \$0;
+#X obj 274 225 list split 1;
+#X obj 274 248 s \$0-samplerate;
+#X obj 120 63 t b b s s b;
+#X msg 247 119 label \$1;
+#X obj 167 104 symbol;
+#X obj 26 43 r \$0-sfPath.r;
+#X obj 167 140 s \$0-sfPath;
+#X obj 247 140 s \$0-sfPathLabel;
+#X obj 26 63 t b s s b;
+#X connect 0 0 3 0;
+#X connect 0 1 10 0;
+#X connect 1 0 2 0;
+#X connect 5 0 6 0;
+#X connect 6 0 12 0;
+#X connect 8 0 0 0;
+#X connect 9 0 8 0;
+#X connect 10 0 11 0;
+#X connect 12 0 4 0;
+#X connect 12 1 1 0;
+#X connect 12 2 9 0;
+#X connect 12 3 14 0;
+#X connect 12 4 7 0;
+#X connect 13 0 17 0;
+#X connect 14 0 16 0;
+#X connect 14 0 13 0;
+#X connect 15 0 18 0;
+#X connect 18 0 1 0;
+#X connect 18 1 9 0;
+#X connect 18 2 14 0;
+#X connect 18 3 7 0;
+#X restore 347 28 pd newProject;
+#X obj 347 322 declare -path dependencies -path dependencies/abs -path
+dependencies/abs/data -path dependencies/fx -path dependencies/TIS.library
+-path dependencies/list-abs -lib iem_tab -lib timbreIDLib, f 79;
+#X obj 43 388 s \$0-presetXY;
+#X obj 16 408 s \$0-plot;
+#X obj 16 368 t b f;
+#X obj 805 55 route match, f 15;
+#X obj 892 99 makefilename \$0-%s;
+#X obj 892 77 list split 1;
+#X obj 892 160 s;
+#X obj 892 119 t b s;
+#X obj 892 139 list;
+#N canvas 688 385 450 300 match 0;
+#X obj 13 128 outlet;
+#N canvas 0 23 502 380 fetchAnalysis 0;
+#X obj 65 328 outlet;
+#X obj 80 96 array get \$0-unitsIdx 0 2;
+#X obj 80 116 expr $f2-$f1;
+#X obj 177 285 t l;
+#X obj 65 301 list;
+#X obj 35 16 r \$0-unitPlay;
+#X obj 65 36 r \$0-unitPlayPV;
+#X obj 136 207 array get \$0-tisDB 0 12;
+#X obj 95 140 array get \$0-mfccDB 0 12;
+#X obj 121 183 array get \$0-dynamicsDB 0 1;
+#X obj 80 270 list append, f 14;
+#X obj 95 160 list-math /;
+#X obj 255 145 array get \$0-loudnessDB 0 1;
+#X obj 146 230 v \$0-key;
+#X obj 65 56 t b f f f f f b b;
+#X connect 1 0 2 0;
+#X connect 2 0 10 0;
+#X connect 3 0 10 1;
+#X connect 4 0 0 0;
+#X connect 5 0 14 0;
+#X connect 6 0 14 0;
+#X connect 7 0 10 0;
+#X connect 8 0 11 0;
+#X connect 9 0 10 0;
+#X connect 10 0 3 0;
+#X connect 10 0 4 1;
+#X connect 11 0 10 0;
+#X connect 12 0 11 1;
+#X connect 13 0 10 0;
+#X connect 14 0 4 0;
+#X connect 14 1 1 0;
+#X connect 14 2 8 0;
+#X connect 14 3 12 0;
+#X connect 14 4 9 0;
+#X connect 14 5 7 0;
+#X connect 14 6 13 0;
+#X connect 14 7 10 1;
+#X restore 13 67 pd fetchAnalysis;
+#N canvas 536 23 709 536 findNearestMatch 0;
+#X msg 119 97 clear;
+#X obj 119 73 route clear;
+#X obj 165 373 r \$0-infiniteGain;
+#X obj 242 48 list split 1;
+#X obj 119 186 nearestPoint 25;
+#X obj 278 130 r \$0-eoa;
+#X obj 119 51 list trim;
+#X obj 119 26 r \$0-analMatch;
+#X obj 119 209 list prepend;
+#X obj 206 224 t l;
+#X obj 98 234 list;
+#X obj 98 255 t l b;
+#X msg 144 311 set \, adddollar \$1;
+#X msg 98 326 \$4;
+#X obj 276 73 t b l b, f 15;
+#N canvas 233 148 732 385 filter_descriptors 0;
+#X obj 30 9 inlet;
+#X obj 49 62 list split 12;
+#X obj 86 84 list split 1;
+#X obj 49 188 spigot;
+#X obj 86 228 spigot;
+#X obj 120 268 spigot;
+#X obj 48 293 list append;
+#X obj 127 308 t l;
+#X obj 82 167 r \$0-matchTimbre;
+#X obj 119 207 r \$0-matchDynamics;
+#X obj 153 247 r \$0-matchHarmony;
+#X obj 311 197 sel 1 0;
+#X obj 311 217 12;
+#X obj 341 217 -12;
+#X obj 321 237 sel 1 0;
+#X obj 321 257 1;
+#X obj 351 257 -1;
+#X obj 331 277 sel 1 0;
+#X obj 331 297 12;
+#X obj 361 297 -12;
+#X obj 267 331 +;
+#X obj 292 331 f;
+#X obj 267 356 outlet;
+#X obj 30 32 t b l b;
+#X obj 30 314 list;
+#X obj 30 356 outlet;
+#X obj 421 182 change;
+#X obj 421 222 change;
+#X obj 421 262 change;
+#X obj 120 106 list split 12;
+#X obj 120 129 tis.transpose;
+#X obj 572 58 v \$0-key;
+#X obj 278 82 max;
+#X obj 557 82 min;
+#X obj 278 43 t f f b;
+#X obj 278 104 expr if (abs($f1-$f2)<abs($f2+12-$f1) \, $f1-$f2 \,
+($f2+12-$f1)*-1);
+#X obj 516 356 outlet;
+#X text 564 355 // transposition;
+#X floatatom 334 141 5 0 0 0 - - -;
+#X floatatom 631 84 15 0 0 0 - - -;
+#X connect 0 0 23 0;
+#X connect 1 0 3 0;
+#X connect 1 1 2 0;
+#X connect 2 0 4 0;
+#X connect 2 1 29 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 0 24 1;
+#X connect 7 0 6 1;
+#X connect 8 0 3 1;
+#X connect 8 0 26 0;
+#X connect 9 0 4 1;
+#X connect 9 0 27 0;
+#X connect 10 0 5 1;
+#X connect 10 0 28 0;
+#X connect 11 0 12 0;
+#X connect 11 1 13 0;
+#X connect 12 0 20 0;
+#X connect 13 0 20 0;
+#X connect 14 0 15 0;
+#X connect 14 1 16 0;
+#X connect 15 0 20 0;
+#X connect 16 0 20 0;
+#X connect 17 0 18 0;
+#X connect 17 1 19 0;
+#X connect 18 0 20 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 20 0 22 0;
+#X connect 21 0 20 1;
+#X connect 23 0 24 0;
+#X connect 23 1 1 0;
+#X connect 23 2 6 1;
+#X connect 24 0 25 0;
+#X connect 26 0 11 0;
+#X connect 27 0 14 0;
+#X connect 28 0 17 0;
+#X connect 29 0 30 0;
+#X connect 29 1 34 0;
+#X connect 30 0 5 0;
+#X connect 31 0 32 1;
+#X connect 31 0 33 1;
+#X connect 31 0 39 0;
+#X connect 32 0 35 0;
+#X connect 33 0 35 1;
+#X connect 34 0 32 0;
+#X connect 34 1 33 0;
+#X connect 34 2 31 0;
+#X connect 35 0 30 1;
+#X connect 35 0 36 0;
+#X connect 35 0 38 0;
+#X restore 319 98 pd filter_descriptors;
+#N canvas 0 23 450 415 filter_descriptors 0;
+#X obj 20 37 inlet;
+#X obj 39 87 list split 12;
+#X obj 76 109 list split 1;
+#X obj 39 187 spigot;
+#X obj 76 219 spigot;
+#X obj 110 244 spigot;
+#X obj 38 277 list append;
+#X obj 117 292 t l;
+#X obj 72 166 r \$0-matchTimbre;
+#X obj 109 198 r \$0-matchDynamics;
+#X obj 143 223 r \$0-matchHarmony;
+#X obj 20 57 t b l b;
+#X obj 20 298 list;
+#X obj 20 320 outlet;
+#X obj 110 130 list split 12;
+#X connect 0 0 11 0;
+#X connect 1 0 3 0;
+#X connect 1 1 2 0;
+#X connect 2 0 4 0;
+#X connect 2 1 14 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 0 12 1;
+#X connect 7 0 6 1;
+#X connect 8 0 3 1;
+#X connect 9 0 4 1;
+#X connect 10 0 5 1;
+#X connect 11 0 12 0;
+#X connect 11 1 1 0;
+#X connect 11 2 6 1;
+#X connect 12 0 13 0;
+#X connect 14 0 5 0;
+#X restore 182 98 pd filter_descriptors;
+#X msg 442 171 clear \, dimensions \$1;
+#N canvas 0 23 450 300 playbackRatio 0;
+#X obj 15 10 inlet;
+#X obj 115 9 inlet;
+#X obj 115 29 array get \$0-unitsIdx 0 2;
+#X obj 115 49 expr $f2-$f1;
+#X obj 15 84 * 100;
+#X obj 15 104 outlet;
+#X obj 15 64 expr $f2/$f1;
+#X connect 0 0 6 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 6 1;
+#X connect 4 0 5 0;
+#X connect 6 0 4 0;
+#X restore 5 373 pd playbackRatio;
+#X obj 98 346 t f f;
+#X obj 125 394 pack f 0.8 0.5;
+#X obj 5 409 list prepend;
+#X obj 144 290 + 1;
+#X obj 396 255 r \$0-NNmatch;
+#X obj 278 151 f 5;
+#X obj 144 270 random 5;
+#X msg 278 171 num_matches \$1;
+#X obj 125 416 s \$0-unitPlay;
+#X obj 242 26 r \$0-match;
+#X floatatom 237 201 5 0 0 0 - - -;
+#X obj 5 451 s \$0-unitPlayPV;
+#X obj 442 120 * 100;
+#X text 485 119 // tranposition in cents;
+#X obj 5 429 list append;
+#X connect 0 0 4 0;
+#X connect 1 0 0 0;
+#X connect 1 1 16 0;
+#X connect 2 0 20 1;
+#X connect 3 0 18 0;
+#X connect 3 1 14 0;
+#X connect 4 0 8 0;
+#X connect 4 1 29 0;
+#X connect 5 0 24 0;
+#X connect 6 0 1 0;
+#X connect 7 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 0 10 1;
+#X connect 9 0 8 1;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 11 1 25 0;
+#X connect 12 0 13 0;
+#X connect 13 0 19 0;
+#X connect 14 0 10 0;
+#X connect 14 1 15 0;
+#X connect 14 2 8 1;
+#X connect 15 0 4 1;
+#X connect 15 1 17 0;
+#X connect 15 2 31 0;
+#X connect 16 0 4 0;
+#X connect 17 0 4 0;
+#X connect 18 0 21 0;
+#X connect 19 0 18 1;
+#X connect 19 1 20 0;
+#X connect 20 0 21 1;
+#X connect 21 0 33 0;
+#X connect 22 0 12 0;
+#X connect 23 0 25 1;
+#X connect 23 0 24 0;
+#X connect 24 0 26 0;
+#X connect 25 0 22 0;
+#X connect 26 0 4 0;
+#X connect 28 0 3 0;
+#X connect 31 0 33 1;
+#X connect 33 0 30 0;
+#X restore 12 28 pd findNearestMatch;
+#X text 10 46 (duration \, timbre \, dynamics \, harmony);
+#X obj 13 87 list prepend match;
+#X obj 13 107 list trim;
+#X connect 1 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 0 0;
+#X restore 348 264 pd match;
+#X obj 348 284 outlet;
+#X obj 805 160 s \$0-match;
+#N canvas -13 23 692 422 infiniteLoop 0;
+#X obj 52 53 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 416 149 5 0 0 2 prob - -;
+#X floatatom 486 149 5 0 0 2 start - -;
+#X obj 71 132 list prepend;
+#X obj 158 147 t l;
+#X obj 52 158 list;
+#X floatatom 52 230 5 0 0 0 - - -;
+#X floatatom 127 230 5 0 0 0 - - -;
+#X obj 381 149 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 52 209 FO \$0-eargram;
+#X obj 381 170 FOgen \$0-eargram, f 18;
+#X obj 52 17 r \$0-eoa;
+#N canvas 648 23 450 300 durDelay 0;
+#X obj 51 97 -;
+#X obj 51 118 abs;
+#X obj 51 180 delay;
+#X obj 51 76 array get \$0-unitsIdx 0 2;
+#X obj 51 139 / 44.1;
+#X text 49 56 // duration delay;
+#X obj 52 28 inlet;
+#X obj 51 200 outlet;
+#X msg 271 71 stop;
+#X obj 240 30 inlet;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 2 0 7 0;
+#X connect 3 0 0 0;
+#X connect 4 0 2 0;
+#X connect 6 0 3 0;
+#X connect 8 0 2 0;
+#X connect 9 0 8 0;
+#X restore 500 170 pd durDelay;
+#X obj 416 60 r \$0-infiniteProb;
+#N canvas 295 23 415 420 dict 0;
+#X msg 260 72 clear;
+#X obj 48 264 sel -1;
+#X obj 48 220 t l l;
+#X obj 48 285 list;
+#X obj 81 332 f;
+#X obj 107 332 + 1;
+#X obj 141 317 0;
+#X obj 260 93 text define \$0-dict;
+#X obj 48 242 text search \$0-dict;
+#X obj 48 369 text set \$0-dict, f 17;
+#X obj 48 306 t l b, f 6;
+#X obj 48 37 inlet;
+#X obj 168 369 outlet;
+#N canvas 664 23 307 455 multipleViewpoint 0;
+#X obj 58 273 array get \$0-clustersTimbre 0 1;
+#X obj 74 211 array get \$0-clustersHarm 0 1;
+#X obj 137 149 r \$0-infiniteMeter;
+#X obj 90 164 % 4;
+#X obj 90 189 spigot;
+#X obj 74 251 spigot;
+#X obj 58 316 spigot;
+#X obj 57 349 list prepend;
+#X obj 147 364 t l;
+#X obj 43 379 list;
+#X obj 107 231 r \$0-harmonicViewpoint;
+#X obj 123 169 r \$0-metricViewpoint;
+#X obj 91 296 r \$0-timbricViewpoint;
+#X obj 43 401 outlet;
+#X obj 43 34 inlet;
+#X obj 103 126 spigot;
+#X obj 136 106 r \$0-dynamicsViewpoint;
+#X obj 43 61 t b f f f f b;
+#X obj 103 83 array get \$0-dynamicsDB 0 1;
+#X connect 0 0 6 0;
+#X connect 1 0 5 0;
+#X connect 2 0 3 1;
+#X connect 3 0 4 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 7 0 9 1;
+#X connect 8 0 7 1;
+#X connect 9 0 13 0;
+#X connect 10 0 5 1;
+#X connect 11 0 4 1;
+#X connect 12 0 6 1;
+#X connect 14 0 17 0;
+#X connect 15 0 7 0;
+#X connect 16 0 15 1;
+#X connect 17 0 9 0;
+#X connect 17 1 0 0;
+#X connect 17 2 1 0;
+#X connect 17 3 3 0;
+#X connect 17 4 18 0;
+#X connect 17 5 7 1;
+#X connect 18 0 15 0;
+#X restore 48 195 pd multipleViewpoint;
+#X obj 48 151 until;
+#X obj 48 172 f;
+#X obj 78 172 + 1;
+#X obj 116 157 0;
+#X obj 48 110 f;
+#X obj 63 90 r \$0-nrUnits;
+#X obj 48 57 t b b;
+#X text 103 176 // unitNr;
+#X text 132 334 // dictNr (alphabet);
+#X obj 48 130 - 1;
+#X text 78 131 // PLEASE REVIEW THIS SUBTRACTION!!!!;
+#X connect 0 0 7 0;
+#X connect 1 0 3 0;
+#X connect 1 1 12 0;
+#X connect 2 0 8 0;
+#X connect 2 1 3 1;
+#X connect 3 0 10 0;
+#X connect 4 0 5 0;
+#X connect 4 0 9 1;
+#X connect 4 0 12 0;
+#X connect 5 0 4 1;
+#X connect 6 0 4 1;
+#X connect 8 0 1 0;
+#X connect 10 0 9 0;
+#X connect 10 1 4 0;
+#X connect 11 0 20 0;
+#X connect 13 0 2 0;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 0 13 0;
+#X connect 16 0 15 1;
+#X connect 17 0 15 1;
+#X connect 18 0 23 0;
+#X connect 19 0 18 1;
+#X connect 20 0 18 0;
+#X connect 20 1 17 0;
+#X connect 20 1 0 0;
+#X connect 20 1 6 0;
+#X connect 23 0 14 0;
+#X restore 71 110 pd dict;
+#X obj 212 17 r \$0-infiniteRun;
+#X obj 381 266 s \$0-infinityPointer;
+#X text 380 -7 -- gen --;
+#X obj 52 85 t b b b;
+#X msg 543 75 \$1;
+#X obj 489 90 f;
+#X obj 77 189 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 102 189 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 212 38 t b b;
+#X obj 212 68 f;
+#X obj 255 53 r \$0-presetXY;
+#X obj 212 108 sel 1;
+#X obj 212 88 == 2;
+#X obj 212 128 2;
+#X obj 381 190 - 1;
+#X obj 127 189 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 421 246 s \$0-unitPlayPV;
+#X obj 212 148 t b b;
+#X obj 239 173 s \$0-presetXY.r;
+#X obj 212 198 s \$0-plot;
+#X obj 381 18 r \$0-infiniteLoop;
+#X obj 381 38 sel 1 0;
+#X obj 543 48 r \$0-infiniteRange;
+#X obj 421 225 pack f 0.8 0.5 100 0;
+#X obj 489 110 max 1;
+#X obj 450 201 r \$0-infiniteGain;
+#X connect 0 0 18 0;
+#X connect 1 0 10 1;
+#X connect 2 0 10 3;
+#X connect 3 0 4 0;
+#X connect 3 0 5 1;
+#X connect 4 0 3 1;
+#X connect 5 0 9 0;
+#X connect 8 0 10 0;
+#X connect 9 0 6 0;
+#X connect 9 1 7 0;
+#X connect 10 0 29 0;
+#X connect 11 0 0 0;
+#X connect 12 0 8 0;
+#X connect 13 0 1 0;
+#X connect 14 0 3 0;
+#X connect 15 0 23 0;
+#X connect 18 0 5 0;
+#X connect 18 1 14 0;
+#X connect 18 2 3 1;
+#X connect 19 0 20 1;
+#X connect 20 0 39 0;
+#X connect 21 0 9 1;
+#X connect 22 0 9 2;
+#X connect 23 0 24 0;
+#X connect 23 1 0 0;
+#X connect 24 0 27 0;
+#X connect 25 0 24 1;
+#X connect 26 0 28 0;
+#X connect 27 0 26 0;
+#X connect 28 0 32 0;
+#X connect 29 0 16 0;
+#X connect 29 0 12 0;
+#X connect 29 0 38 0;
+#X connect 30 0 9 3;
+#X connect 32 0 34 0;
+#X connect 32 1 33 0;
+#X connect 35 0 36 0;
+#X connect 36 0 8 0;
+#X connect 36 0 20 0;
+#X connect 36 1 12 1;
+#X connect 37 0 10 2;
+#X connect 37 0 19 0;
+#X connect 38 0 31 0;
+#X connect 39 0 2 0;
+#X connect 40 0 38 1;
+#X restore 347 240 pd infiniteLoop;
+#N canvas 0 23 468 685 ToDo 0;
+#X text 49 272 algorithm to round to 2^x;
+#X text 49 352 beat tracking beggining and end may not be right! (duplicates)
+;
+#X text 49 192 multiple files;
+#X text 49 443 48kHz crases PD????;
+#X text 49 483 the end of the file (last unit is ignored!!!;
+#X text 49 232 make thresh in clustering relative to the min-max;
+#X text 49 312 beat tracking with possibility to change samplerate
+;
+#X text 56 60 // add deviation to space amplitude;
+#X text 54 114 block space map and other if no project exists!;
+#X text 53 132 bpm;
+#X text 54 84 FO with metric information and multiple viewpoint definition....
+Specify region constraints;
+#X text 51 154 draw trajectories and put random walks and navigation
+strctures (add temporal info) in spaceMap;
+#X text 49 403 can I avoid iem_tab: do the inverse tranform by hand!
+;
+#X text 48 517 initial reset should clear contents and nr of units
+;
+#X text 48 556 fft should give the frequency and phase;
+#X text 47 590 many distributed loadbangs should be 'init' instead
+;
+#X text 47 624 comment;
+#X restore 622 120 pd ToDo;
+#X text 623 99 191347 LoFi;
+#X connect 3 0 20 0;
+#X connect 12 0 25 0;
+#X connect 20 0 28 0;
+#X connect 22 0 23 0;
+#X connect 25 0 24 0;
+#X connect 27 0 35 0;
+#X connect 28 0 4 0;
+#X connect 30 0 36 0;
+#X connect 31 0 3 0;
+#X connect 35 0 34 0;
+#X connect 35 1 33 0;
+#X connect 36 0 44 0;
+#X connect 36 1 38 0;
+#X connect 37 0 40 0;
+#X connect 38 0 37 0;
+#X connect 38 1 41 1;
+#X connect 40 0 41 0;
+#X connect 40 1 39 1;
+#X connect 41 0 39 0;
+#X connect 42 0 43 0;
+#X coords 0 -1 1 1 300 360 1 0 0;
+#X restore 0 0 pd \$0-lcdPlotks;
+#X obj 0 -21 inlet;
+#X obj 0 365 outlet;
+#X obj 46 366 namecanvas \$0-eargram;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X coords 0 0 1 1 300 360 0;

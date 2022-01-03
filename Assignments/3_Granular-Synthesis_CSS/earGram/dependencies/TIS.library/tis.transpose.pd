@@ -1,0 +1,36 @@
+#N canvas 0 22 660 506 10;
+#X obj 39 62 inlet;
+#X obj 31 454 outlet;
+#X text 82 61 (12 tonal vector);
+#X obj 39 121 list split 6;
+#X obj 39 152 expr $f1 * cos($f7*-0.523599) - $f2 * sin($f7*-0.523599)
+\; $f1 * sin($f7*-0.523599) + $f2 * cos($f7*-0.523599) \; $f3 * cos($f7*-1.0472)
+- $f4 * sin($f7*-1.0472) \; $f3 * sin($f7*-1.0472) + $f4 * cos($f7*-1.0472)
+\; $f5 * cos($f7*-1.5708) - $f6 * sin($f7*-1.5708) \; $f5 * sin($f7*-1.5708)
++ $f6 * cos($f7*-1.5708);
+#X obj 31 424 pack f f f f f f f f f f f f;
+#X obj 378 62 inlet;
+#X obj 289 252 expr $f1 * cos($f7*-2.0944) - $f2 * sin($f7*-2.0944)
+\; $f1 * sin($f7*-2.0944) + $f2 * cos($f7*-2.0944) \; $f3 * cos($f7*-2.61799)
+- $f4 * sin($f7*-2.61799) \; $f3 * sin($f7*-2.61799) + $f4 * cos($f7*-2.61799)
+\; $f5 * cos($f7*-3.14159) - $f6 * sin($f7*-3.14159) \; $f5 * sin($f7*-3.14159)
++ $f6 * cos($f7*-3.14159);
+#X text 420 59 (nr of semitones);
+#X connect 0 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 1 7 0;
+#X connect 4 0 5 0;
+#X connect 4 1 5 1;
+#X connect 4 2 5 2;
+#X connect 4 3 5 3;
+#X connect 4 4 5 4;
+#X connect 4 5 5 5;
+#X connect 5 0 1 0;
+#X connect 6 0 4 6;
+#X connect 6 0 7 6;
+#X connect 7 0 5 6;
+#X connect 7 1 5 7;
+#X connect 7 2 5 8;
+#X connect 7 3 5 9;
+#X connect 7 4 5 10;
+#X connect 7 5 5 11;

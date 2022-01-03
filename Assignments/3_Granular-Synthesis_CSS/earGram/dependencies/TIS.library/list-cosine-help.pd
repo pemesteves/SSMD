@@ -1,0 +1,45 @@
+#N canvas 576 23 574 346 10;
+#X obj 12 6 cnv 15 550 60 empty empty list-cosDist 20 12 0 14 -233017
+-66577 0;
+#N canvas 420 330 494 344 META 0;
+#X text 12 45 LICENSE GPL v3;
+#X text 12 178 RELEASE_DATE 2013;
+#X text 12 158 WEBSITE https://sites.google.com/site/eargram/;
+#X text 12 138 AUTHOR Gilberto Bernardes;
+#X text 12 25 KEYWORDS;
+#X text 12 118 LIBRARY earGram_abs;
+#X text 12 65 DESCRIPTION plots geometric figures in a plan;
+#X text 12 84 INLET_0 clear dimen point circle filledCircle square
+filledSquare rectangle filled rectangle;
+#X restore 507 316 pd META;
+#X msg 44 96 2 4 5 6;
+#X msg 107 96 2 8 4 6;
+#X text 30 46 calculates the cosine distance between two vectors,
+f 66;
+#X text 397 32 Gilberto Bernardes et al.;
+#X text 493 47 INESC TEC;
+#X floatatom 44 169 10 0 0 0 - - -;
+#X floatatom 107 169 10 0 0 0 - - -;
+#X obj 44 188 * 57.2958;
+#X floatatom 44 210 10 0 0 0 - - -;
+#X text 112 188 Cosine similarity (-1 to 1);
+#X text 42 227 Angle in radians and angles;
+#X obj 44 143 list-cosine;
+#X obj 226 107 tis symbolic;
+#X obj 366 107 tis symbolic;
+#X obj 225 87 midi2chroma;
+#X obj 355 87 midi2chroma;
+#X msg 353 67 0 2 4 5 7 9 11;
+#X msg 227 67 0 4 7;
+#X connect 2 0 13 0;
+#X connect 3 0 13 1;
+#X connect 7 0 9 0;
+#X connect 9 0 10 0;
+#X connect 13 0 7 0;
+#X connect 13 1 8 0;
+#X connect 14 0 13 0;
+#X connect 15 0 13 1;
+#X connect 16 0 14 0;
+#X connect 17 0 15 0;
+#X connect 18 0 17 0;
+#X connect 19 0 16 0;

@@ -1,0 +1,75 @@
+#N canvas 0 23 645 550 12;
+#X floatatom 113 258 5 0 0 0 - - -;
+#X obj 123 153 f;
+#X obj 104 238 random 4;
+#X obj 26 237 random 2;
+#X floatatom 35 259 5 0 0 0 - - -;
+#X obj 123 178 t b b f;
+#X obj 26 293 sel 0 1;
+#X obj 159 368 +;
+#X obj 104 292 + 1;
+#X floatatom 242 193 5 0 0 0 - - -;
+#X obj 82 349 *;
+#X msg 26 322 -1;
+#X obj 242 123 moses 0;
+#X obj 316 123 moses 100;
+#X obj 242 147 * -1;
+#X obj 385 153 * -1;
+#X obj 385 178 + 200;
+#X msg 60 322 1;
+#X text 39 49 Random walk generator;
+#X text 298 192 output;
+#X text 22 415 A random walk is a special case of a Markov chain \,
+in which the states are integers and the transitions add or subtract
+a small amount from the previous state to get a new one. Here the "f"
+holds the state. When it gets a bang \, the previous state is added
+to a random number (from 1 to 4) multiplied by a random sign (-1 or
+1). The new value is then coerced into the range from 0 to 100;
+#X text 35 275 sign;
+#X text 113 274 magnitude;
+#X text 203 353 add prev value;
+#X text 200 370 to random increment;
+#X text 256 70 coercion to range 0-100 \; if out of range \, reflect
+;
+#X text 255 100 us back in.;
+#X obj 123 121 inlet;
+#X obj 242 215 outlet;
+#X obj 460 30 inlet;
+#X obj 460 83 * 2;
+#X obj 511 28 inlet;
+#X obj 460 53 \$1;
+#X obj 511 53 \$2;
+#X obj 564 35 loadbang;
+#X connect 1 0 5 0;
+#X connect 2 0 0 0;
+#X connect 2 0 8 0;
+#X connect 3 0 4 0;
+#X connect 3 0 6 0;
+#X connect 5 0 3 0;
+#X connect 5 1 2 0;
+#X connect 5 2 7 1;
+#X connect 6 0 11 0;
+#X connect 6 1 17 0;
+#X connect 7 0 12 0;
+#X connect 8 0 10 1;
+#X connect 9 0 1 1;
+#X connect 9 0 28 0;
+#X connect 10 0 7 0;
+#X connect 11 0 10 0;
+#X connect 12 0 14 0;
+#X connect 12 1 13 0;
+#X connect 13 0 9 0;
+#X connect 13 1 15 0;
+#X connect 14 0 9 0;
+#X connect 15 0 16 0;
+#X connect 16 0 9 0;
+#X connect 17 0 10 0;
+#X connect 27 0 1 0;
+#X connect 29 0 32 0;
+#X connect 30 0 16 1;
+#X connect 31 0 33 0;
+#X connect 32 0 30 0;
+#X connect 32 0 13 1;
+#X connect 33 0 2 1;
+#X connect 34 0 33 0;
+#X connect 34 0 32 0;

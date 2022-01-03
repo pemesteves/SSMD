@@ -1,0 +1,398 @@
+#N struct 1412-dot float x float y float c float Nr;
+#N struct 1412-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 1548-f float x float pos;
+#N struct 1205-clusterTrigger float x float y float c float b;
+#N struct 1695-dot float x float y float c float Nr;
+#N struct 1695-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 1488-clusterTrigger float x float y float c float b;
+#N struct 1978-dot float x float y float c float Nr;
+#N struct 1978-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 1771-clusterTrigger float x float y float c float b;
+#N struct 2261-dot float x float y float c float Nr;
+#N struct 2261-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 2054-clusterTrigger float x float y float c float b;
+#N struct 2544-dot float x float y float c float Nr;
+#N struct 2544-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 2337-clusterTrigger float x float y float c float b;
+#N struct 2827-dot float x float y float c float Nr;
+#N struct 2827-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 2620-clusterTrigger float x float y float c float b;
+#N canvas 480 0 958 956 12;
+#X declare -path eargram_files -path eargram;
+#N canvas 19 510 655 395 openSF 1;
+#X obj 40 22 bng 20 250 50 0 empty empty empty 17 7 0 10 -228856 -1
+-1;
+#X text 65 21 <=;
+#X floatatom 40 192 15 0 0 0 - - -;
+#X text 86 21 load a soundfile into an array;
+#X floatatom 40 238 15 0 0 0 - - -;
+#X obj 40 214 / 44.1;
+#X obj 40 122 soundfiler;
+#X obj 40 71 openpanel;
+#X text 158 191 // number of samples of sf;
+#X text 158 241 // duration of the sf (in ms);
+#X obj 382 209 s \$0-sfSize;
+#X obj 245 55 loadbang;
+#X obj 331 22 array define sample;
+#X msg 40 97 read -resize \$1 sample;
+#X msg 245 78 symbol sounds/bells.wav;
+#X connect 0 0 7 0;
+#X connect 2 0 5 0;
+#X connect 2 0 10 0;
+#X connect 5 0 4 0;
+#X connect 6 0 2 0;
+#X connect 7 0 13 0;
+#X connect 11 0 14 0;
+#X connect 13 0 6 0;
+#X connect 14 0 13 0;
+#X restore 40 37 pd openSF;
+#N canvas 540 166 891 729 granulator 0;
+#X floatatom 258 260 5 0 0 0 - - -;
+#X text 295 261 // duration of grain;
+#X obj 224 176 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 12700 0;
+#X obj 221 256 *;
+#X obj 255 238 r \$0-sfSize;
+#X floatatom 309 79 10 0 0 0 - - -;
+#X obj 221 145 line 0 200;
+#X floatatom 320 128 5 0 0 0 - - -;
+#X obj 34 50 tgl 15 0 empty empty on/off 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 34 157 / 100;
+#X obj 34 107 metro 20;
+#X floatatom 87 70 5 0 0 1 metronome - -;
+#X floatatom 143 107 5 0 0 0 - - -;
+#X text 31 26 // random walk;
+#X text 352 38 // linear scanning;
+#X obj 34 133 randomWalk 100 2;
+#X obj 221 334 clone grain 200;
+#X msg 221 310 next \$1 \$2 \$3;
+#X obj 221 283 pack f 50 f;
+#X obj 470 241 random 100;
+#X obj 470 264 / 100;
+#X obj 221 201 t f b;
+#X text 364 129 "density";
+#X obj 221 427 freeverb~;
+#X obj 222 458 dac~;
+#X msg 523 408 roomsize \$1;
+#X msg 631 408 damping \$1;
+#X msg 434 408 wet \$1;
+#X msg 354 408 dry \$1;
+#X obj 357 366 hsl 60 18 0 1 0 1 empty empty dry 2 9 1 12 -225271 -1
+-1 4720 0;
+#X obj 437 366 hsl 60 18 0 1 0 1 empty empty wet 2 9 1 12 -225271 -1
+-1 3540 0;
+#X obj 634 366 hsl 60 18 0 2 0 1 empty empty damping 2 9 1 12 -261689
+-1 -1 2950 0;
+#X obj 526 366 hsl 60 18 0.11 1.1 0 1 empty empty roomsize 2 9 1 12
+-261689 -1 -1 4112 0;
+#X floatatom 523 387 3 0 0 0 - - -;
+#X floatatom 631 387 3 0 0 0 - - -;
+#X floatatom 434 387 3 0 0 0 - - -;
+#X floatatom 354 387 3 0 0 0 - - -;
+#X obj 354 313 loadbang;
+#X msg 354 344 0.8;
+#X msg 434 344 0.6;
+#X msg 523 344 0.8;
+#X msg 631 344 1;
+#X floatatom 439 191 5 0 0 0 - - -;
+#X obj 221 97 pack f f f;
+#X obj 221 5 loadbang;
+#X msg 221 39 0;
+#X floatatom 221 63 5 0 0 0 - - -;
+#X floatatom 264 62 5 0 0 0 - - -;
+#X msg 264 38 1;
+#X msg 309 39 5000;
+#X msg 221 122 \$1 \, \$2 \$3;
+#X obj 187 39 bng 15 250 50 0 empty empty Play 0 -8 0 12 -261234 -204800
+-4160;
+#X obj 347 463 cnv 15 475 150 empty empty Save_File 2 -7 0 14 -216373
+-65569 0;
+#X obj 361 473 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 361 588 writesf~ 2;
+#X msg 463 570 start;
+#X msg 361 564 stop;
+#X obj 361 494 sel 0 1;
+#X obj 463 552 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 361 529 delay 500 1 msec;
+#X symbolatom 510 494 13 0 0 0 - - -;
+#X text 607 493 Don't forget to change this symbol: file name, f 27
+;
+#X msg 510 528 open composition_assets/\$1;
+#X connect 0 0 18 1;
+#X connect 2 0 21 0;
+#X connect 2 0 42 0;
+#X connect 3 0 18 0;
+#X connect 4 0 3 1;
+#X connect 5 0 43 2;
+#X connect 6 0 2 0;
+#X connect 7 0 6 2;
+#X connect 8 0 10 0;
+#X connect 9 0 2 0;
+#X connect 10 0 15 0;
+#X connect 11 0 10 1;
+#X connect 12 0 15 2;
+#X connect 15 0 9 0;
+#X connect 16 0 23 0;
+#X connect 16 1 23 1;
+#X connect 17 0 16 0;
+#X connect 18 0 17 0;
+#X connect 19 0 20 0;
+#X connect 20 0 18 2;
+#X connect 21 0 3 0;
+#X connect 21 1 19 0;
+#X connect 23 0 24 0;
+#X connect 23 0 54 0;
+#X connect 23 1 24 1;
+#X connect 23 1 54 1;
+#X connect 25 0 23 0;
+#X connect 26 0 23 0;
+#X connect 27 0 23 0;
+#X connect 28 0 23 0;
+#X connect 29 0 36 0;
+#X connect 30 0 35 0;
+#X connect 31 0 34 0;
+#X connect 32 0 33 0;
+#X connect 33 0 25 0;
+#X connect 34 0 26 0;
+#X connect 35 0 27 0;
+#X connect 36 0 28 0;
+#X connect 37 0 39 0;
+#X connect 37 0 38 0;
+#X connect 37 0 40 0;
+#X connect 37 0 41 0;
+#X connect 38 0 29 0;
+#X connect 39 0 30 0;
+#X connect 40 0 32 0;
+#X connect 41 0 31 0;
+#X connect 43 0 50 0;
+#X connect 44 0 45 0;
+#X connect 44 0 48 0;
+#X connect 44 0 49 0;
+#X connect 45 0 46 0;
+#X connect 46 0 43 0;
+#X connect 47 0 43 1;
+#X connect 48 0 47 0;
+#X connect 49 0 5 0;
+#X connect 50 0 6 0;
+#X connect 51 0 43 0;
+#X connect 53 0 57 0;
+#X connect 55 0 54 0;
+#X connect 56 0 54 0;
+#X connect 57 0 59 0;
+#X connect 57 1 58 0;
+#X connect 58 0 55 0;
+#X connect 59 0 56 0;
+#X connect 60 0 62 0;
+#X connect 62 0 54 0;
+#X restore 40 75 pd granulator;
+#N canvas 191 233 1071 787 sampling 1;
+#X obj 162 10 r \$0-sfSize;
+#X obj 162 430 line~;
+#X obj 164 658 dac~;
+#X msg 333 411 stop;
+#X obj 256 499 hsl 128 15 1 0 0 0 empty empty Panning_Left-Right -2
+-8 0 10 -262144 -1 -1 6350 1;
+#X obj 190 628 *~;
+#X obj 253 562 expr 1-$f1;
+#X obj 163 604 *~;
+#X msg 180 514 \$1 25;
+#X obj 180 538 line~;
+#X msg 253 586 \$1 25;
+#X obj 253 610 line~;
+#X obj 162 455 tabread4~ sample;
+#X obj 163 489 *~ 0.5;
+#X obj 34 204 bng 20 250 50 0 empty empty Play 0 -10 0 20 -188498 -4034
+-26186;
+#X obj 9 474 hsl 128 15 0 3 0 0 empty empty Volume(0-3) 5 -10 0 10
+-13330 -23794 -45076 4233 1;
+#X obj 430 460 cnv 15 475 225 empty empty Save_File 2 -7 0 14 -216373
+-65569 0;
+#X obj 458 481 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 458 646 writesf~ 2;
+#X msg 560 627 start;
+#X msg 458 600 stop;
+#X obj 458 512 sel 0 1;
+#X obj 560 606 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 458 547 delay 500 1 msec;
+#X symbolatom 607 528 13 0 0 0 - - -;
+#X text 704 521 Don't forget to change this symbol: file name, f 27
+;
+#X obj 359 284 hsl 128 15 0.01 5 0 0 empty empty Velocity(0-5) 5 -8
+0 10 -99865 -260507 -45076 5065 1;
+#X floatatom 356 250 5 0 0 0 - - -;
+#X msg 356 226 2;
+#X obj 356 195 loadbang;
+#X floatatom 356 304 5 0 0 0 - - -;
+#X floatatom 6 436 5 0 0 0 - - -;
+#X obj 6 388 loadbang;
+#X msg 6 412 1;
+#X obj 162 116 vsl 15 100 352800 0 0 0 empty empty empty 0 -9 0 10
+-262144 -1 -1 0 1;
+#X floatatom 162 224 8 0 0 0 - - -;
+#X msg 162 80 range \$1 0;
+#X obj 234 114 vsl 15 100 352800 0 0 0 empty empty empty 0 -9 0 10
+-262144 -1 -1 0 1;
+#X floatatom 234 222 8 0 0 0 - - -;
+#X obj 216 250 -;
+#X obj 216 274 abs;
+#X obj 216 298 / 44.1;
+#X obj 216 322 / 2;
+#X msg 269 78 \$1;
+#X obj 162 34 t f f;
+#X obj 162 369 pack f f f;
+#X msg 162 393 \$1 \, \$2 \$3;
+#X obj 415 376 loadbang;
+#X msg 415 400 0.5;
+#X msg 607 562 open composition_assets/\$1;
+#X connect 0 0 44 0;
+#X connect 1 0 12 0;
+#X connect 3 0 1 0;
+#X connect 4 0 6 0;
+#X connect 4 0 8 0;
+#X connect 5 0 2 1;
+#X connect 5 0 18 1;
+#X connect 6 0 10 0;
+#X connect 7 0 2 0;
+#X connect 7 0 18 0;
+#X connect 8 0 9 0;
+#X connect 9 0 7 1;
+#X connect 10 0 11 0;
+#X connect 11 0 5 1;
+#X connect 12 0 13 0;
+#X connect 13 0 5 0;
+#X connect 13 0 7 0;
+#X connect 14 0 4 0;
+#X connect 14 0 35 0;
+#X connect 15 0 13 1;
+#X connect 17 0 21 0;
+#X connect 19 0 18 0;
+#X connect 20 0 18 0;
+#X connect 21 0 23 0;
+#X connect 21 1 22 0;
+#X connect 22 0 19 0;
+#X connect 23 0 20 0;
+#X connect 24 0 49 0;
+#X connect 26 0 30 0;
+#X connect 27 0 26 0;
+#X connect 28 0 27 0;
+#X connect 29 0 28 0;
+#X connect 30 0 42 1;
+#X connect 31 0 15 0;
+#X connect 32 0 33 0;
+#X connect 33 0 31 0;
+#X connect 34 0 35 0;
+#X connect 35 0 39 0;
+#X connect 35 0 45 0;
+#X connect 36 0 34 0;
+#X connect 36 0 37 0;
+#X connect 37 0 38 0;
+#X connect 38 0 39 1;
+#X connect 38 0 45 1;
+#X connect 39 0 40 0;
+#X connect 40 0 41 0;
+#X connect 41 0 42 0;
+#X connect 42 0 45 2;
+#X connect 43 0 37 0;
+#X connect 44 0 36 0;
+#X connect 44 1 43 0;
+#X connect 45 0 46 0;
+#X connect 46 0 1 0;
+#X connect 47 0 48 0;
+#X connect 48 0 4 0;
+#X connect 49 0 18 0;
+#X restore 207 37 pd sampling;
+#N canvas -9 -9 1920 966 eargram_experimentations 0;
+#X msg 59 232 masterGain \$1;
+#X obj 62 211 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 31 74 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 29 283 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 330 101 infiniteLoop \$1;
+#X obj 330 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 29 258 eargram 0 projects/beatbox;
+#X msg 28 95 masterGain \$1;
+#X obj 28 120 eargram 0 Amelie-1;
+#X obj 29 19 declare -path eargram_files -path eargram;
+#X msg 290 239 recordAttempt;
+#X msg 463 222 masterGain \$1;
+#X obj 466 201 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 690 229 recordAttempt;
+#X msg 861 112 masterGain \$1;
+#X obj 864 91 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 1105 119 recordAttempt;
+#X obj 433 273 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 831 163 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 433 248 eargram 0 ../eargram_files/Percussion;
+#X obj 831 138 eargram 0 ../eargram_files/Buoy;
+#X msg 379 475 masterGain \$1;
+#X obj 382 454 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 623 482 recordAttempt;
+#X obj 349 526 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 350 501 eargram 0 ../eargram_files/Cosmic;
+#X msg 839 460 masterGain \$1;
+#X obj 842 439 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 1083 467 recordAttempt;
+#X obj 809 511 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 810 486 eargram 0 ../eargram_files/Thunder;
+#X msg 29 180 fileName ../composition_assets/beatBox;
+#X msg 433 169 fileName ../composition_assets/percussion;
+#X msg 831 60 fileName ../composition_assets/buoy;
+#X msg 349 423 fileName ../composition_assets/cosmic;
+#X msg 809 408 fileName ../composition_assets/thunder;
+#X connect 0 0 6 0;
+#X connect 1 0 0 0;
+#X connect 2 0 7 0;
+#X connect 4 0 8 0;
+#X connect 5 0 4 0;
+#X connect 6 0 3 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 0;
+#X connect 8 0 19 0;
+#X connect 8 0 20 0;
+#X connect 8 0 25 0;
+#X connect 8 0 30 0;
+#X connect 10 0 6 0;
+#X connect 11 0 19 0;
+#X connect 12 0 11 0;
+#X connect 13 0 19 0;
+#X connect 14 0 20 0;
+#X connect 15 0 14 0;
+#X connect 16 0 20 0;
+#X connect 19 0 17 0;
+#X connect 20 0 18 0;
+#X connect 21 0 25 0;
+#X connect 22 0 21 0;
+#X connect 23 0 25 0;
+#X connect 25 0 24 0;
+#X connect 26 0 30 0;
+#X connect 27 0 26 0;
+#X connect 28 0 30 0;
+#X connect 30 0 29 0;
+#X connect 31 0 6 0;
+#X connect 32 0 19 0;
+#X connect 33 0 20 0;
+#X connect 34 0 25 0;
+#X connect 35 0 30 0;
+#X restore 39 117 pd eargram_experimentations;

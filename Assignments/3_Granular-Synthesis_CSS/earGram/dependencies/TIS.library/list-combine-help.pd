@@ -1,0 +1,20 @@
+#N canvas 29 23 514 385 10;
+#X obj 5 5 cnv 15 500 60 empty empty list-combine 20 12 0 14 -233017
+-66577 0;
+#X floatatom 93 157 5 0 0 1 nrElements(K) - -;
+#X msg 24 106 1 2 3 4 5;
+#X obj 24 277 print;
+#X obj 24 192 list-combine;
+#X obj 58 245 bng 15 250 50 0 empty empty end 17 7 0 10 -262144 -1
+-1;
+#X text 91 103 sets of elements to combine (n);
+#X text 25 34 Makes all combinations of k elements from the set n (no
+repetition \, no order), f 40;
+#X text 344 34 Gilberto Bernardes et al.;
+#X text 440 48 INESC TEC;
+#X floatatom 93 223 5 0 0 1 nrCombinations - -;
+#X connect 1 0 4 1;
+#X connect 2 0 4 0;
+#X connect 4 0 3 0;
+#X connect 4 1 5 0;
+#X connect 4 2 10 0;

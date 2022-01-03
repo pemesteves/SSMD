@@ -1,0 +1,81 @@
+#N struct 1018-curve float x float y float r;
+#N struct 1018-label float x float y float n;
+#N struct 1018-y-axis float x float y float s;
+#N struct 1018-x-axis float x float y float s;
+#N struct 1548-f float x float pos;
+#N struct 1196-block float bordercolor float color float xx float yy
+;
+#N struct 1171-starDiagram float a float b;
+#N struct 1022-starParallel float a float b float c float d;
+#N struct 1260-square float x float y float c float b float Nr;
+#N struct 1260-square_RS float x float y float c float b float Nr;
+#N canvas 58 23 633 684 10;
+#X obj 19 9 cnv 15 600 60 empty empty tis.library 20 12 0 14 -233017
+-66577 0;
+#N canvas 420 330 494 344 META 0;
+#X text 12 45 LICENSE GPL v3;
+#X text 12 178 RELEASE_DATE 2013;
+#X text 12 158 WEBSITE https://sites.google.com/site/eargram/;
+#X text 12 138 AUTHOR Gilberto Bernardes;
+#X text 12 25 KEYWORDS;
+#X text 12 118 LIBRARY earGram_abs;
+#X text 12 65 DESCRIPTION plots geometric figures in a plan;
+#X text 12 84 INLET_0 clear dimen point circle filledCircle square
+filledSquare rectangle filled rectangle;
+#X restore 572 633 pd META;
+#X text 459 35 Gilberto Bernardes et al.;
+#X text 555 50 INESC TEC;
+#X text 170 151 transposes TIVs;
+#X text 170 131 visualizes TIVs;
+#X text 170 111 computes TIV from chroma vectors;
+#X obj 28 288 midi2chroma-help;
+#X obj 28 156 tis.transpose-help;
+#X obj 28 134 tis.viz-help;
+#X obj 28 178 tis.combine-help;
+#X text 170 171 fast computation of combined TIVs;
+#X obj 28 330 midi2hpcp-help;
+#X text 169 309 converts MIDI note values to harmonic pitch class profiles
+;
+#X obj 28 350 hpcp~-help;
+#X obj 28 370 hpcp-help;
+#X obj 28 419 list-euclid-help;
+#X obj 28 112 tis-help;
+#X text 169 349 'online' harmonic pitch class profiles from audio;
+#X text 169 369 'offline' harmonic pitch class profiles from audio
+;
+#X text 169 418 computes the Euclidean distance between two vectors
+;
+#X obj 28 459 list-taxicab-help;
+#X obj 28 548 MusikVerb;
+#X text 172 547 harmonic adaptive digital audio reverberation;
+#X text 169 458 computes the taxicab (or Manhattan) distance between
+two vectors, f 64;
+#X text 28 528 Applications;
+#X obj 28 568 harmonicSets;
+#X obj 28 479 list-spearman-help;
+#X text 169 478 computes the Spearman rank correlation between two
+vectors, f 64;
+#X text 28 400 Distance metrics;
+#X obj 28 588 keyInduction-help;
+#X text 173 587 key estimation from symbolic input and musical audio
+;
+#X obj 28 198 tis.mag-help;
+#X text 170 191 computes the magnitude of a TIV Fourier coefficients
+;
+#X obj 28 499 list-pearson-help;
+#X text 169 498 computes the Pearson correlation coefficient between
+two vectors, f 64;
+#X obj 28 439 list-cosine-help;
+#X obj 28 218 tis.weights-help;
+#X text 28 92 TIS;
+#X text 172 566 defines harmonic sets according IVC and parsimony;
+#X text 169 438 computes the cosine diatnce and similarity between
+two vectors, f 64;
+#X text 170 211 computes the TIS weights given an interval vector;
+#X obj 28 268 list-combine-help;
+#X text 27 248 PC/Chroma;
+#X text 169 289 converts MIDI note values to chroma vectors;
+#X text 169 267 creates combinations of k elements from a set;
+#X obj 28 310 pcv2icv-help;
+#X text 168 328 'offline' harmonic pitch class profiles from audio
+;

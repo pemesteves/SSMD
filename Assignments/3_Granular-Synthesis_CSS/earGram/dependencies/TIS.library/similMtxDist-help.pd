@@ -1,0 +1,44 @@
+#N canvas 360 310 612 428 10;
+#X obj 6 4 cnv 15 600 60 empty empty similMtxDist 20 12 0 14 -233017
+-66577 0;
+#X msg 27 150 clear;
+#X msg 150 150 dimensions \$1;
+#X msg 75 150 nrCases \$1;
+#X floatatom 150 127 5 0 0 0 - - -, f 5;
+#X floatatom 75 126 5 0 0 0 - - -, f 5;
+#X text 448 219 arg:;
+#X floatatom 120 260 5 0 0 0 - - -, f 5;
+#X obj 27 308 print;
+#X text 448 241 number of cases;
+#X msg 246 151 add 1 1 \, add 0.5 0.5 \, add 2 2;
+#X text 458 43 2013 Gilberto Bernardes;
+#X obj 27 282 similMtxDist 4 2;
+#X text 447 262 dimension of each vector;
+#N canvas 837 443 494 344 META 0;
+#X text 12 45 LICENSE GPL v3;
+#X text 12 216 RELEASE_DATE 2013;
+#X text 12 196 WEBSITE https://sites.google.com/site/eargram/;
+#X text 12 176 AUTHOR Gilberto Bernardes;
+#X text 12 156 LIBRARY earGram_abs;
+#X text 12 65 DESCRIPTION computes the distance between all elements
+of a matrix;
+#X text 12 95 INLET_0 list clear nrCases dimesions;
+#X text 12 115 INLET_1 float (retrieve distances per row);
+#X text 13 135 OUTLET_0 list (distances);
+#X restore 552 400 pd META;
+#X text 20 43 computes the distance between all elements of a matrix
+;
+#X obj 269 267 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 160 258 row of distances;
+#X text 162 243 retrieve:;
+#X text 289 266 entire distance matrix;
+#X connect 1 0 12 0;
+#X connect 2 0 12 0;
+#X connect 3 0 12 0;
+#X connect 4 0 2 0;
+#X connect 5 0 3 0;
+#X connect 7 0 12 1;
+#X connect 10 0 12 0;
+#X connect 12 0 8 0;
+#X connect 16 0 12 1;

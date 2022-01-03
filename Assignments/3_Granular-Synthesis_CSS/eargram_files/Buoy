@@ -1,0 +1,64 @@
+param sfPath C:/Users/pedro/Downloads/buoy.wav;
+param nrUnits 3;
+param unitsSeg 1;
+param uniformLength 100;
+param onsetThresh 5;
+param key 0;
+param iui 603.719;
+param minNrClusterTimbre 4;
+param clusterThreshTimbre 0.4;
+param minNrClusterHarm 4;
+param minNrClusterHarm 4;
+param infiniteProb 40;
+param infiniteMeter 1;
+param metricViewpoint 1;
+param harmonicViewpoint 1;
+param timbricViewpoint 1;
+param dynamicsViewpoint 1;
+param density 25;
+param rndPosition 4;
+param pan 0.5;
+param rndPan 50;
+param nrSeqPulses 8;
+param NNmatch 5;
+param matchHarmony 0;
+param matchTimbre 1;
+array unitsIdx 4736 19840 35840 75520;
+array tisDB 2.27119 -0.778317 2.47357 -4.9726 -1.29447 -9.24894 -7.49992
+-11.5716 -9.3452 -7.8998 -4.63794 1.6955e-005 1.86835 1.02048 -0.951411
+1.37436 -6.73335 -4.38153 -7.4988 -12.4748 -0.54011 -10.4551 1.78317
+0.000109304 2.17892 0.0653602 0.947087 -1.63408 -4.38767 -7.10002 -7.49986
+-12.9764 -4.99904 -9.26796 -1.77584 6.07038e-005;
+array mfccDB 2952.7 625.003 -1375.6 -2093.38 -1404.73 -298.662 90.8346
+-458.322 -1469.01 -2027.85 -1424.08 324.012 1409.02 720.062 -76.7993
+-597.466 -781.545 -747.026 -721.573 -783.511 -838.048 -678.3 -192.643
+522.904 5698.94 2487.14 -915.099 -2802.82 -3005.17 -2374.21 -2122.58
+-2605.58 -3298.46 -3120.47 -1383.56 1630.87;
+array dynamicsDB 3 2 3;
+array timbreX 574856 275706 1.10256e+006;
+array timbreY -45316.3 167792 483477;
+array distancesTimbre 0 0.63018 0.472956 0.63018 0 0.158388 0.472956
+0.158388 0;
+array distancesHarm 0 0.741499 0.356993 0.741499 0 0.388295 0.356993
+0.388295 0;
+array clustersTimbre 0 1 2;
+array clustersHarm 0 1 2;
+text clusterUnitsTimbre 0 0;
+text clusterUnitsTimbre 1 1;
+text clusterUnitsTimbre 2 2;
+text euclidPresets 0 0 0 8;
+text euclidPresets 1 0 0 8;
+text euclidPresets 2 0 0 8;
+text euclidPresets 3 0 0 8;
+text euclidPresets 4 0 0 8;
+text euclidPresets 5 0 0 8;
+text euclidPresets 6 0 0 8;
+text euclidPresets 7 0 0 8;
+text euclidPolygons 0 900 50 0;
+text euclidPolygons 1 990 50 0;
+text euclidPolygons 2 209 50 0;
+text euclidPolygons 3 90 50 0;
+text euclidPolygons 4 88 50 0;
+text euclidPolygons 5 838 50 0;
+text euclidPolygons 6 830 50 0;
+text euclidPolygons 7 306 50 0;

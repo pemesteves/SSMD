@@ -1,0 +1,44 @@
+#N struct 1213-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 1548-f float x float pos;
+#N struct 1004-clusterTrigger float x float y float c float b;
+#N struct 1498-dot float x float y float c float Nr;
+#N struct 1498-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 1289-clusterTrigger float x float y float c float b;
+#N struct 1783-dot float x float y float c float Nr;
+#N struct 1783-pointer float x float y float c float lx float ly float
+cx float cy float rx float ry float ex float ey;
+#N struct 1574-clusterTrigger float x float y float c float b;
+#N canvas 23 125 811 501 10;
+#X obj 15 95 eargram;
+#X msg 384 334 masterGain \$1;
+#X obj 387 313 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 12700 1;
+#X obj 357 186 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 12700 1;
+#X obj 354 399 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 5 6 cnv 15 800 60 empty empty earGram 20 12 0 14 -233017 -66577
+0;
+#X text 356 97 you can instantiate with GUI using [eargram] or [eargram
+1] (on the left) or without GUI [eargram 0] (below). Following the
+GUI argument you can specify a path to a project which is loaded at
+startup., f 64;
+#X text 618 42 INESC TEC \, University of Porto;
+#X text 618 24 © 2012-2020 Gilberto Bernardes;
+#X msg 579 214 infiniteLoop \$1;
+#X obj 579 194 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 354 229 eargram 0 projects/VivaldiConcertoG;
+#X obj 354 360 eargram 0 projects/beatbox;
+#X msg 354 208 masterGain \$1;
+#X connect 1 0 12 0;
+#X connect 2 0 1 0;
+#X connect 3 0 13 0;
+#X connect 9 0 11 0;
+#X connect 10 0 9 0;
+#X connect 11 0 12 0;
+#X connect 12 0 4 0;
+#X connect 13 0 11 0;
+#X coords 0 501 1 500 300 360 0;
