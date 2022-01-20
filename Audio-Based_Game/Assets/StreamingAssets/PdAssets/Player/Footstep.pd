@@ -1,4 +1,4 @@
-#N canvas 775 140 869 616 12;
+#N canvas 706 262 869 616 12;
 #X msg 9 58 0 0 0 \, 0.5 \$1 0;
 #X obj 9 82 vline~;
 #X obj 9 106 *~ -1;
@@ -14,15 +14,8 @@
 #X obj 9 29 expr random(50 \, 100);
 #X obj 10 304 *~;
 #X obj 49 304 *~;
-#X obj 205 190 f 1;
-#X obj 205 234 expr 1 - $f1 \;;
-#X obj 28 267 clip 0.5 1;
-#X obj 205 285 clip 0.5 1;
-#X obj 178 5 cnv 15 100 60 empty empty empty 20 12 0 14 -233017 -66577
-0;
-#X obj 205 39 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X text 186 14 Bang to Test;
+#X obj 41 271 adc~;
+#X obj 138 304 print;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
@@ -36,15 +29,9 @@
 #X connect 9 0 10 0;
 #X connect 10 0 7 1;
 #X connect 11 0 12 0;
-#X connect 11 0 15 0;
 #X connect 12 0 0 0;
+#X connect 12 0 16 0;
 #X connect 13 0 8 0;
 #X connect 14 0 8 1;
-#X connect 15 0 16 0;
-#X connect 15 0 17 0;
-#X connect 16 0 15 1;
-#X connect 16 0 18 0;
-#X connect 17 0 13 1;
-#X connect 18 0 14 1;
-#X connect 20 0 12 0;
-#X connect 20 0 15 0;
+#X connect 15 0 13 1;
+#X connect 15 1 14 1;

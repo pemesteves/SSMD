@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private const string FootstepsPdBang = "trigger-footstep";
     [SerializeField] private float timeBetweenFootstep = 0.01f;
     [SerializeField] private LibPdInstance footstepsInstance = null;
+    [SerializeField] private AudioSource footstepsAudioSource = null;
+    [SerializeField] private float panValue = 1f;
+    private bool panRight = true;
     private float footstepsTime = 0;
 
     private void Update()
@@ -21,12 +24,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (footstepsTime < 0)
         {
-            footstepsInstance.SendBang(FootstepsPdBang);
+            PlayFootsteps();
             footstepsTime = 0;
         }
         else if (footstepsTime > timeBetweenFootstep)
         {
-            footstepsInstance.SendBang(FootstepsPdBang);
+            PlayFootsteps();
             footstepsTime -= timeBetweenFootstep;
         }
 
@@ -34,5 +37,12 @@ public class PlayerMovement : MonoBehaviour
 
         _rb.velocity = transform.forward * y * speed;
         transform.rotation *= Quaternion.Euler(0, x * rotateSpeed, 0);
+    }
+
+    private void PlayFootsteps()
+    {
+        footstepsAudioSource.panStereo = panRight ? panValue : -panValue;
+        panRight = !panRight;
+        footstepsInstance.SendBang(FootstepsPdBang);
     }
 }
