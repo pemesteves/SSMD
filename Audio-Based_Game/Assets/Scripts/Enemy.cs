@@ -1,9 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class PlayerMovement : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float speed = 1f, rotateSpeed = 1f;
-    [SerializeField] private Rigidbody _rb = null;
+    [Header("Navigation")]
+    [SerializeField] private NavMeshAgent agent = null;
 
     private const string FootstepsPdBang = "trigger-footstep";
     [Header("Sound")]
@@ -16,9 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        float x = Input.GetAxis("Horizontal"), y = Input.GetAxis("Vertical");
+        agent.SetDestination(Player.instance.transform.position);
 
-        if (y == 0)
+        if (agent.speed == 0)
         {
             footstepsTime = -1;
         }
@@ -34,9 +37,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         footstepsTime += Time.deltaTime;
-
-        _rb.velocity = transform.forward * y * speed;
-        transform.rotation *= Quaternion.Euler(0, x * rotateSpeed, 0);
     }
 
     private void PlayFootsteps()
