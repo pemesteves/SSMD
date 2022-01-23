@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +7,7 @@ public class Enemy : MonoBehaviour
     [Header("Navigation")]
     [SerializeField] private NavMeshAgent agent = null;
 
-    private const string FootstepsPdBang = "trigger-footstep", LoadZombieFileBang = "load-file", PlayZombieBang = "trigger-zombie";
+    private const string FootstepsPdBang = "trigger-footstep", LoadZombieFileBang = "load-file", PlayZombieBang = "trigger-zombie", DeathBang = "trigger-death";
     [Header("Footsteps")]
     [SerializeField] private float timeBetweenFootstep = 0.01f;
     [SerializeField] private LibPdInstance footstepsInstance = null;
@@ -18,17 +17,27 @@ public class Enemy : MonoBehaviour
     [Header("Voice")]
     [SerializeField] private LibPdInstance voiceInstance = null;
 
-    private bool panRight = true;
+    [Header("Health")]
+    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private Collider cldr = null;
+    [SerializeField] private float timeToDie = 1f;
+
+    private float currentHealth;
+
+    private bool panRight = true, stopUpdate = false;
     private float footstepsTime = 0;
 
     private void Start()
     {
         voiceInstance.SendBang(LoadZombieFileBang);
         voiceInstance.SendBang(PlayZombieBang);
+        currentHealth = maxHealth;
     }
 
     private void Update()
     {
+        if (stopUpdate) return;
+
         agent.SetDestination(Player.instance.transform.position);
 
         if (agent.speed == 0)
@@ -49,12 +58,30 @@ public class Enemy : MonoBehaviour
         footstepsTime += Time.deltaTime;
     }
 
+    public void Damage(float d)
+    {
+        currentHealth -= d;
+        if (currentHealth <= 0)
+        {
+            voiceInstance.SendBang(PlayZombieBang);
+            voiceInstance.SendBang(DeathBang);
+            cldr.enabled = false;
+            stopUpdate = true;
+            agent.isStopped = true;
+            StartCoroutine(KillEnemy());
+        }
+    }
+
+    private IEnumerator KillEnemy()
+    {
+        yield return new WaitForSeconds(timeToDie);
+        Destroy(gameObject);
+    }
+
     private void PlayFootsteps()
     {
         footstepsAudioSource.panStereo = panRight ? panValue : -panValue;
         panRight = !panRight;
         footstepsInstance.SendBang(FootstepsPdBang);
     }
-
-    private void OnDestroy() => voiceInstance.SendBang(PlayZombieBang);
 }

@@ -9,6 +9,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private float timeBetweenShots = 1f;
     [SerializeField] private LayerMask shootingLayerMask;
     [SerializeField] private LibPdInstance shootInstance = null;
+    [SerializeField] private Range<float> bulletDamage;
 
     private float timeSinceLastShot = 0f;
     private bool isShooting = false;
@@ -22,7 +23,7 @@ public class PlayerShoot : MonoBehaviour
             isShooting = true;
         }
         else if (Input.GetButtonUp(FireButton)) isShooting = false;
-        
+
         if (isShooting && timeSinceLastShot >= timeBetweenShots)
         {
             Shoot();
@@ -37,11 +38,12 @@ public class PlayerShoot : MonoBehaviour
         shootInstance.SendBang(ShootPdBang);
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, shootingDistance, shootingLayerMask))
         {
-            int layer = hit.collider.gameObject.layer;
+            GameObject target = hit.collider.gameObject;
+            int layer = target.layer;
 
             if (LayerMask.NameToLayer(EnemyLayer).Equals(layer))
             {
-
+                target.GetComponent<Enemy>().Damage(Random.Range(bulletDamage.min, bulletDamage.max));
             }
             else if (LayerMask.NameToLayer(ArenaLayer).Equals(layer))
             {

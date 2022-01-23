@@ -416,8 +416,11 @@ MonoBehaviour:
   timeBetweenShots: 0.1
   shootingLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   shootInstance: {fileID: 3878765584283558053}
+  bulletDamage:
+    min: 5
+    max: 10
 --- !u!114 &3878765584843838394
 MonoBehaviour:
   m_ObjectHideFlags: 0
