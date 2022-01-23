@@ -143,7 +143,7 @@ MonoBehaviour:
   patchName: Gun
   patchDir: /PdAssets/Gun/
   patch: {fileID: 102900000, guid: 334945373088f734090de58ec2669c98, type: 3}
-  pipePrintToConsole: 1
+  pipePrintToConsole: 0
   pureDataEvents:
     Bang:
       m_PersistentCalls:
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  rotateSpeed: 0.1
+  rotateSpeed: 1.5
   _rb: {fileID: 3878765584843838392}
   timeBetweenFootstep: 0.5
   footstepsInstance: {fileID: 3878765585676307250}
@@ -441,12 +441,12 @@ Rigidbody:
   m_GameObject: {fileID: 3878765584843838387}
   serializedVersion: 2
   m_Mass: 80
-  m_Drag: 0
+  m_Drag: 10
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!1 &3878765585621872249
 GameObject:
@@ -773,7 +773,7 @@ MonoBehaviour:
   patchName: Footstep
   patchDir: /PdAssets/Player/
   patch: {fileID: 102900000, guid: cf1c79b83899e9041850aac31bf1b8a3, type: 3}
-  pipePrintToConsole: 1
+  pipePrintToConsole: 0
   pureDataEvents:
     Bang:
       m_PersistentCalls:

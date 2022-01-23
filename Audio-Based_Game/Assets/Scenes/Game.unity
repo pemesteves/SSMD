@@ -999,6 +999,9 @@ GameObject:
   - component: {fileID: 1789085505}
   - component: {fileID: 1789085507}
   - component: {fileID: 1789085506}
+  - component: {fileID: 1789085509}
+  - component: {fileID: 1789085508}
+  - component: {fileID: 1789085510}
   m_Layer: 6
   m_Name: ArenaNoise
   m_TagString: Untagged
@@ -1170,6 +1173,69 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!164 &1789085508
+AudioReverbFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789085504}
+  m_Enabled: 1
+  m_DryLevel: 0
+  m_Room: -1000
+  m_RoomHF: -698
+  m_DecayTime: 7.24
+  m_DecayHFRatio: 0.33
+  m_ReflectionsLevel: -1166
+  m_ReverbLevel: 16
+  m_ReverbDelay: 0.03
+  m_Diffusion: 100
+  m_Density: 100
+  m_HFReference: 5000
+  m_RoomLF: 0
+  m_LFReference: 250
+  m_ReflectionsDelay: 0
+  m_ReverbPreset: 10
+--- !u!169 &1789085509
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789085504}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 2
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.045020465
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!166 &1789085510
+AudioChorusFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789085504}
+  m_Enabled: 1
+  m_DryMix: 0.25
+  m_WetMix1: 0.25
+  m_WetMix2: 0.25
+  m_WetMix3: 0.25
+  m_Delay: 40
+  m_Rate: 0.1
+  m_Depth: 0.1
 --- !u!1 &2107161660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,11 +1332,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 789d6ee423aa23a4493fcd4c627ddb0c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1609,7 +1675,6 @@ MonoBehaviour:
   footstepsAudioSource: {fileID: 3121960117660209962}
   panValue: 0.5
   voiceInstance: {fileID: 2107161662}
-  volume: 1
 --- !u!4 &3121960119111076776
 Transform:
   m_ObjectHideFlags: 0
@@ -1698,10 +1763,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3878765584283558053, guid: dd02e61b9708df945aa8745b72b8ffbc, type: 3}
-      propertyPath: pipePrintToConsole
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3878765584843838387, guid: dd02e61b9708df945aa8745b72b8ffbc, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1748,10 +1809,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3878765584843838399, guid: dd02e61b9708df945aa8745b72b8ffbc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3878765585676307250, guid: dd02e61b9708df945aa8745b72b8ffbc, type: 3}
-      propertyPath: pipePrintToConsole
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

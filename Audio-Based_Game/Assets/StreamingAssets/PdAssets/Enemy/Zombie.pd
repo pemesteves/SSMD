@@ -37,9 +37,12 @@
 #X obj 964 63 array define sample;
 #X obj 670 13 r load-file;
 #X obj 35 15 r trigger-zombie;
-#X obj 35 441 dac~;
-#X obj 137 423 *~ 3;
-#X obj 35 417 *~ 3;
+#X obj 35 490 dac~;
+#X obj 137 403 *~ 3;
+#X obj 35 402 *~ 3;
+#X obj 210 443 adc~;
+#X obj 36 461 *~;
+#X obj 137 470 *~;
 #X connect 0 0 13 1;
 #X connect 2 0 16 0;
 #X connect 3 0 13 0;
@@ -72,5 +75,9 @@
 #X connect 31 0 23 0;
 #X connect 33 0 17 0;
 #X connect 34 0 5 0;
-#X connect 36 0 35 1;
-#X connect 37 0 35 0;
+#X connect 36 0 40 0;
+#X connect 37 0 39 0;
+#X connect 38 0 39 1;
+#X connect 38 1 40 1;
+#X connect 39 0 35 0;
+#X connect 40 0 35 1;
