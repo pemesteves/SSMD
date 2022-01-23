@@ -84,4 +84,6 @@ public class Enemy : MonoBehaviour
         panRight = !panRight;
         footstepsInstance.SendBang(FootstepsPdBang);
     }
+
+    private void OnDestroy() => EnemySpawner.instance.RegisterEnemyDeath();
 }
