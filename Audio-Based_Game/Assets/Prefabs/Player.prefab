@@ -440,6 +440,7 @@ MonoBehaviour:
   maxHealth: 100
   damageRadius: {x: 3, y: 1, z: 3}
   enemyDamagePerSecond: 1
+  healthRecoverPerSecond: 0.25
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 128

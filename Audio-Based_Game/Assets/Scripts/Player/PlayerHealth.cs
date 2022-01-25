@@ -37,8 +37,6 @@ public class PlayerHealth : MonoBehaviour
 
         if (_enemies.Length > 0) Damage(_enemies.Length * enemyDamagePerSecond * Time.deltaTime);
         else Recover();
-
-        Debug.Log(currentHealth);
     }
 
     private void Damage(float damage)
@@ -53,6 +51,7 @@ public class PlayerHealth : MonoBehaviour
         Instantiate(scream, transform);
         Player.instance.Movement.enabled = false;
         Player.instance.Shoot.enabled = false;
+        GameManager.instance.GameOver();
     }
 
     private void Recover()
