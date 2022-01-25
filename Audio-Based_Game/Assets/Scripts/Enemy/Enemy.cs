@@ -29,8 +29,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        voiceInstance.SendBang(LoadZombieFileBang);
-        voiceInstance.SendBang(PlayZombieBang);
+        voiceInstance?.SendBang(LoadZombieFileBang);
+        voiceInstance?.SendBang(PlayZombieBang);
         currentHealth = maxHealth;
     }
 
@@ -63,8 +63,8 @@ public class Enemy : MonoBehaviour
         currentHealth -= d;
         if (currentHealth <= 0)
         {
-            voiceInstance.SendBang(PlayZombieBang);
-            voiceInstance.SendBang(DeathBang);
+            voiceInstance?.SendBang(PlayZombieBang);
+            voiceInstance?.SendBang(DeathBang);
             cldr.enabled = false;
             stopUpdate = true;
             agent.isStopped = true;
@@ -75,6 +75,7 @@ public class Enemy : MonoBehaviour
     private IEnumerator KillEnemy()
     {
         yield return new WaitForSeconds(timeToDie);
+        EnemySpawner.instance?.RegisterEnemyDeath();
         Destroy(gameObject);
     }
 
@@ -82,8 +83,6 @@ public class Enemy : MonoBehaviour
     {
         footstepsAudioSource.panStereo = panRight ? panValue : -panValue;
         panRight = !panRight;
-        footstepsInstance.SendBang(FootstepsPdBang);
+        footstepsInstance?.SendBang(FootstepsPdBang);
     }
-
-    private void OnDestroy() => EnemySpawner.instance.RegisterEnemyDeath();
 }

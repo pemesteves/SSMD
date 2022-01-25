@@ -27,7 +27,7 @@ public class PlayerShoot : MonoBehaviour
 
         if (bulletsLeftInClip <= 0)
         {
-            if (Input.GetButtonDown(FireButton)) shootInstance.SendBang(EmptyClipPdBang);
+            if (!isReloading && Input.GetButtonDown(FireButton)) shootInstance.SendBang(EmptyClipPdBang);
             return;
         }
 
@@ -55,7 +55,6 @@ public class PlayerShoot : MonoBehaviour
         //if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, shootingDistance, shootingLayerMask))
         if (Physics.BoxCast(transform.position, boxHalfExtents, transform.forward, out RaycastHit hit, Quaternion.identity, shootingDistance, shootingLayerMask))
         {
-            ExtDebug.DrawBoxCastBox(transform.position, boxHalfExtents, Quaternion.identity, transform.forward, hit.distance, Color.green);
             GameObject target = hit.collider.gameObject;
             int layer = target.layer;
 

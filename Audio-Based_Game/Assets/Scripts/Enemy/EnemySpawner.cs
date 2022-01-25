@@ -24,10 +24,14 @@ public class EnemySpawner : MonoBehaviour
 
     private int numEnemiesPerWave = 1, numEnemiesLeft;
 
+    private bool _exitingApplication = false;
+
     private void Start() => SpawnEnemies();
 
     private void SpawnEnemies()
     {
+        if (Player.instance == null || _exitingApplication) return;
+
         float sqrRadius = minDistanceToPlayer * minDistanceToPlayer;
         numEnemiesLeft = 0;
         float yPos = enemyPrefab.transform.position.y;
@@ -52,4 +56,6 @@ public class EnemySpawner : MonoBehaviour
         numEnemiesLeft--;
         if (numEnemiesLeft <= 0) SpawnEnemies();
     }
+
+    private void OnDisable() => _exitingApplication = true;
 }

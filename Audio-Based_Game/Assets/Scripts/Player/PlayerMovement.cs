@@ -43,6 +43,6 @@ public class PlayerMovement : MonoBehaviour
     {
         footstepsAudioSource.panStereo = panRight ? panValue : -panValue;
         panRight = !panRight;
-        footstepsInstance.SendBang(FootstepsPdBang);
+        footstepsInstance?.SendBang(FootstepsPdBang);
     }
 }

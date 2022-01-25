@@ -16,4 +16,15 @@ public class Player : MonoBehaviour
         instance = this;
     }
     #endregion
+
+    public PlayerMovement Movement { get; set; }
+    public PlayerShoot Shoot { get; set; }
+    public PlayerHealth Health { get; set; }
+
+    private void Start()
+    {
+        Movement = GetComponent<PlayerMovement>();
+        Shoot = GetComponent<PlayerShoot>();
+        Health = GetComponent<PlayerHealth>();
+    }
 }
