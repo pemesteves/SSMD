@@ -1,23 +1,30 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-    private const string ShootPdBang = "trigger-shoot", FireButton = "Fire",
+    private const string ShootPdBang = "trigger-shoot", ReloadPdBang = "trigger-reload", FireButton = "Fire",
         EnemyLayer = "Enemy", ArenaLayer = "Arena";
 
     [SerializeField] private float shootingDistance = 150f;
-    [SerializeField] private float timeBetweenShots = 1f;
+    [SerializeField] private float timeBetweenShots = 1f, reloadingTime = 1f;
     [SerializeField] private LayerMask shootingLayerMask;
     [SerializeField] private LibPdInstance shootInstance = null;
     [SerializeField] private Range<float> bulletDamage;
+    [SerializeField] private int bulletsPerClip = 100;
 
     [SerializeField] private Vector3 boxHalfExtents = Vector3.one;
 
     private float timeSinceLastShot = 0f;
     private bool isShooting = false;
+    private int bulletsLeftInClip = 0;
+
+    private void Start() => bulletsLeftInClip = bulletsPerClip;
 
     private void Update()
     {
+        if (bulletsLeftInClip <= 0) return;
+
         if (Input.GetButtonDown(FireButton))
         {
             Shoot();
@@ -55,5 +62,17 @@ public class PlayerShoot : MonoBehaviour
 
             }
         }
+
+        bulletsLeftInClip--;
+        if (bulletsLeftInClip == 0) StartCoroutine(Reload());
+    }
+
+    private IEnumerator Reload()
+    {
+        isShooting = false;
+        shootInstance.SendBang(ReloadPdBang);
+        yield return new WaitForSeconds(reloadingTime);
+
+        bulletsLeftInClip = bulletsPerClip;
     }
 }
