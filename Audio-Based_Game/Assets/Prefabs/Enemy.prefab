@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dfacc16ed938e745b8def790813d56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patchName: Footstep
-  patchDir: /PdAssets/Player/
+  patchName: EnemyFootstep
+  patchDir: /PdAssets/Enemy/
   patch: {fileID: 102900000, guid: 90d9c949e5dbd7044a519c3174cde5e5, type: 3}
   pipePrintToConsole: 0
   pureDataEvents:
@@ -296,7 +296,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!195 &6459487618589019535
 NavMeshAgent:

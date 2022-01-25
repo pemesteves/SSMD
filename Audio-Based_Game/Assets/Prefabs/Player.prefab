@@ -438,6 +438,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heartBeatInstance: {fileID: 3878765585621872251}
   maxHealth: 100
+  damageRadius: {x: 3, y: 1, z: 3}
+  enemyDamagePerSecond: 1
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   scream: {fileID: 2361279894682544470, guid: b67001b75a045a44093c8a2ee51e6899, type: 3}
 --- !u!54 &3878765584843838392
 Rigidbody:
