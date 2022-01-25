@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-    private const string ShootPdBang = "trigger-shoot", ReloadPdBang = "trigger-reload", FireButton = "Fire",
-        EnemyLayer = "Enemy", ArenaLayer = "Arena";
+    private const string ShootPdBang = "trigger-shoot", ReloadPdBang = "trigger-reload", EmptyClipPdBang = "trigger-empty-clip",
+        FireButton = "Fire", ReloadButton = "Reload", EnemyLayer = "Enemy", ArenaLayer = "Arena";
 
     [SerializeField] private float shootingDistance = 150f;
     [SerializeField] private float timeBetweenShots = 1f, reloadingTime = 1f;
@@ -16,14 +16,20 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private Vector3 boxHalfExtents = Vector3.one;
 
     private float timeSinceLastShot = 0f;
-    private bool isShooting = false;
+    private bool isShooting = false, isReloading = false;
     private int bulletsLeftInClip = 0;
 
     private void Start() => bulletsLeftInClip = bulletsPerClip;
 
     private void Update()
     {
-        if (bulletsLeftInClip <= 0) return;
+        if (bulletsLeftInClip < bulletsPerClip && !isReloading && Input.GetButtonDown(ReloadButton)) StartCoroutine(ReloadButton);
+
+        if (bulletsLeftInClip <= 0)
+        {
+            if (Input.GetButtonDown(FireButton)) shootInstance.SendBang(EmptyClipPdBang);
+            return;
+        }
 
         if (Input.GetButtonDown(FireButton))
         {
@@ -64,15 +70,18 @@ public class PlayerShoot : MonoBehaviour
         }
 
         bulletsLeftInClip--;
-        if (bulletsLeftInClip == 0) StartCoroutine(Reload());
+        if (bulletsLeftInClip == 0) shootInstance.SendBang(EmptyClipPdBang);
     }
 
     private IEnumerator Reload()
     {
         isShooting = false;
+        isReloading = true;
+        bulletsLeftInClip = 0;
         shootInstance.SendBang(ReloadPdBang);
         yield return new WaitForSeconds(reloadingTime);
 
         bulletsLeftInClip = bulletsPerClip;
+        isReloading = false;
     }
 }
