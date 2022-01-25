@@ -11,6 +11,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private LibPdInstance shootInstance = null;
     [SerializeField] private Range<float> bulletDamage;
 
+    [SerializeField] private Vector3 boxHalfExtents = Vector3.one;
+
     private float timeSinceLastShot = 0f;
     private bool isShooting = false;
 
@@ -36,8 +38,11 @@ public class PlayerShoot : MonoBehaviour
     private void Shoot()
     {
         shootInstance.SendBang(ShootPdBang);
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, shootingDistance, shootingLayerMask))
+        
+        //if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, shootingDistance, shootingLayerMask))
+        if (Physics.BoxCast(transform.position, boxHalfExtents, transform.forward, out RaycastHit hit, Quaternion.identity, shootingDistance, shootingLayerMask))
         {
+            ExtDebug.DrawBoxCastBox(transform.position, boxHalfExtents, Quaternion.identity, transform.forward, hit.distance, Color.green);
             GameObject target = hit.collider.gameObject;
             int layer = target.layer;
 

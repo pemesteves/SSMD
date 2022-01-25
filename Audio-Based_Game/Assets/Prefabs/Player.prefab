@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  rotateSpeed: 1.5
+  rotateSpeed: 0.15
   _rb: {fileID: 3878765584843838392}
   timeBetweenFootstep: 0.5
   footstepsInstance: {fileID: 3878765585676307250}
@@ -421,6 +421,7 @@ MonoBehaviour:
   bulletDamage:
     min: 5
     max: 10
+  boxHalfExtents: {x: 2, y: 1, z: 2}
 --- !u!114 &3878765584843838394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dfacc16ed938e745b8def790813d56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patchName: Footstep
+  patchName: PlayerFootstep
   patchDir: /PdAssets/Player/
   patch: {fileID: 102900000, guid: cf1c79b83899e9041850aac31bf1b8a3, type: 3}
   pipePrintToConsole: 0

@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patchName: Footstep
   patchDir: /PdAssets/Player/
-  patch: {fileID: 102900000, guid: cf1c79b83899e9041850aac31bf1b8a3, type: 3}
+  patch: {fileID: 102900000, guid: 90d9c949e5dbd7044a519c3174cde5e5, type: 3}
   pipePrintToConsole: 0
   pureDataEvents:
     Bang:
