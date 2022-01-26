@@ -441,7 +441,7 @@ MonoBehaviour:
   heartBeatInstance: {fileID: 3878765585621872251}
   maxHealth: 100
   damageRadius: {x: 3, y: 1, z: 3}
-  enemyDamagePerSecond: 1
+  enemyDamagePerSecond: 1.5
   healthRecoverPerSecond: 0.25
   enemyLayerMask:
     serializedVersion: 2

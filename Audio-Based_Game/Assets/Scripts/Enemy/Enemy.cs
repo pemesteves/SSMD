@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
 
         agent.SetDestination(Player.instance.transform.position);
 
-        if (agent.speed == 0)
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
             footstepsTime = -1;
         }
