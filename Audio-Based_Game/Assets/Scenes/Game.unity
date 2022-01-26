@@ -1219,7 +1219,6 @@ GameObject:
   - component: {fileID: 1789085506}
   - component: {fileID: 1789085509}
   - component: {fileID: 1789085508}
-  - component: {fileID: 1789085510}
   m_Layer: 6
   m_Name: ArenaNoise
   m_TagString: Untagged
@@ -1307,7 +1306,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 789d6ee423aa23a4493fcd4c627ddb0c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1439,21 +1438,6 @@ AudioLowPassFilter:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!166 &1789085510
-AudioChorusFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789085504}
-  m_Enabled: 1
-  m_DryMix: 0.25
-  m_WetMix1: 0.25
-  m_WetMix2: 0.25
-  m_WetMix3: 0.25
-  m_Delay: 40
-  m_Rate: 0.1
-  m_Depth: 0.1
 --- !u!1 &2883165265525321977
 GameObject:
   m_ObjectHideFlags: 0
