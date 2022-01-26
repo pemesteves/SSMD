@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Audio-Based Game
+  m_text: Blind Death
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eeaafc7042ecc664ab4b5b6454139818, type: 2}
   m_sharedMaterial: {fileID: -676740878557741812, guid: eeaafc7042ecc664ab4b5b6454139818, type: 2}
@@ -513,7 +513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Audio-Based Game
+  m_text: Blind Death
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eeaafc7042ecc664ab4b5b6454139818, type: 2}
   m_sharedMaterial: {fileID: -676740878557741812, guid: eeaafc7042ecc664ab4b5b6454139818, type: 2}
@@ -1158,7 +1158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -10}
+  m_AnchoredPosition: {x: 0, y: -15}
   m_SizeDelta: {x: 640, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2324460567783292719
@@ -2567,7 +2567,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Audio-Based Game
+  m_text: Blind Death
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eeaafc7042ecc664ab4b5b6454139818, type: 2}
   m_sharedMaterial: {fileID: -676740878557741812, guid: eeaafc7042ecc664ab4b5b6454139818, type: 2}

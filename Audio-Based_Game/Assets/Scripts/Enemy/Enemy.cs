@@ -7,7 +7,9 @@ public class Enemy : MonoBehaviour
     [Header("Navigation")]
     [SerializeField] private NavMeshAgent agent = null;
 
-    private const string FootstepsPdBang = "trigger-footstep", LoadZombieFileBang = "load-file", PlayZombieBang = "trigger-zombie", DeathBang = "trigger-death";
+    private const string FootstepsPdBang = "trigger-footstep", LoadZombieFileBang = "load-file",
+        PlayZombieBang = "trigger-zombie", DeathBang = "trigger-death", HitBang = "trigger-hit";
+
     [Header("Footsteps")]
     [SerializeField] private float timeBetweenFootstep = 0.01f;
     [SerializeField] private LibPdInstance footstepsInstance = null;
@@ -61,6 +63,8 @@ public class Enemy : MonoBehaviour
     public void Damage(float d)
     {
         currentHealth -= d;
+        voiceInstance?.SendBang(HitBang);
+
         if (currentHealth <= 0)
         {
             voiceInstance?.SendBang(PlayZombieBang);
