@@ -15,6 +15,9 @@ public class PlayerShoot : MonoBehaviour
 
     [SerializeField] private Vector3 boxHalfExtents = Vector3.one;
 
+    [SerializeField] private GameObject arenaHitPrefab = null;
+    [SerializeField] private float maxHitDistance = 10f;
+
     private float timeSinceLastShot = 0f;
     private bool isShooting = false, isReloading = false;
     private int bulletsLeftInClip = 0;
@@ -52,7 +55,6 @@ public class PlayerShoot : MonoBehaviour
     {
         shootInstance.SendBang(ShootPdBang);
         
-        //if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, shootingDistance, shootingLayerMask))
         if (Physics.BoxCast(transform.position, boxHalfExtents, transform.forward, out RaycastHit hit, Quaternion.identity, shootingDistance, shootingLayerMask))
         {
             GameObject target = hit.collider.gameObject;
@@ -62,9 +64,9 @@ public class PlayerShoot : MonoBehaviour
             {
                 target.GetComponent<Enemy>().Damage(Random.Range(bulletDamage.min, bulletDamage.max));
             }
-            else if (LayerMask.NameToLayer(ArenaLayer).Equals(layer))
+            else if (LayerMask.NameToLayer(ArenaLayer).Equals(layer) && hit.distance <= maxHitDistance)
             {
-
+                Instantiate(arenaHitPrefab, hit.point, Quaternion.identity);
             }
         }
 
