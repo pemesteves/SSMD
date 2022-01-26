@@ -211,6 +211,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2324460568959071027, guid: f7b57155856b19e47894fe58ef2479cd, type: 3}
   m_PrefabInstance: {fileID: 2324460568808905828}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &280816813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6050900368016877784, guid: f7b57155856b19e47894fe58ef2479cd, type: 3}
+  m_PrefabInstance: {fileID: 2324460568808905828}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &363563986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -737,6 +748,10 @@ PrefabInstance:
       propertyPath: optionsPanel
       value: 
       objectReference: {fileID: 1906641298}
+    - target: {fileID: 5455542437000855793, guid: 222dea527eccad04eba6cca7143d897b, type: 3}
+      propertyPath: optionsToggle
+      value: 
+      objectReference: {fileID: 280816813}
     - target: {fileID: 5455542437000855793, guid: 222dea527eccad04eba6cca7143d897b, type: 3}
       propertyPath: instructionsPanel
       value: 
