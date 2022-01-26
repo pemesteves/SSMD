@@ -423,7 +423,7 @@ MonoBehaviour:
     min: 5
     max: 10
   bulletsPerClip: 30
-  boxHalfExtents: {x: 2, y: 1, z: 2}
+  boxHalfExtents: {x: 1, y: 1, z: 1}
   arenaHitPrefab: {fileID: 8189712905225811120, guid: 7d66915b678cfdf46bbd0561e3a45892, type: 3}
   maxHitDistance: 25
 --- !u!114 &3878765584843838394

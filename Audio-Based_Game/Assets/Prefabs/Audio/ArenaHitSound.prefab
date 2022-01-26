@@ -65,13 +65,13 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: -2.9432988
-      outSlope: -2.9432988
+      value: 0.7464676
+      inSlope: -1.3123571
+      outSlope: -1.3123571
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.08661853
+      outWeight: 0.13381453
     - serializedVersion: 3
       time: 1
       value: 0

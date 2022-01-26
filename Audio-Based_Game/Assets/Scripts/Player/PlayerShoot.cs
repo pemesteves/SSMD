@@ -57,6 +57,7 @@ public class PlayerShoot : MonoBehaviour
         
         if (Physics.BoxCast(transform.position, boxHalfExtents, transform.forward, out RaycastHit hit, Quaternion.identity, shootingDistance, shootingLayerMask))
         {
+            ExtDebug.DrawBoxCastBox(transform.position, boxHalfExtents, Quaternion.identity, transform.forward, hit.distance, Color.green);
             GameObject target = hit.collider.gameObject;
             int layer = target.layer;
 
