@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorOverride: 0
   m_EditorEnabledState: 0
   m_WebGLTTS: 1
-  m_GoogleTTSAPIKey: AIzaSyBbcN3N6PC2YC0YJaxOTd2rsjp_rLAZob0
+  m_GoogleTTSAPIKey: 
   m_WindowsTTS: 1
   m_WindowsTTSVolume: 100
   m_WindowsUseKeys: 1
