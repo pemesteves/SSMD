@@ -35,8 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
         footstepsTime += Time.deltaTime;
 
-        _rb.velocity = transform.forward * y * speed;
-        transform.rotation *= Quaternion.Euler(0, x * rotateSpeed, 0);
+        _rb.velocity = transform.forward * y * speed * Time.deltaTime;
+        transform.rotation *= Quaternion.Euler(0, x * rotateSpeed * Time.deltaTime, 0);
     }
 
     private void PlayFootsteps()

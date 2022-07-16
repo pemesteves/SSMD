@@ -51,24 +51,45 @@ public class PlayerShoot : MonoBehaviour
         timeSinceLastShot += Time.deltaTime;
     }
 
+    private void Hit(GameObject target, float distance, Vector3 point)
+    {
+        int layer = target.layer;
+
+        if (LayerMask.NameToLayer(EnemyLayer).Equals(layer))
+        {
+            target.GetComponent<Enemy>().Damage(Random.Range(bulletDamage.min, bulletDamage.max));
+        }
+        else if (LayerMask.NameToLayer(ArenaLayer).Equals(layer) && distance <= maxHitDistance)
+        {
+            Instantiate(arenaHitPrefab, point, Quaternion.identity);
+        }
+    }
+
     private void Shoot()
     {
         shootInstance.SendBang(ShootPdBang);
-        
+
+        Collider[] clrs = Physics.OverlapBox(transform.position, boxHalfExtents - Vector3.up / 2, Quaternion.identity, shootingLayerMask);
+
+        if (clrs.Length > 0)
+        {
+            foreach (Collider clr in clrs)
+            {
+                Debug.Log(transform.position + " - " + transform.forward);
+                Debug.Log(transform.forward.magnitude);
+                Hit(clr.gameObject, transform.forward.magnitude, transform.position + transform.forward);
+                ExtDebug.DrawBox(transform.position, boxHalfExtents, Quaternion.identity, Color.yellow);
+                Debug.Log(clr.gameObject);
+            }
+            return;
+        }
+
+
         if (Physics.BoxCast(transform.position, boxHalfExtents, transform.forward, out RaycastHit hit, Quaternion.identity, shootingDistance, shootingLayerMask))
         {
             ExtDebug.DrawBoxCastBox(transform.position, boxHalfExtents, Quaternion.identity, transform.forward, hit.distance, Color.green);
-            GameObject target = hit.collider.gameObject;
-            int layer = target.layer;
-
-            if (LayerMask.NameToLayer(EnemyLayer).Equals(layer))
-            {
-                target.GetComponent<Enemy>().Damage(Random.Range(bulletDamage.min, bulletDamage.max));
-            }
-            else if (LayerMask.NameToLayer(ArenaLayer).Equals(layer) && hit.distance <= maxHitDistance)
-            {
-                Instantiate(arenaHitPrefab, hit.point, Quaternion.identity);
-            }
+            
+            Hit(hit.collider.gameObject, hit.distance, hit.point);
         }
 
         bulletsLeftInClip--;

@@ -393,8 +393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74e6988f06999a45a6544c58ef584dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
-  rotateSpeed: 0.15
+  speed: 150
+  rotateSpeed: 25
   _rb: {fileID: 3878765584843838392}
   timeBetweenFootstep: 0.5
   footstepsInstance: {fileID: 3878765585676307250}
